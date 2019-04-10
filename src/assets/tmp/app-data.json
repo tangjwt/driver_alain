@@ -1,0 +1,81 @@
+{
+  "app": {
+    "name": "driver",
+    "description": "Ng-zorro admin panel front-end framework"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/tmp/img/avatar.jpg",
+    "email": "cipchk@qq.com"
+  },
+  "menu": [
+    {
+      "text": "主导航",
+      "i18n": "menu.main",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [
+        {
+          "text": "运行",
+          "icon": "anticon anticon-fire",
+          "children": [
+            {
+              "text": "单次运行",
+              "link": "/run/runonce"
+            },
+            {
+              "text": "运行结果",
+              "link": "/run/result"
+            },
+            {
+              "text": "任务",
+              "link": "/run/task"
+            }
+          ]
+        },
+        {
+          "text": "用例",
+          "icon": "anticon anticon-tool",
+          "shortcutRoot": true,
+          "children": [
+            {
+              "text": "Debug",
+              "link": "/case/debug"
+            }
+          ]
+        },
+        {
+          "text": "配置",
+          "icon": "anticon anticon-setting",
+          "shortcutRoot": true,
+          "children": [
+            {
+              "text": "项目管理",
+              "link": "/config/project"
+            },
+            {
+              "text": "环境管理",
+              "link": "/config/env"
+            },
+            {
+              "text": "服务管理",
+              "link": "/config/service"
+            },
+            {
+              "text": "服务地址管理",
+              "link": "/config/url"
+            },
+            {
+              "text": "tags管理",
+              "link": "/config/tag"
+            },
+            {
+              "text": "script管理",
+              "link": "/config/script"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

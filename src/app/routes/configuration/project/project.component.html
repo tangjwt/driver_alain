@@ -1,0 +1,68 @@
+<page-header [autoTitle]="false"  ></page-header>
+<button nz-button (click)="show()" [nzType]="'primary'">增加</button>
+<st #st [data]="projects" [page]="page" [bordered]="true" [columns]="columns" ></st>
+<nz-modal  nzTitle = "添加/修改项目"  [(nzOkDisabled)]="!this.projectFG.valid" [(nzVisible)]="isVisible" [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(projectFG.value)" (nzOnCancel)="handleCancel()">
+  <form nz-form [formGroup]="projectFG">
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7" >项目名称</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <input  nz-input  formControlName="name" name="name">
+        <nz-form-explain *ngIf="projectFG.get('name')?.dirty && projectFG.get('name')?.errors || projectFG.get('name')?.pending " >Should be combination of numbers & alphabets</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7" >svn路径</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <input required nz-input formControlName="svnPath" name="svnPath" >
+        <nz-form-explain *ngIf="projectFG.get('svnPath')?.dirty && projectFG.get('svnPath')?.errors || projectFG.get('svnPath')?.pending " >svnPath is required</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7" >username</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <input required nz-input formControlName="username" name="username" >
+        <nz-form-explain *ngIf="projectFG.get('username')?.dirty && projectFG.get('username')?.errors || projectFG.get('username')?.pending " >username is required</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7" >password</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <input type="password" required nz-input formControlName="password" name="password" >
+        <nz-form-explain *ngIf="projectFG.get('password')?.dirty && projectFG.get('password')?.errors || projectFG.get('password')?.pending " >password is required</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label  [nzSpan]="7" >description</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <textarea  nz-input formControlName="description" name="description" ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    
+  </form>
+</nz-modal>
+<!-- <nz-table #borderedTable nzBordered [nzData]="projects" nzShowSizeChanger>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>svnPath</th>
+          <th>username</th>
+          <th>description</th>
+          <th>operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of borderedTable.data">
+          <td>{{row.id}}
+          </td>
+          <td>{{row.name}}</td>
+          <td>{{row.svnPath}}</td>
+          <td>{{row.username}}</td>
+          <td>{{row.description}}</td>
+          <td>
+            <button type="button" class="btn btn-outline-info" (click)='getProject(row.id);addmodal.show()'>修改</button>
+            <button type="button" class="btn btn-outline-danger" (click)='confirm.show();confirm.content=row.id'>删除</button>
+          </td>
+        </tr>
+      </tbody>
+</nz-table> -->
