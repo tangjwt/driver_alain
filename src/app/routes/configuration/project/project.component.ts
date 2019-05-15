@@ -95,6 +95,7 @@ export class ProjectComponent implements OnInit {
 
   handleCancel(){
     this.isVisible = false;
+    this.projectFG.reset();
   }
 
   handleOk(value: any){

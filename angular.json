@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/driver",
+            "outputPath": "dist/driver_web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -32,11 +32,14 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/less/font-awesome.less",
               "src/styles.less"
             ],
             "scripts": [
+              "node_modules/ajv/dist/ajv.bundle.js",
               "node_modules/diff-match-patch/index.js",
-              "node_modules/ajv/dist/ajv.bundle.js"
+              "node_modules/ajv/lib/ajv.js"
             ],
             "es5BrowserSupport": true
           },
@@ -104,10 +107,14 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/less/font-awesome.less",
               "src/styles.less"
             ],
             "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js"
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "node_modules/diff-match-patch/index.js",
+              "node_modules/ajv/lib/ajv.js"
             ],
             "assets": [
               "src/favicon.ico",

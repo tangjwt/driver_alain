@@ -1,5 +1,5 @@
 export const environment = {
-  SERVER_URL: `http://woodpecker.alibaba.net`,
+  SERVER_URL: `http://100.81.180.55:8180`,
   rootPath: "driver",
   production: true,
   useHash: true,

@@ -1,7 +1,7 @@
 <page-header ></page-header>
 <button nz-button (click)="show()" [nzType]="'primary'">增加</button>
 <st #st [data]="scriptList" [page]="page" [bordered]="true" [columns]="columns"></st>
-<nz-modal nzTitle="添加/修改script" [(nzOkDisabled)]="!this.scriptFG.valid" [(nzVisible)]="isVisible"
+<nz-modal nzTitle="添加/修改script" [nzOkDisabled]="!this.scriptFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(scriptFG.value)" (nzOnCancel)="handleCancel()">
   <form nz-form [formGroup]="scriptFG">
     <nz-form-item>

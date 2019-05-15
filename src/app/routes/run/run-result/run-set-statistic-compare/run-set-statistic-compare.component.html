@@ -1,0 +1,73 @@
+<page-header  [breadcrumb]="breadcrumb" title="结果对比"  [syncTitle]="true">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>运行</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a href="#/run/result">运行结果</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+</ng-template>
+</page-header>
+<nz-table  [nzData]="results">
+  <thead>
+    <tr>
+      <th colspan="7"  style="text-align:center;"><nz-tag [nzColor]="'magenta'">对比运行(id:{{destId}})</nz-tag></th>
+    </tr>
+    <tr>
+      <td><nz-tag [nzColor]="'geekblue'">主运行(id:{{originId}})</nz-tag></td>
+      <th *ngFor="let th of status"><nz-tag [nzColor]="'magenta'" style="width:60px">{{th}}</nz-tag></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of results; let i=index">
+      <td><nz-tag [nzColor]="'geekblue'" style="width:60px">{{status[i]}}</nz-tag></td>
+      <td>
+          <ng-container *ngIf="row.pass > 0">
+            <a [routerLink]="['/run/result',originId,status[i],destId,'PASS','cases']" hideFocus="">{{row.pass}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.pass == 0">
+            {{row.pass}}
+          </ng-container>
+      </td>
+      <td>
+          <ng-container *ngIf="row.fail > 0">
+            <a style="color: red;" [routerLink]="['/run/result',originId,status[i],destId,'FAIL','cases']">{{row.fail}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.fail == 0">
+            {{row.fail}}
+          </ng-container>
+      </td>
+      <td>
+          <ng-container *ngIf="row.error > 0">
+            <a style="color: red;" [routerLink]="['/run/result',originId,status[i],destId,'ERROR','cases']">{{row.error}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.error == 0">
+            {{row.error}}
+          </ng-container>
+      </td>
+      <td>
+          <ng-container *ngIf="row.skip > 0">
+            <a [routerLink]="['/run/result',originId,status[i],destId,'SKIP','cases']">{{row.skip}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.skip == 0">
+            {{row.skip}}
+          </ng-container>
+      </td>
+      <td>
+          <ng-container *ngIf="row.missing > 0">
+            <a [routerLink]="['/run/result',originId,status[i],destId,'MISSING','cases']">{{row.missing}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.missing == 0">
+            {{row.missing}}
+          </ng-container>
+      </td>
+      <td>
+          <ng-container *ngIf="row.total > 0 && status[i] != 'TOTAL' ">
+            <a [routerLink]="['/run/result',originId,status[i],destId,'TOTAL','cases']">{{row.total}}</a>
+          </ng-container>
+          <ng-container *ngIf="row.total == 0 || status[i] == 'TOTAL'">
+            {{row.total}}
+          </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

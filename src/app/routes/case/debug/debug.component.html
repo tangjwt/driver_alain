@@ -1,0 +1,100 @@
+
+<div nz-row>
+    <form nz-form>
+      <nz-col nzSpan="12">
+        <div nz-row>
+          <nz-col nzSpan="4">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7">项目</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <nz-select [(ngModel)]="project" name="project" nzPlaceHolder="Choose"
+                  (ngModelChange)="updateEnv($event)">
+                  <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="4">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7">版本</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <nz-select [(ngModel)]="env" name="envsSelect" nzPlaceHolder="Choose"
+                  (ngModelChange)="updateService($event)">
+                  <nz-option *ngFor="let pro of envs" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="16">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="2">服务</nz-form-label>
+              <nz-form-control [nzSpan]="21">
+                <div nz-row>
+                  <div nz-col [nzSpan]="15">
+                    <nz-select [(ngModel)]="service" name="sersSelect" nzPlaceHolder="Choose"
+                      (ngModelChange)="updateUrl($event)">
+                      <nz-option *ngFor="let pro of sers" [nzValue]="pro.serviceName" [nzLabel]="pro.serviceName">
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                  <div nz-col [nzSpan]="8">
+                    <button nz-button (click)="debug()" [nzType]="'primary'">Request</button>
+                  </div>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="22" nzHasFeedback>
+                <input nz-input [(ngModel)]="url" name="url" placeholder="请求地址">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </div>
+        <div nz-row>
+          <nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="22" nzHasFeedback>
+                <input nz-input [(ngModel)]="compareUrl" name="compareUrl" placeholder="对比地址">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </div>
+        <div nz-row>
+          <nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="24" nzHasFeedback>
+                <div nz-row>
+                  <div nz-col [nzSpan]="20">
+                    <input nz-input [(ngModel)]="jsonPath" name="jsonPath" placeholder="数据路径">
+                  </div>
+                  <div nz-col [nzSpan]="4">
+                    <button nz-button (click)="debug()" [nzType]="'primary'">GO</button>
+                  </div>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </div>
+        <div nz-row>
+          <nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="22">
+                <textarea wrap="off" rows=20 nz-input [(ngModel)]="data" name="data" placeholder="测试用例" ></textarea>
+                <!-- <textarea [nzAutocomplete]="auto" wrap="off" rows=20 nz-input [(ngModel)]="data" name="data" placeholder="测试用例" (input)="onChange($event)" ></textarea> -->
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </div>
+      </nz-col>
+     </form>
+    <nz-col nzSpan="12">
+      <sn-result-detail [detail]='runResult' [debugView]='true' [showTitle]="false"></sn-result-detail>
+    </nz-col>
+  </div>
+
+  <nz-autocomplete #auto >
+      <nz-auto-option *ngFor="let option of fields" [nzValue]="option.value">{{ option.label }}</nz-auto-option>
+  </nz-autocomplete>
+  

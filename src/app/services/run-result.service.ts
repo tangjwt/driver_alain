@@ -29,10 +29,13 @@ export class RunResultService {
       .get<BasicResult>(url);
   }
 
-  getRunResultList(id: string,status:string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
+  getRunResultList(id: string,status:string,serviceName:string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
     let url = '/runResult/'+id+'/cases;pageNum='+pageNum+';pageSize='+pageSize;
     if(status){
       url = url+';status='+status;
+    }
+    if(serviceName){
+      url = url+';serviceName='+serviceName;
     }
     return this.httpClient
       .get<BasicResult>(url);

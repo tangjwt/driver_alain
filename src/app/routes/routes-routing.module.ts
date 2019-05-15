@@ -19,13 +19,17 @@ const routes: Routes = [
       path: 'run',
       loadChildren: 'app/routes/run/run.module#RunModule'
     },
-    // {
-    //   path: 'case',
-    //   loadChildren: 'app/routes/case/case.module#CaseModule'
-    // },
+    {
+      path: 'case',
+      loadChildren: 'app/routes/case/case.module#CaseModule'
+    },
+    {
+      path: 'generate',
+      loadChildren: 'app/routes/generate/generate.module#GenerateModule'
+    },
     {
       path: '',
-      redirectTo: 'config/project', pathMatch: 'full'
+      redirectTo: 'run/result', pathMatch: 'full'
     }
     // canActivate: [SimpleGuard],
     // children: [

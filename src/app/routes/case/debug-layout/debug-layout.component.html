@@ -1,0 +1,24 @@
+<page-header [breadcrumb]="breadcrumbs" [syncTitle]="true" title="">
+    <ng-template #breadcrumbs>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>用例</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a href="#/case/debug">Debug</a></nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </ng-template>
+</page-header>
+<nz-tabset [nzType]="'card'" [nzTabBarExtraContent]="extraTemplate" [nzSize]="'small'"  [nzSelectedIndex]="index">
+    <nz-tab *ngFor="let tab of tabs; let index = index " [nzTitle]="titleTemplate">
+      <ng-template #titleTemplate>
+        <div>
+          {{ tab }}
+          <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
+        </div>
+      </ng-template>
+      <sn-debug [id]="id" *ngIf="index==0" (serviceChange)="tab=$event;updateTabs(index,$event)"></sn-debug>
+      <sn-debug *ngIf="index>0" (serviceChange)="$event?tab=$event:tab='debug';updateTabs(index,$event)"></sn-debug>
+    </nz-tab>
+  </nz-tabset> 
+  <ng-template #extraTemplate>
+    <i class="ant-tabs-new-tab" nz-icon type="plus" (click)="newTab()"></i>
+  </ng-template>

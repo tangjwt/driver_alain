@@ -1,37 +1,42 @@
-<page-header ></page-header>
+<page-header></page-header>
 <button nz-button (click)="show()" [nzType]="'primary'">增加</button>
 <st #st [data]="tags" [page]="page" [bordered]="true" [columns]="columns"></st>
-<nz-modal nzTitle="添加/修改tags" [(nzOkDisabled)]="!this.tagsFG.valid" [(nzVisible)]="isVisible"
+<nz-modal nzTitle="添加/修改tags" [nzOkDisabled]="!this.tagsFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(tagsFG.value)" (nzOnCancel)="handleCancel()">
   <form nz-form [formGroup]="tagsFG">
     <nz-form-item>
-      <nz-form-label nzRequired [nzSpan]="7" >名称</nz-form-label>
+      <nz-form-label nzRequired [nzSpan]="7">名称</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
-        <input  nz-input  formControlName="tagKey" name="tagKey">
-        <nz-form-explain *ngIf="tagsFG.get('tagKey')?.dirty && tagsFG.get('tagKey')?.errors || tagsFG.get('tagKey')?.pending " >name is required</nz-form-explain>
+        <input nz-input formControlName="tagKey" name="tagKey">
+        <nz-form-explain
+          *ngIf="tagsFG.get('tagKey')?.dirty && tagsFG.get('tagKey')?.errors || tagsFG.get('tagKey')?.pending ">name is
+          required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="7">type</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
-        <nz-select formControlName="type" name="type"  nzAllowClear nzPlaceHolder="Choose">
+        <nz-select formControlName="type" name="type" nzAllowClear nzPlaceHolder="Choose">
           <nz-option *ngFor="let pro of tagType" [nzValue]="pro" [nzLabel]="pro"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzRequired [nzSpan]="7" >tagValue</nz-form-label>
+      <nz-form-label nzRequired [nzSpan]="7">tagValue</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
-        <input required nz-input formControlName="tagValue" name="tagValue" >
-        <nz-form-explain *ngIf="tagsFG.get('tagValue')?.dirty && tagsFG.get('tagValue')?.errors || tagsFG.get('tagValue')?.pending " >tagValue is required</nz-form-explain>
+        <input required nz-input formControlName="tagValue" name="tagValue">
+        <nz-form-explain
+          *ngIf="tagsFG.get('tagValue')?.dirty && tagsFG.get('tagValue')?.errors || tagsFG.get('tagValue')?.pending ">
+          tagValue is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label  [nzSpan]="7" >description</nz-form-label>
+      <nz-form-label [nzSpan]="7">description</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
-        <textarea  nz-input formControlName="description" name="description" ></textarea>
+        <textarea nz-input formControlName="description" name="description"></textarea>
       </nz-form-control>
     </nz-form-item>
-    
+
   </form>
 </nz-modal>
+

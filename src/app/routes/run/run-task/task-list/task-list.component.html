@@ -1,0 +1,17 @@
+<page-header ></page-header>
+<button nz-button (click)="modify('')" [nzType]="'primary'">增加</button>
+  <st #st [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
+    
+    <ng-template st-row="id" let-item>
+      <a [routerLink]="['/run/result', { taskId: item.id }]">{{item.id}}</a>
+    </ng-template>
+    <ng-template st-row="operation" let-item>
+        <a nz-popconfirm nzTitle="Are you sure delete this task?" (nzOnConfirm)="delete(item.id)" ><i nz-icon nzType="delete" nzTheme="outline"></i><span class="pl-xs">Delete</span></a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="modify(item.id)"><i nz-icon nzType="edit" nzTheme="outline"></i><span class="pl-xs">Edit</span></a>
+        <nz-divider nzType="vertical" *ngIf="item.status"></nz-divider>
+        <a (click)="item.status=='PAUSED' ? resume(item.id) : pause(item.id)" *ngIf="item.status"><span class="pl-xs">{{item.status=='PAUSED'? 'Resume': 'Pause'}}</span></a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="runOnce(item.id)"><span class="pl-xs">Run</span></a>
+    </ng-template> 
+  </st>

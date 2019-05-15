@@ -1,0 +1,95 @@
+<page-header [breadcrumb]="breadcrumb" [title]=" isTaskAdd ? '新增任务':'编辑任务'" syncTitle="true">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item>运行</nz-breadcrumb-item>
+      <nz-breadcrumb-item><a href="#/run/task">任务</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+<form nz-form [formGroup]="taskEntity" [nzLayout]="'vertical'">
+  <nz-card [nzBordered]="false" nzTitle="任务信息">
+    <div nz-row nzGutter="16">
+      <div nz-col nzLg="6" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzRequired>任务名称</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input formControlName="taskName" name="taskName">
+            <nz-form-explain
+              *ngIf="taskEntity.get('taskName')?.dirty &&  taskEntity.get('taskName')?.errors || taskEntity.get('taskName')?.pending ">
+              taskName is required</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}" [nzMd]="{span:12}" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>创建用户</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="createUser" name="createUser">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>运行周期</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cronExpression" name="cronExpression">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzLg="6" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>发送邮件</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="sendEmail" name="sendEmail" nzPlaceHolder="Choose">
+              <nz-option *ngFor="let pro of list" [nzValue]="pro" [nzLabel]="pro"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col *ngIf="taskEntity.value.sendEmail == 'LESS_THAN'" [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}"
+        [nzMd]="{span:12}" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>阀值</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="threshold" name="threshold">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col *ngIf="taskEntity.value.sendEmail == 'BY_PRIORITY'" [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}"
+        [nzMd]="{span:12}" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>阀值</nz-form-label>
+          <nz-form-control>
+            <ng-container *ngFor="let priority of priorityList;let index">
+              <nz-input-group [nzAddOnBefore]="priority.name" class="mr-1">
+                <input nz-input type="text" nzSize="small" size="5" [(ngModel)]="priority.value"
+                  [ngModelOptions]="{standalone: true}">
+              </nz-input-group>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>收件人</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="recipient" name="recipient">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+    </div>
+  </nz-card>
+</form>
+
+<sn-run [runEntityValue]="runEntityValue" [isTask]="true" (entityValue)="valueChange($event)"></sn-run>
+
+<footer-toolbar>
+  <button nz-button nzType="primary" [disabled]="taskEntity.invalid || runEntity.invalid"
+    (click)="run(taskEntity.value)">保存</button>
+</footer-toolbar>

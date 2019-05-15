@@ -45,6 +45,17 @@
           ]
         },
         {
+          "text": "服务",
+          "icon": "anticon anticon-robot",
+          "shortcutRoot": true,
+          "children": [
+            {
+              "text": "Debug",
+              "link": "/generate"
+            }
+          ]
+        },
+        {
           "text": "配置",
           "icon": "anticon anticon-setting",
           "shortcutRoot": true,

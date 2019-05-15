@@ -13,6 +13,9 @@ export class EnvUrlManageService {
     return this.http.get<BasicResult>(`/url/list/${project}/${env}`);
   }
 
+  getEnvUrlListByProject(project:string):Observable<BasicResult>{
+    return this.http.get<BasicResult>(`/url/list/${project}`);
+  }
   getEnvUrlList():Observable<BasicResult>{
     return this.http.get<BasicResult>('/url');
   }

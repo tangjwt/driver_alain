@@ -1,0 +1,115 @@
+<page-header [breadcrumb]="showTitle ? breadcrumb : empty" [title]="details?.caseName" [action]="action"
+  [tab]="tab" [syncTitle]="true">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item>运行</nz-breadcrumb-item>
+      <nz-breadcrumb-item><a href="#/run/result">运行结果</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+  <ng-template #empty>
+  </ng-template>
+
+  <ng-template #action>
+    <nz-button-group class="mr-2" *ngIf="details">
+      <button nz-button (click)="showSummary = !showSummary">{{showSummary?'Hide':'Show'}}</button>
+    </nz-button-group>
+    <button nz-button [nzType]="'primary'" routerLink="/run/result/{{details?.id}}/debug"
+      *ngIf="!debugView && !generateView ">Debug</button>
+  </ng-template>
+  <ng-template #tab>
+    <nz-tabset>
+      <nz-tab nzTitle="详情" (nzClick)="showTab('detail')"></nz-tab>
+      <nz-tab nzTitle="请求" (nzClick)="showTab('request')"></nz-tab>
+      <nz-tab nzTitle="响应" (nzClick)="showTab('response')"></nz-tab>
+      <nz-tab nzTitle="JSON响应" (nzClick)="showTab('json')" *ngIf="details?.jsonResponse && debugView"></nz-tab>
+      <nz-tab [nzTitle]="sub.caseName" *ngFor="let sub of subCaseDetail; let index = index" (nzClick)="showTab(index)"></nz-tab>
+    </nz-tabset>
+  </ng-template>
+  <sv-container size="small" labelWidth=80 *ngIf="showSummary">
+    <sv label="ID" *ngIf="details?.id && !debugView && !generateView ">{{details?.id}}</sv>
+    <sv label="RunSetID" *ngIf="details?.runSetId && !debugView && !generateView ">{{details?.runSetId}}</sv>
+    <sv label="项目" *ngIf="details?.projectName && !debugView && !generateView ">{{details?.projectName}}</sv>
+    <sv label="服务" *ngIf="details?.serviceName && !debugView && !generateView ">{{details?.serviceName}}</sv>
+    <sv label="环境" *ngIf="details?.runEnv && !debugView && !generateView ">{{details?.runEnv}}</sv>
+    <sv label="优先级" *ngIf="details?.priority && !debugView && !generateView " [type]="details?.priority | progress">
+      {{details?.priority}}
+    </sv>
+    <sv label="标签" *ngIf="details?.tag">{{details?.tag}}</sv>
+    <sv label="用例类型" *ngIf="details?.caseType">{{details?.caseType}}</sv>
+    <sv label="请求类型" *ngIf="details?.requestType && details?.requestType!='UNKNOW'">{{details?.requestType}}</sv>
+    <sv label="结果类型" *ngIf="details?.resultType && details?.resultType!='UNKNOW' && !generateView ">{{details?.resultType}}</sv>
+    <sv label="用例分支" *ngIf="details?.dataSource && !debugView && !generateView ">{{details?.dataSource}}</sv>
+    <sv label="结果" *ngIf="details?.status && !generateView" [type]="details?.status | progress">{{details?.status}}</sv>
+    <sv label="耗时" *ngIf="details?.latency" [type]="details?.latency < 200 ? 'success':'danger'">{{details?.latency}}ms
+    </sv>
+    <sv label="执行时间" *ngIf="details?.runTime && !debugView && !generateView ">
+      {{details?.runTime| date:'yyyy-MM-dd HH:mm:ss'}}</sv>
+    <sv label="返回状态" *ngIf="details?.httpCode" [type]="details?.httpCode == 200 ? 'success':'danger'">
+      {{details?.httpCode}}</sv>
+    <sv label="用例路径" *ngIf="details?.caseFilePath && !debugView && !generateView " col="1">{{details?.caseFilePath}}
+    </sv>
+    <sv label="URL" *ngIf="details?.runUrl" col="1">{{details?.runUrl}}</sv>
+  </sv-container>
+</page-header>
+<ng-container *ngFor="let sub of subCaseDetail; let index = index" >
+    <sn-result-detail [detail]="sub" *ngIf="subCaseShow[index]" [debugView]='true' [showTitle]="false"></sn-result-detail>
+</ng-container>
+<ng-container *ngIf="showDetail">
+  <nz-card [nzBordered]="false" class="mb-lg" nzTitle="用例详情" *ngIf="details?.caseDetail"
+    [nzExtra]="caseDetailExtraTemplate" nzHoverable="true">
+    <pre [attr.data-line]="errorLine"
+      #dataContainer *ngIf="cardView.caseDetail"><code snPrismHighlight class="language-javascript line-numbers" [highlightValue]="details?.caseDetail">{{details?.caseDetail}}</code></pre>
+  </nz-card>
+  <ng-template #caseDetailExtraTemplate>
+      <a (click)="cardView.caseDetail = !cardView.caseDetail">{{cardView.caseDetail?'Hide':'Show'}}</a>
+  </ng-template>
+  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="附加校验" *ngIf="details?.additionalExpect">
+    <pre
+      [attr.data-line]="addtionalErrorLine"><code snPrismHighlight class="language-javascript line-numbers" [highlightValue]="details?.additionalExpect">{{details?.additionalExpect}}</code></pre>
+  </nz-card>
+  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.errorMessage" [nzExtra]="errorMessageExtraTemplate">
+    <pre *ngIf="cardView.errorMessage"><code style="color: #f5222d;">{{details?.errorMessage}}</code></pre>
+  </nz-card>
+  <ng-template #errorMessageExtraTemplate>
+      <a (click)="cardView.errorMessage = !cardView.errorMessage">{{cardView.errorMessage?'Hide':'Show'}}</a>
+  </ng-template> 
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="子用例" *ngIf="subCase">
+    <st [data]="subCase" [page]="{show : false}" [columns]="columns">
+      <ng-template st-row="id" let-item>
+        <a routerLink="/run/result/casedetail/{{item.id}}">{{item.id}}</a>
+      </ng-template>
+    </st>
+  </nz-card>
+</ng-container>
+
+<ng-container *ngIf="showRequest">
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="请求头信息" [nzExtra]="requestHeaderExtraTemplate">
+    <pre *ngIf="cardView.requestHeader">{{details?.requestHeader}}</pre>
+  </nz-card>
+  <ng-template #requestHeaderExtraTemplate>
+      <a (click)="cardView.requestHeader = !cardView.requestHeader">{{cardView.requestHeader?'Hide':'Show'}}</a>
+  </ng-template> 
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="请求">
+    <pre><code snPrismHighlight  class="language-javascript line-numbers" [highlightValue]="details?.request"></code></pre>
+  </nz-card>
+</ng-container>
+
+<ng-container *ngIf="showResponse">
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="响应头信息" [nzExtra]="responseHeaderExtraTemplate">
+    <pre *ngIf="cardView.responseHeader">{{details?.responseHeader}}</pre>
+  </nz-card>
+  <ng-template #responseHeaderExtraTemplate>
+      <a (click)="cardView.responseHeader = !cardView.responseHeader">{{cardView.responseHeader?'Hide':'Show'}}</a>
+  </ng-template> 
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="响应">
+    <pre><code snPrismHighlight class="language-json line-numbers" [highlightValue]="details?.response">{{details?.response}}</code></pre>
+  </nz-card>
+
+</ng-container>
+<ng-container *ngIf="showJsonResponse">
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="响应">
+    <pre><code snPrismHighlight class="language-json line-numbers" [highlightValue]="details?.jsonResponse|json">{{details?.jsonResponse|json}}</code></pre>
+  </nz-card>
+
+</ng-container>

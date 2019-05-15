@@ -92,6 +92,7 @@ export class EnvironmentComponent implements OnInit {
 
   handleCancel(){
     this.isVisible = false;
+    this.envFG.reset();
     // this.init();
     // this.serviceFG.reset();
   }
@@ -116,6 +117,7 @@ export class EnvironmentComponent implements OnInit {
   }
 
   getEnv(id: string) {
+    this.getProjectList();
     this.environmentService.getEnvById(id).subscribe(data => {
       if (data.resultList.length > 0) {
         this.envFG.setValue({

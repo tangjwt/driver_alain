@@ -1,0 +1,101 @@
+<page-header [breadcrumb]="breadcrumb" title="">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item>服务</nz-breadcrumb-item>
+      <nz-breadcrumb-item><a href="#/generate">Debug</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-layout>
+  <nz-sider style="background:#fff">
+    <ul nz-menu [nzMode]="'inline'" style="height:100%" [nzInlineIndent]="10">
+      <li nz-submenu *ngFor="let menu of node" [nzOpen]="'true'">
+        <span title><i></i>{{menu.key}}</span>
+        <ul>
+          <li nz-menu-item *ngFor="let sub of menu.children" (click)="click(sub.key,menu.key)">{{sub.key}}</li>
+        </ul>
+      </li>
+    </ul>
+    <!-- <nz-tree [nzData]="node" nzShowLine> </nz-tree> -->
+  </nz-sider>
+  <nz-content style="background:#fff">
+    <nz-tabset [nzType]="'card'" [nzSize]="'small'" [nzSelectedIndex]="index">
+      <nz-tab [nzTitle]="titleTemplate" *ngFor="let tab of tabs; let index = index ">
+        <ng-template #titleTemplate>
+          <div>
+            {{ tab.service }}
+            <nz-dropdown class="ml-2">
+              <i nz-dropdown nz-icon nzType="down-circle"></i>
+              <ul nz-menu>
+                <li nz-menu-item (click)="show(tab)">添加关联</li>
+                <li nz-menu-item (click)="run(tab)">运行</li>
+                <li nz-menu-item (click)="reset(index)">重置</li>
+              </ul>
+            </nz-dropdown>
+            <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
+          </div>
+        </ng-template>
+        <nz-tabset [nzTabPosition]="'left'" [nzSelectedIndex]="tab.index"
+          (nzSelectedIndexChange)="indexChangeEvent($event,tab)">
+          <nz-tab [nzTitle]="subTitleTemplate" *ngFor="let sub of tab.subTabs; let index = index ">
+            <ng-template #subTitleTemplate>
+              <div>
+                {{sub.name}}
+                <i nz-icon type="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
+              </div>
+            </ng-template>
+            <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service"
+              (valueChange)="updateSubRequest(tab,$event,index)" [extend]="sub.params"></sn-generate-content>
+          </nz-tab>
+          <nz-tab nzTitle="main">
+            <sn-generate-content [projectName]="tab.project" [serviceName]="tab.service"
+              (valueChange)="updateRequest(tab,$event)" [extend]="tab.params"></sn-generate-content>
+          </nz-tab>
+          <nz-tab nzTitle="运行结果">
+            <sn-result-detail [detail]='tab.result' [generateView]='true' [showTitle]="false"></sn-result-detail>
+          </nz-tab>
+        </nz-tabset>
+        <footer-toolbar>
+          <button nzType="primary" nz-button (click)="show(tab)">添加关联服务</button>
+          <button nzType="primary" nz-button (click)="run(tab)">运行</button>
+          <button (click)="reset(index)" type="button" nz-button>重置</button>
+        </footer-toolbar>
+      </nz-tab>
+    </nz-tabset>
+  </nz-content>
+</nz-layout>
+
+<nz-modal nzTitle="添加关联服务" [nzVisible]="isVisible" [nzOkDisabled]="!this.serviceFG.valid"
+  (nzOnOk)="handleOk(serviceFG.value)" (nzOnCancel)="handleCancel()">
+  <form nz-form [formGroup]="serviceFG">
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7">关联服务</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-tree-select nzShowSearch [nzNodes]="node" [nzDropdownStyle]="{ 'max-height': '300px' }"
+          [nzDefaultExpandAll]="'true'" formControlName="service" nzPlaceHolder="Please select"
+          (nzTreeClick)="updateProject($event)" (ngModelChange)="serviceFG.get('subName').setValue($event)">
+        </nz-tree-select>
+        <nz-form-explain
+          *ngIf="serviceFG.get('service')?.dirty && serviceFG.get('service')?.errors || serviceFG.get('service')?.pending ">
+          service is required</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7">关联用例别名</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <input nz-input formControlName="subName" name="subName">
+        <nz-form-explain
+          *ngIf="serviceFG.get('subName')?.dirty && serviceFG.get('subName')?.errors || serviceFG.get('subName')?.pending ">
+          Should be combination of numbers & alphabets</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">保存cookie</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-switch formControlName="saveCookie" nzCheckedChildren="true" nzUnCheckedChildren="false"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

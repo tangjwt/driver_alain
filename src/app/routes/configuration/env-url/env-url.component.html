@@ -1,7 +1,7 @@
 <page-header></page-header>
 <button nz-button (click)="show()" [nzType]="'primary'">增加</button>
 <st #st [data]="envUrlList" [page]="page" [bordered]="true" [columns]="columns"></st>
-<nz-modal nzTitle="添加/修改服务地址" [(nzOkDisabled)]="!this.envUrlFG.valid" [(nzVisible)]="isVisible"
+<nz-modal nzTitle="添加/修改服务地址" [nzOkDisabled]="!this.envUrlFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(envUrlFG.value)" (nzOnCancel)="handleCancel()">
   <form nz-form [formGroup]="envUrlFG">
     <nz-form-item>
@@ -43,7 +43,7 @@
         <input nz-input formControlName="serviceUrl" name="serviceUrl">
         <nz-form-explain
           *ngIf="envUrlFG.get('serviceUrl')?.dirty && envUrlFG.get('serviceUrl')?.errors || envUrlFG.get('serviceUrl')?.pending ">
-          Should be combination of numbers & alphabets</nz-form-explain>
+          serviceUrl is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

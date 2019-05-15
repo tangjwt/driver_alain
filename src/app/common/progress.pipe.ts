@@ -7,31 +7,44 @@ export class ProgressPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     switch(value){
-      case 'FAIL':
       case 'ERROR':
-      case false:
-      case 'P0':{
+      case false:{
         return 'red';
       }
+      case 'P0':{
+        return 'danger';
+      }
+      case 'FAIL':{
+        return 'danger';
+      }
       case 'CANCELED':
-      case 'PAUSED':
-      case 'P1':{
+      case 'PAUSED':{
         return 'orange';
       }
-      case 'RUNNING':
-      case 'P2':{
+      case 'P1':{
+        return 'warning';
+      }
+      case 'RUNNING':{
         return 'blue';
       }
+      case 'P2':{
+        return 'primary';
+      }
       case 'P3':{
-        return 'secondary';
+        return 'success';
       }
       case 'P4':{
         return 'light';
       }
       case 'FINISHED':
-      case true:
-      case 'PASS':{
+      case true:{
         return 'green';
+      }
+      case 'PASS':{
+        return 'success';
+      }
+      case 'SKIP':{
+        return 'primary';
       }
     }
 

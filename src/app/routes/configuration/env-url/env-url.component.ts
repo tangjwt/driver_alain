@@ -108,6 +108,7 @@ export class EnvUrlComponent implements OnInit {
 
   handleCancel(){
     this.isVisible = false;
+    this.envUrlFG.reset();
     // this.init();
     // this.serviceFG.reset();
   }

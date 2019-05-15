@@ -86,6 +86,7 @@ export class ScriptComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false;
+    this.scriptFG.reset();
     // this.init();
     // this.tagsFG.reset();
   }

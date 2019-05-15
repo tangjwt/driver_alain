@@ -10,8 +10,7 @@ import {  NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'sn-service',
-  templateUrl: './service.component.html',
-  styleUrls: ['./service.component.scss']
+  templateUrl: './service.component.html'
 })
 export class ServiceComponent implements OnInit {
 
@@ -90,14 +89,14 @@ export class ServiceComponent implements OnInit {
 
   handleCancel(){
     this.isVisible = false;
+    this.serviceFG.reset();
     // this.init();
-    // this.serviceFG.reset();
   }
 
   handleOk(value: any){
     this.isOkLoading = true;
-    this.projectService.add(value).toPromise().then(data =>{
-      if ( data.status == 'STATUS_SUCCESS' ) {
+    this.serviceManage.addOrModify(value).toPromise().then(data =>{
+      if ( data.status ===   'STATUS_SUCCESS' ) {
           this.isOkLoading = false;
           this.isVisible = false;
           this.serviceFG.reset();
@@ -113,6 +112,7 @@ export class ServiceComponent implements OnInit {
     });
   }
   getService(id: string) {
+    this.getProjectList();
     this.serviceFG.reset();
     this.serviceManage.getServiceById(id).subscribe(data => {
       if (data.resultList.length > 0) {

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { RunResultService } from '../../../../services/run-result.service';
-
+import { TreeviewItem, TreeviewConfig } from 'ngx-treeview';
+import { CaseFilepathService } from '../../../../services/case-filepath.service';
 @Component({
   selector: 'sn-run-set-detail',
   templateUrl: './run-set-detail.component.html',
@@ -12,9 +13,12 @@ export class RunSetDetailComponent implements OnInit {
   detail:any;
   remoteParameter:string;
   @Input() id;
-  constructor(private runResultService:RunResultService, private route:ActivatedRoute) { }
+
+
+  constructor(private runResultService:RunResultService, private filepathService:CaseFilepathService) { }
 
   ngOnInit() {
+
     this.runResultService.getRunsetById(this.id).subscribe(data => {
       if (data.resultList.length > 0) {
         this.detail = data.resultList[0];
@@ -29,5 +33,5 @@ export class RunSetDetailComponent implements OnInit {
       }
     });
   }
-
+ 
 }

@@ -19,6 +19,7 @@ export class TagsComponent implements OnInit {
     show: true,
     showSize: true
   };
+  
   columns: STColumn[] = [{
     title: 'id',
     index: 'id'
@@ -59,7 +60,7 @@ export class TagsComponent implements OnInit {
   ];
 
   tagType = ['', 'VARIABLE', 'CLASS'];
-
+  node = [];
   tagsFG: FormGroup = this.fb.group({
     id: '',
     tagKey: ['', Validators.required],
@@ -107,6 +108,7 @@ export class TagsComponent implements OnInit {
 
   handleCancel(){
     this.isVisible = false;
+    this.tagsFG.reset();
     // this.init();
     // this.tagsFG.reset();
   }

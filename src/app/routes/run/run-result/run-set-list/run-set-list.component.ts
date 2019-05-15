@@ -2,9 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { RunResultService } from '../../../../services/run-result.service';
 import { RunService } from '../../../../services/run.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HEADER } from './run-set-header';
-import { STPage } from '@delon/abc';
-import { STColumn } from '@delon/abc';
+import { STPage, STColumn } from '@delon/abc';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { RunSetDetailComponent } from '../run-set-detail/run-set-detail.component';
 
@@ -23,7 +21,7 @@ export class RunSetListComponent implements OnInit {
   };
   results: Array<any> = [];
   selectedRows: Array<any>;
-  totalRecords = 100;
+  totalRecords: number;
   columns: STColumn[] = [
     {
       title: 'compare',
@@ -32,7 +30,7 @@ export class RunSetListComponent implements OnInit {
     },
     {
       title: 'id',
-      index: 'id'
+      render: 'id'
     },
     {
       title: 'project',
@@ -49,7 +47,7 @@ export class RunSetListComponent implements OnInit {
     {
       title: 'url',
       index: 'runUrl',
-      width: '50px'
+      width: '100'
     },
     {
       title: 'dataSource',
@@ -143,7 +141,9 @@ export class RunSetListComponent implements OnInit {
           this.totalRecords = data.count;
         });
       } else {
-        // this.columns[9].hide = true;
+        // if (this.columns.includes({title: 'pass',index: 'isPass'})){
+        //   this.columns.splice(8, 1);
+        // }
         this.runResultService.getRunSetList(1, this.itemsPerPage).subscribe(data => {
           this.results = data.resultList;
           this.totalRecords = data.count;
@@ -154,7 +154,6 @@ export class RunSetListComponent implements OnInit {
   }
 
   onChangeTable(event: any) {
-    console.log(event);
     switch (event.type) {
       case 'ps':
       case 'pi':
@@ -166,6 +165,20 @@ export class RunSetListComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  jump(id: any){
+    this.runResultService.hasSubRunSetList(id).subscribe(data => {
+      const hasSub = data.status;
+      // 有子run set的情况下，跳转到子run set列表页面
+      if (hasSub == 'STATUS_SUCCESS') {
+        // sub run_set 点浏览器回退按钮，回退到run_set列表界面
+        // window.history.pushState({},'List','/run/result');
+        this.router.navigate(['/run/result/', { id : id }]);
+      } else {
+        this.router.navigate([`/run/result/${id}/statistic`]);
+      }
+    });
   }
 
   compareResult() {
@@ -205,10 +218,9 @@ export class RunSetListComponent implements OnInit {
         if (orgin.endsWith(',')) {
           orgin = orgin.substring(0, orgin.length - 1);
         }
-        console.log(orgin);
         this.runResultService.deleteByRunsetId(orgin).subscribe(result => {
           this.message.success(result.status);
-          this.ngOnInit();
+          // this.ngOnInit();  需要调用pageChange
         });
       }
     });

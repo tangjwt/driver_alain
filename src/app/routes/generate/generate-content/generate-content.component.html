@@ -1,0 +1,16 @@
+<nz-card *ngIf="showBasic">
+  <sf class="active" [schema]="fieldSchema" [button]="null" (formChange)="formChangeSf($event)" #sf></sf>
+</nz-card>
+<nz-card nzTitle="默认字段" *ngIf="showDefault">
+  <sf [schema]="defaultFieldSchema" [formData]="params" (formChange)="formChangeSfDefault($event)" [button]="null" #sfdefault></sf>
+</nz-card>
+<nz-card nzTitle="扩展">
+  <sf [schema]="extendFieldSchema" (formChange)="formChangeExtend($event)" [button]="null" #sfextend></sf>
+</nz-card> 
+<nz-card nzTitle="环境选择" *ngIf="envSchema">
+  <sf [schema]="envSchema" [formData]="envParam" (formChange)="formChangeEnv($event)" [button]="null" #sfenv></sf>
+</nz-card>
+<!-- <nz-card>
+    <button type="button" nz-button (click)="run(sf.value,sfdefault.value)">运行</button>
+    <button (click)="sf.reset();sfdefault.reset()" type="button" nz-button>重置</button>
+</nz-card> -->

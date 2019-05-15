@@ -1,0 +1,43 @@
+<page-header  [breadcrumb]="breadcrumb" [syncTitle]="true" title="结果对比详情">
+<ng-template #breadcrumb>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>运行</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a href="#/run/result">运行结果</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+</ng-template>
+</page-header>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <sn-result-detail [detail]='detail1' [showTitle]="false"></sn-result-detail>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <sn-result-detail [detail]='detail2' [showTitle]="false"></sn-result-detail>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="请求头信息" nzActive="true" *ngIf="detail1?.requestHeader || detail2?.requestHeader">
+      <sn-codemirror-merge [value1]="detail1?.requestHeader" [value2]="detail2?.requestHeader"></sn-codemirror-merge>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="请求" nzActive="true" *ngIf="detail1?.request ||  detail2?.request">
+      <sn-codemirror-merge [value1]="detail1?.request" [value2]="detail2?.request"></sn-codemirror-merge>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="响应头信息" nzActive="true" *ngIf="detail1?.responseHeader || detail2?.responseHeader">
+      <sn-codemirror-merge [value1]="detail1?.responseHeader" [value2]="detail2?.responseHeader"></sn-codemirror-merge>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="响应" nzActive="true" *ngIf="detail1?.response || detail2?.response">
+      <sn-codemirror-merge [value1]="detail1?.response" [value2]="detail2?.response"></sn-codemirror-merge>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
