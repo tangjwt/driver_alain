@@ -1,4 +1,4 @@
-<page-header *ngIf="!isTask"></page-header>
+<page-header *ngIf="!isTask" [autoTitle]='false'></page-header>
 <form nz-form [formGroup]="runEntity" [nzLayout]="'vertical'">
   <nz-card [nzBordered]="false" nzTitle="基础选项">
     <div nz-row nzGutter="16">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CanComponentDeactivate } from '../../../guard/can-deactivate.guard';
 import { Observable } from 'rxjs';
@@ -48,7 +48,7 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
     this.update.push('debug');
     this.index = this.tabs.length - 1;
   }
-
+  @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     if (this.tabs.length === 0) {
       return true;

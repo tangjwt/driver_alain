@@ -246,6 +246,7 @@ export class GenerateContentComponent implements OnInit {
       fieldS.properties[field.name].ui['maxTagCount'] = 2;
       if (!field.repeatable || field.repeatable === 'false') {
         fieldS.properties[field.name].ui['maxMultipleCount'] = 1;
+      } else {
         this.repeatSelect.push(field.name);
       }
     } else if (field.repeatable && field.repeatable === 'true') {
@@ -296,6 +297,8 @@ export class GenerateContentComponent implements OnInit {
           if (resultArray.length === 0) {
             resultArray = elements.split('\n'); // 若过滤完之后，数组为空，则不过滤
           }
+        } else {
+          resultArray = elements;
         }
         resultArray.forEach(element => {
           request += '__' + key + '__ = ';
@@ -342,8 +345,8 @@ export class GenerateContentComponent implements OnInit {
     }
     if (event.extend) {
       event.extend.split('\n').forEach(element => {
-        element.split('=', 2);
-        this.sfExtendRequest += `__${element[0].trim()}__ = "${element[1].trim()}"\n`;
+        const result = element.split('=', 2);
+        this.sfExtendRequest += `__${result[0].trim()}__ = "${result[1].trim()}"\n`;
       });
     }
     this.valueChange.emit(

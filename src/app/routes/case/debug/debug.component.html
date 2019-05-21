@@ -38,7 +38,7 @@
                     </nz-select>
                   </div>
                   <div nz-col [nzSpan]="8">
-                    <button nz-button (click)="debug()" [nzType]="'primary'">Request</button>
+                    <button nz-button (click)="debug()" [nzType]="'primary'" [disabled]="requestDisable">Request</button>
                   </div>
                 </div>
               </nz-form-control>

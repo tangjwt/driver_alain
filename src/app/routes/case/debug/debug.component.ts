@@ -13,7 +13,7 @@ import { RunService } from '../../../services/run.service';
 import { RunResultService } from '../../../services/run-result.service';
 import { AutocompleteService } from '../../../services/autocomplete.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { commonField} from './common-ac'
+import { commonField } from './common-ac';
 // import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -69,6 +69,7 @@ export class DebugComponent implements OnInit {
     gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
   };
   acInput = '';
+  requestDisable = false;
   constructor(
     private runResultService: RunResultService,
     private runService: RunService,
@@ -157,33 +158,47 @@ export class DebugComponent implements OnInit {
   }
 
   onChange(value: any): void {
-    if(value.inputType === 'insertText'){
-      this.acInput+=value.data;
-    }else if (value.inputType === 'insertLineBreak'){
+    if (value.inputType === 'insertText') {
+      this.acInput += value.data;
+    } else if (value.inputType === 'insertLineBreak') {
       this.acInput = '';
     }
     this.fields = this._fields.filter(
-      option => option.label.toLowerCase().indexOf(this.acInput.toLowerCase()) > -1,
+      option =>
+        option.label.toLowerCase().indexOf(this.acInput.toLowerCase()) > -1,
     );
   }
 
   debug() {
+    this.requestDisable = true;
     const requestParams = {
       params: {
         data: this.data,
         url: this.url,
+        compareUrl: this.compareUrl,
       },
     };
     this.runService
       .debug(this.project, this.env, this.service, requestParams)
-      .subscribe(data => {
-        if (data.resultList.length > 0) {
-          this.runResult = data.resultList[0];
-          if (this.runResult.subCases) {
-            this.subCase = Object.values(this.runResult.subCases);
+      .subscribe(
+        data => {
+          if (data.resultList.length > 0) {
+            this.runResult = data.resultList[0];
+            if (this.runResult.subCases) {
+              this.subCase = Object.values(this.runResult.subCases);
+            }
+            this.messageService.success(
+              `Service ${this.service} debug success`,
+            );
+          }else{
+            this.messageService.error(`Service ${this.service} debug fail`);
           }
-          this.messageService.success(`Service ${this.service} debug success`);
-        }
-      });
+          this.requestDisable = false;
+        },
+        error => {
+          this.messageService.error(`Service ${this.service} debug fail`);
+          this.requestDisable = false;
+        },
+      );
   }
 }

@@ -24,6 +24,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
     saveCookie: [false],
   });
   isVisible = false;
+  requestButtonDisable = false;
   tempTab: any;
 
   constructor(
@@ -35,7 +36,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
     private modalService: NzModalService,
   ) {}
   // @HostListener allows us to also guard against browser refresh, close, etc.
-  // @HostListener('window:beforeunload')
+  @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     if (this.tabs.length === 0) {
       return true;
@@ -122,6 +123,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
   }
 
   run(event: any) {
+    this.requestButtonDisable = true;
     let request = '__name__ = "test"\n';
     if (event.subTabs.length > 0) {
       event.subTabs.forEach(element => {
@@ -153,6 +155,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
         } else {
           this.messageService.error(data.errorMessage);
         }
+        this.requestButtonDisable = false;
       });
   }
 

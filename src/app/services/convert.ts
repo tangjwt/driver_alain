@@ -17,8 +17,11 @@ export class Convert {
     runset.caseFilePath = entity.filePath;
     runset.caseData = entity.data;
     runset.params = entity.parameter;
-    if (!entity.launchParam) runset.launchParam = {};
-    else runset.launchParam = JSON.parse(entity.launchParam);
+    if (!entity.launchParam) {
+      runset.launchParam = {};
+    } else {
+      runset.launchParam = JSON.parse(entity.launchParam);
+    }
     runset.launchParam.threads = entity.threads;
     runset.launchParam.runBySequence = entity.runBySequence;
     runset.launchParam.delay = entity.delay;

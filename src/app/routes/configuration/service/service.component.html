@@ -1,4 +1,4 @@
-<page-header></page-header>
+<page-header [autoTitle]='false'></page-header>
 <button nz-button (click)="show()" [nzType]="'primary'">增加</button>
 <st #st [data]="serviceList" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzWidth="800" nzTitle="添加/修改服务" [nzOkDisabled]="!this.serviceFG.valid" [(nzVisible)]="isVisible"

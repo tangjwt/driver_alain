@@ -1,4 +1,4 @@
-<page-header></page-header>
+<page-header [autoTitle]='false'></page-header>
 <button nz-button (click)="show()" [nzType]="'primary'">增加</button>
 <st #st [data]="tags" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzTitle="添加/修改tags" [nzOkDisabled]="!this.tagsFG.valid" [(nzVisible)]="isVisible"

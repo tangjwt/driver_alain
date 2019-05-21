@@ -9,7 +9,7 @@
 </page-header>
 
 <nz-layout>
-  <nz-sider style="background:#fff">
+  <nz-sider>
     <ul nz-menu [nzMode]="'inline'" style="height:100%" [nzInlineIndent]="10">
       <li nz-submenu *ngFor="let menu of node" [nzOpen]="'true'">
         <span title><i></i>{{menu.key}}</span>
@@ -20,8 +20,8 @@
     </ul>
     <!-- <nz-tree [nzData]="node" nzShowLine> </nz-tree> -->
   </nz-sider>
-  <nz-content style="background:#fff">
-    <nz-tabset [nzType]="'card'" [nzSize]="'small'" [nzSelectedIndex]="index">
+  <nz-content>
+    <nz-tabset [nzType]="'card'" [nzSelectedIndex]="index" > 
       <nz-tab [nzTitle]="titleTemplate" *ngFor="let tab of tabs; let index = index ">
         <ng-template #titleTemplate>
           <div>
@@ -37,7 +37,7 @@
             <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
           </div>
         </ng-template>
-        <nz-tabset [nzTabPosition]="'left'" [nzSelectedIndex]="tab.index"
+        <nz-tabset [nzTabPosition]="'left'" [nzSize]="'small'"  [nzType]="'card'" [nzSelectedIndex]="tab.index"
           (nzSelectedIndexChange)="indexChangeEvent($event,tab)">
           <nz-tab [nzTitle]="subTitleTemplate" *ngFor="let sub of tab.subTabs; let index = index ">
             <ng-template #subTitleTemplate>
@@ -59,7 +59,7 @@
         </nz-tabset>
         <footer-toolbar>
           <button nzType="primary" nz-button (click)="show(tab)">添加关联服务</button>
-          <button nzType="primary" nz-button (click)="run(tab)">运行</button>
+          <button nzType="primary" nz-button (click)="run(tab)" [disabled]="requestButtonDisable">运行</button>
           <button (click)="reset(index)" type="button" nz-button>重置</button>
         </footer-toolbar>
       </nz-tab>

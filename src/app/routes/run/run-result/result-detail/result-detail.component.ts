@@ -59,9 +59,8 @@ export class ResultDetailComponent implements OnInit {
         this.cdr.detectChanges();
         this.showDetail = true;
       }
-      if (this.currentSelect) {
+      if (typeof this.currentSelect !== 'undefined') {
         this.showTab(this.currentSelect);
-        console.log(this.currentSelect);
       }
     }
   }
@@ -158,9 +157,7 @@ export class ResultDetailComponent implements OnInit {
   }
 
   showTab(type) {
-    if (type) {
-      this.currentSelect = type;
-    }
+    this.currentSelect = type;
     for (let index = 0; index < this.subCaseShow.length; index++) {
       this.subCaseShow[index] = false;
     }
