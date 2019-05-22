@@ -115,7 +115,7 @@ export class ResultDetailComponent implements OnInit {
             }
             if (this.details.compareId) {
               if (params.has('status')) {
-                let status = params.get('status');
+                const status = params.get('status');
                 window.history.pushState(
                   {},
                   'List',

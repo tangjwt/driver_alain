@@ -90,10 +90,10 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
     });
   }
 
-  click(event: any, project: any, index: number = -1) {
+  click(event: any, projectName: any, index: number = -1) {
     const tab = {
       service: event,
-      project: project,
+      project: projectName,
       request: '',
       index: 0,
       params: {},
@@ -144,7 +144,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
     this.runService
       .debug(event.project, 'dev', event.service, requestParams)
       .subscribe(data => {
-        if (data.status == 'STATUS_SUCCESS') {
+        if (data.status === 'STATUS_SUCCESS') {
           event.result = data.resultList[0];
           this.messageService.success(`Service ${event.service} debug success`);
           if (event.subTabs) {
@@ -170,7 +170,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
 
   handleOk(event: any) {
     if (
-      this.tempTab.subTabs.filter(data => data.name == event.subName).length > 0
+      this.tempTab.subTabs.filter(data => data.name === event.subName).length > 0
     ) {
       this.messageService.error(`别名为${event.subName}的关联服务已经存在`);
     } else {

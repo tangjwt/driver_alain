@@ -150,7 +150,7 @@ export class DebugComponent implements OnInit {
           value += field.value;
         }
         value += '"';
-        let option = { label: label, value: value };
+        const option = { label: label, value: value };
         this.fields.push(option);
         this._fields.push(option);
       });
@@ -190,7 +190,7 @@ export class DebugComponent implements OnInit {
             this.messageService.success(
               `Service ${this.service} debug success`,
             );
-          }else{
+          } else {
             this.messageService.error(`Service ${this.service} debug fail`);
           }
           this.requestDisable = false;

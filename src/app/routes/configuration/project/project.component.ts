@@ -10,34 +10,34 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'sn-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.less']
+  styleUrls: ['./project.component.less'],
 })
 export class ProjectComponent implements OnInit {
   page: STPage = {
     show: true,
-    showSize: true
+    showSize: true,
   };
   projects: Array<any> = [];
   columns: STColumn[] = [
     {
       title: 'id',
-      index: 'id'
+      index: 'id',
     },
     {
       title: 'name',
-      index: 'name'
+      index: 'name',
     },
     {
       title: 'svnPath',
-      index: 'svnPath'
+      index: 'svnPath',
     },
     {
       title: 'username',
-      index: 'username'
+      index: 'username',
     },
     {
       title: 'description',
-      index: 'description'
+      index: 'description',
     },
     {
       title: 'operation',
@@ -45,22 +45,21 @@ export class ProjectComponent implements OnInit {
         {
           text: 'Edit',
           icon: 'edit',
-          click: (record: any) =>{
-            this.getProject(record.id)
-          }
+          click: (record: any) => {
+            this.getProject(record.id);
+          },
         },
         {
           text: 'delete',
           icon: 'delete',
           type: 'del',
-          click: (record) => {
+          click: record => {
             this.delete(record.id);
             this.message.success(`成功删除【${record.name}】`);
-          }
-        }
-
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
   projectFG: FormGroup = this.fb.group({
     id: [''],
@@ -68,7 +67,7 @@ export class ProjectComponent implements OnInit {
     svnPath: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', Validators.required],
-    description: ['']
+    description: [''],
   });
   isVisible = false;
   isOkLoading = false;
@@ -77,8 +76,8 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectManageService,
     private message: NzMessageService,
     private modalSrv: NzModalService,
-    private fb: FormBuilder
-    ) { }
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit() {
     this.projectService.getProjectList().subscribe(data => {
@@ -86,35 +85,36 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-
-
   show() {
     this.projectFG.reset();
     this.isVisible = true;
   }
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
     this.projectFG.reset();
   }
 
-  handleOk(value: any){
+  handleOk(value: any) {
     this.isOkLoading = true;
-    this.projectService.add(value).toPromise().then(data =>{
-      if ( data.status == 'STATUS_SUCCESS' ) {
+    this.projectService
+      .add(value)
+      .toPromise()
+      .then(data => {
+        if (data.status === 'STATUS_SUCCESS') {
           this.isOkLoading = false;
           this.ngOnInit();
           this.isVisible = false;
           this.message.success('添加/修改项目成功');
           this.ngOnInit();
-      } else {
-        this.isOkLoading = false;
-        this.isVisible = true;
-        this.message.error(data.errorMessage, {
-          nzDuration: 5000
-        });
-      }
-    });
+        } else {
+          this.isOkLoading = false;
+          this.isVisible = true;
+          this.message.error(data.errorMessage, {
+            nzDuration: 5000,
+          });
+        }
+      });
   }
 
   getProject(id: string) {
@@ -123,17 +123,19 @@ export class ProjectComponent implements OnInit {
       this.projectFG.setValue({
         id: data.resultList[0].id,
         name: data.resultList[0].name,
-        svnPath: data.resultList[0].svnPath ,
-        username: data.resultList[0].username ,
-        password: data.resultList[0].password ,
-        description: data.resultList[0].description ? data.resultList[0].description : ''
+        svnPath: data.resultList[0].svnPath,
+        username: data.resultList[0].username,
+        password: data.resultList[0].password,
+        description: data.resultList[0].description
+          ? data.resultList[0].description
+          : '',
       });
       this.isVisible = true;
     });
   }
 
-  delete(id: any){
-    this.projectService.deleteById(id).subscribe(data =>{
+  delete(id: any) {
+    this.projectService.deleteById(id).subscribe(data => {
       this.ngOnInit();
     });
   }
@@ -147,10 +149,8 @@ export class ProjectComponent implements OnInit {
       nzOkDisabled: !this.projectFG.valid,
       nzOnOk: () => {
         isOkLoading = true;
-        return this.projectService.getById("1").toPromise();
-      }
+        return this.projectService.getById('1').toPromise();
+      },
     });
   }
-
-
 }

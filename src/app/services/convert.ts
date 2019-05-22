@@ -40,7 +40,7 @@ export class Convert {
     dest.project = runSet.project;
     dest.env = runSet.env;
     dest.fuwu = runSet.service;
-    dest.url = runSet.runUrl == 'N/A' ? '' : runSet.runUrl;
+    dest.url = runSet.runUrl === 'N/A' ? '' : runSet.runUrl;
     dest.dataSource = runSet.dataSource;
     dest.compareUrl = runSet.compareUrl ? runSet.compareUrl : '';
     dest.tag = runSet.tag ? runSet.tag : '';
@@ -77,7 +77,7 @@ export class Convert {
   }
 
   public taskToTaskEntity(task: any) {
-    var entity: any = {};
+    const entity: any = {};
     entity.taskName = task.taskName;
     entity.createUser = task.createUser;
     entity.cronExpression = task.cronExpression;

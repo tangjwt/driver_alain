@@ -28,7 +28,7 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
   }
 
   updateTabs(index: number, event) {
-    if(!event){
+    if (!event) {
       event = 'debug';
     }
     this.update[index] = event;
@@ -53,7 +53,7 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
     if (this.tabs.length === 0) {
       return true;
     }
-    let filer = this.update.filter(data => data !== 'debug');
+    const filer = this.update.filter(data => data !== 'debug');
     if (filer.length === 0) {
       return true;
     }

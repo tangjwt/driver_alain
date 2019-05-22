@@ -22,7 +22,7 @@ export class GenerateContentComponent implements OnInit {
 
   @Input() set extend(extend: any) {
     if (extend) {
-      let extendFieldSchema: SFSchema = {
+      const extendFieldSchema: SFSchema = {
         properties: {
           header: {
             type: 'string',
@@ -69,7 +69,7 @@ export class GenerateContentComponent implements OnInit {
     }
     this._projectName = projectName;
     this.envUrlService.getEnvUrlListByProject(projectName).subscribe(result => {
-      let envSchema: SFSchema = {
+      const envSchema: SFSchema = {
         properties: {},
         ui: {
           spanLabelFixed: 100,
@@ -78,9 +78,9 @@ export class GenerateContentComponent implements OnInit {
           },
         },
       };
-      let options = [];
+      const options = [];
       this.envUrls = result.resultList.filter(data => {
-        if (data.serviceName == this._serviceName) {
+        if (data.serviceName === this._serviceName) {
           this.envs.push(data.envName);
           options.push({ label: data.envName, value: data.envName });
           return true;
@@ -371,7 +371,7 @@ export class GenerateContentComponent implements OnInit {
 
   updateService(event: any) {
     if (this.envUrls.length > 0) {
-      let param = { url: '', env: event };
+      const param = { url: '', env: event };
       param.url = this.envUrls.filter(data => {
         return data.envName === event;
       })[0].serviceUrl;
