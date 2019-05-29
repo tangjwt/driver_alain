@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { STColumn } from '@delon/abc';
+import { STColumn, STColumnFilterMenu } from '@delon/abc';
 import { STPage } from '@delon/abc';
 import { EnvUrlManageService } from '../../../services/env-url-manage.service';
 import { ProjectManageService } from '../../../services/project-manage.service';
@@ -8,37 +8,41 @@ import { SerManageService } from '../../../services/ser-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import {  NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'sn-env-url',
-  templateUrl: './env-url.component.html'
+  templateUrl: './env-url.component.html',
 })
 export class EnvUrlComponent implements OnInit {
   envUrlList: Array<any>;
   projects: Array<any> = [];
   envs: Array<any> = [];
   servers: Array<any> = [];
+  envFilter: STColumnFilterMenu[] = [];
   page: STPage = {
     show: true,
-    showSize: true
+    showSize: true,
   };
-  columns = [
+  columns:STColumn[] = [
     {
       title: 'id',
       index: 'id',
     },
     {
       title: 'projectName',
-      index: 'projectName'
+      index: 'projectName',
     },
     {
       title: 'envName',
-      index: 'envName'
+      index: 'envName',
+      filter: {
+        menus: this.envFilter,
+      },
     },
     {
       title: 'serviceName',
-      index: 'serviceName'
+      index: 'serviceName',
     },
     {
       title: 'serviceUrl',
@@ -46,7 +50,7 @@ export class EnvUrlComponent implements OnInit {
     },
     {
       title: 'description',
-      index: 'description'
+      index: 'description',
     },
     {
       title: 'operation',
@@ -57,21 +61,20 @@ export class EnvUrlComponent implements OnInit {
           click: (record: any) => {
             this.getProjectList();
             this.getEnvUrl(record.id);
-          }
+          },
         },
         {
           text: 'delete',
           icon: 'delete',
           type: 'del',
-          click: (record) => {
+          click: record => {
             this.delete(record.id);
             this.message.success(`成功删除【${record.name}】`);
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
-
 
   envUrlFG: FormGroup = this.fb.group({
     id: [''],
@@ -79,11 +82,10 @@ export class EnvUrlComponent implements OnInit {
     projectId: ['', Validators.required],
     envId: ['', Validators.required],
     serviceId: ['', Validators.required],
-    description: ['']
+    description: [''],
   });
   isVisible = false;
   isOkLoading = false;
-
 
   constructor(
     private serviceManage: SerManageService,
@@ -91,12 +93,21 @@ export class EnvUrlComponent implements OnInit {
     private environmentService: EnvManageService,
     private projectService: ProjectManageService,
     private message: NzMessageService,
-    private fb: FormBuilder
-    ) { }
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit() {
     this.envUrlService.getEnvUrlList().subscribe(data => {
       this.envUrlList = data.resultList ? data.resultList : [];
+      this.envUrlList.forEach(data => {
+        const tmp: STColumnFilterMenu = {
+          text: data.envName,
+          value: data.envName,
+        };
+        if (this.envFilter.indexOf(tmp) < 0) {
+          this.envFilter.push(tmp);
+        }
+      });
     });
   }
 
@@ -106,30 +117,33 @@ export class EnvUrlComponent implements OnInit {
     this.isVisible = true;
   }
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
     this.envUrlFG.reset();
     // this.init();
     // this.serviceFG.reset();
   }
 
-  handleOk(value: any){
+  handleOk(value: any) {
     this.isOkLoading = true;
-    this.envUrlService.addOrModify(value).toPromise().then(data =>{
-      if ( data.status == 'STATUS_SUCCESS' ) {
+    this.envUrlService
+      .addOrModify(value)
+      .toPromise()
+      .then(data => {
+        if (data.status == 'STATUS_SUCCESS') {
           this.isOkLoading = false;
           this.isVisible = false;
           this.envUrlFG.reset();
           this.message.success('添加/修改服务地址成功');
           this.ngOnInit();
-      } else {
-        this.isOkLoading = false;
-        this.isVisible = true;
-        this.message.error(data.errorMessage, {
-          nzDuration: 5000
-        });
-      }
-    });
+        } else {
+          this.isOkLoading = false;
+          this.isVisible = true;
+          this.message.error(data.errorMessage, {
+            nzDuration: 5000,
+          });
+        }
+      });
   }
 
   getProjectList() {
@@ -139,8 +153,7 @@ export class EnvUrlComponent implements OnInit {
   }
 
   update(event: any) {
-    if(!event)
-      return;
+    if (!event) return;
     let current = this.projects.filter(data => data.id == event)[0].name;
     this.environmentService.getEnvListByProject(current).subscribe(data => {
       this.envs = data.resultList;
@@ -160,7 +173,9 @@ export class EnvUrlComponent implements OnInit {
           projectId: data.resultList[0].projectId,
           envId: data.resultList[0].envId,
           serviceId: data.resultList[0].serviceId,
-          description: data.resultList[0].description ? data.resultList[0].description : ''
+          description: data.resultList[0].description
+            ? data.resultList[0].description
+            : '',
         });
         this.isVisible = true;
       }

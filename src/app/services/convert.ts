@@ -98,4 +98,33 @@ export class Convert {
     task.description = taskEntity.description;
     return task;
   }
+
+  public taskAlarmParamConvert(params: any) {
+    const alarms: any = {};
+    alarms.type = params.type;
+    alarms.mergeAlarm = params.mergeAlarm;
+    alarms.conditions = {};
+    alarms.conditions.aggregation = {};
+    alarms.conditions.aggregation.recently = params.recently;
+    alarms.conditions.aggregation.percent = params.percent;
+    alarms.conditions.continuous = {};
+    alarms.conditions.continuous.continuous = params.continuous;
+    return alarms;
+  }
+
+  public taskAlarmParamRevert(params: any) {
+    const alarms: any = {};
+    alarms.type = params.type ? params.type : '';
+    alarms.mergeAlarm = params.mergeAlarm ? params.mergeAlarm : false;
+    alarms.recently = params.conditions.aggregation.recently
+      ? params.conditions.aggregation.recently
+      : '';
+    alarms.percent = params.conditions.aggregation.recently
+      ? params.conditions.aggregation.recently
+      : '';
+    alarms.continuous = params.conditions.continuous.continuous
+      ? params.conditions.continuous.continuous
+      : '';
+    return alarms;
+  }
 }

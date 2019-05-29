@@ -32,6 +32,15 @@ export class TaskAddOrModifyComponent implements OnInit {
     description: [''],
   });
 
+  alarmParam: FormGroup = this.fb.group({
+    type: [''],
+    mergeAlarm: [false],
+    recently: [''],
+    percent: [''],
+    continuous: [''],
+  });
+  mergeType = ['and', 'or'];
+
   list = [
     'ALWAYS',
     'NEVER',
@@ -47,6 +56,7 @@ export class TaskAddOrModifyComponent implements OnInit {
     { name: 'P4', value: '' },
   ];
   task: any = {};
+  alarm: any = {};
   detail: any = {};
   isTaskAdd = true;
 
@@ -72,6 +82,10 @@ export class TaskAddOrModifyComponent implements OnInit {
             this.taskEntity.reset();
             const taskValue = new Convert().taskToTaskEntity(this.task);
             this.runEntityValue = new Convert().runSetToRunEntity(this.detail);
+            this.alarm = new Convert().taskAlarmParamRevert(
+              this.task.params.alarmParam
+            );
+            this.alarmParam.setValue(this.alarm);
             // console.log(runEntityValue);
             this.taskEntity.setValue(taskValue);
             // this.runEntity.patchValue(runEntityValue);
@@ -84,6 +98,10 @@ export class TaskAddOrModifyComponent implements OnInit {
 
   run(value: any) {
     this.task = new Convert().taskEntityToTask(value, this.task);
+    this.alarm = new Convert().taskAlarmParamConvert(this.alarmParam.value);
+    console.log(this.alarm);
+    this.task.params = {};
+    this.task.params.alarmParam = this.alarm;
     this.task.detail = new Convert().runEntityToRunSet(
       this.runEntity.value,
       this.detail,
@@ -100,7 +118,7 @@ export class TaskAddOrModifyComponent implements OnInit {
       this.task.threshold = threshold;
     }
     this.taskService.add(this.task).subscribe(data => {
-      if (data.status == 'STATUS_SUCCESS') {
+      if (data.status === 'STATUS_SUCCESS') {
         if (this.task.id) {
           this.message.success('修改任务成功');
         } else {
