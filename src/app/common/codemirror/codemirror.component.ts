@@ -73,7 +73,7 @@ export class CodemirrorComponent
   @Output() focusChange = new EventEmitter<boolean>();
   /* called when the editor is scrolled */
   @Output() scroll = new EventEmitter<ScrollInfo>();
-  @ViewChild('ref') ref: ElementRef;
+  @ViewChild('ref',{static:false}) ref: ElementRef;
   value = '';
   disabled = false;
   isFocused = false;
