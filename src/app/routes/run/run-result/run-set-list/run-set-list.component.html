@@ -12,7 +12,7 @@
 <button nz-button [nzType]="'danger'" (click)='cancel()' [disabled]="selectedRows&&selectedRows.length == 1 ?false:true">取消</button>
 <button nz-button [nzType]="'danger'" (click)='showDeleteConfirm()' [disabled]="selectedRows&&selectedRows.length >0?false:true">删除</button>
 <button nz-button [nzType]="'primary'" (click)='ngOnInit()'>刷新</button>
-<st #st [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
+<st #st [widthMode]="{type: 'strict'}" [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
   
   <ng-template st-row="succesed" let-item>
     <nz-tag [nzColor]="item.succesed | progress">{{item.succesed}}</nz-tag>

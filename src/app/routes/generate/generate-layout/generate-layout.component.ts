@@ -6,6 +6,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { forkJoin, Observable } from 'rxjs';
 import { CanComponentDeactivate } from '../../../guard/can-deactivate.guard';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BasicResult } from '../../../common/basic-result';
 
 @Component({
   selector: 'sn-generate-layout',
@@ -37,9 +38,12 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
   ) {}
   // @HostListener allows us to also guard against browser refresh, close, etc.
   @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
+  canDeactivate(showModel = true): Observable<boolean> | boolean {
     if (this.tabs.length === 0) {
       return true;
+    }
+    if (!showModel) {
+      return false;
     }
     const modalRef = this.modalService.confirm({
       nzTitle: '<i>Do you Want to leave this page?</i>',
@@ -49,11 +53,12 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
   }
 
   // @HostListener allows us to also guard against browser refresh, close, etc.compatible IE and Edge
-  // @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
-    if (!this.canDeactivate()) {
-      $event.returnValue =
-        'This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)';
+    if (!this.canDeactivate(false)) {
+      $event.returnValue = true;
+    } else {
+      $event.returnValue = false;
     }
   }
 
@@ -73,7 +78,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
         nodes.push(projects);
       });
       forkJoin(requests).subscribe(results => {
-        results.forEach((re, index) => {
+        results.forEach((re:BasicResult, index) => {
           if (re.resultList) {
             re.resultList.forEach(service => {
               nodes[index].children.push({
@@ -170,7 +175,8 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
 
   handleOk(event: any) {
     if (
-      this.tempTab.subTabs.filter(data => data.name === event.subName).length > 0
+      this.tempTab.subTabs.filter(data => data.name === event.subName).length >
+      0
     ) {
       this.messageService.error(`别名为${event.subName}的关联服务已经存在`);
     } else {

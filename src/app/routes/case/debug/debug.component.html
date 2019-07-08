@@ -7,7 +7,7 @@
             <nz-form-item>
               <nz-form-label [nzSpan]="7">项目</nz-form-label>
               <nz-form-control [nzSpan]="17">
-                <nz-select [(ngModel)]="project" name="project" nzPlaceHolder="Choose"
+                <nz-select [(ngModel)]="project" name="project" [nzPlaceHolder]="'Choose'"
                   (ngModelChange)="updateEnv($event)">
                   <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
                 </nz-select>
@@ -31,7 +31,7 @@
               <nz-form-control [nzSpan]="21">
                 <div nz-row>
                   <div nz-col [nzSpan]="15">
-                    <nz-select [(ngModel)]="service" name="sersSelect" nzPlaceHolder="Choose"
+                    <nz-select [(ngModel)]="service" name="sersSelect" [nzPlaceHolder]="'Choose'"
                       (ngModelChange)="updateUrl($event)">
                       <nz-option *ngFor="let pro of sers" [nzValue]="pro.serviceName" [nzLabel]="pro.serviceName">
                       </nz-option>

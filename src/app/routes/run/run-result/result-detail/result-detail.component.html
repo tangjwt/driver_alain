@@ -28,6 +28,7 @@
   </ng-template>
   <sv-container size="small" labelWidth=80 *ngIf="showSummary">
     <sv label="ID" *ngIf="details?.id && !debugView && !generateView ">{{details?.id}}</sv>
+    <sv label="ParentID" *ngIf="details?.parentId && !debugView && !generateView ">{{details?.parentId}}</sv>
     <sv label="RunSetID" *ngIf="details?.runSetId && !debugView && !generateView ">{{details?.runSetId}}</sv>
     <sv label="项目" *ngIf="details?.projectName && !debugView && !generateView ">{{details?.projectName}}</sv>
     <sv label="服务" *ngIf="details?.serviceName && !debugView && !generateView ">{{details?.serviceName}}</sv>

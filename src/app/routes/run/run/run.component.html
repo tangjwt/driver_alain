@@ -6,7 +6,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="project">项目</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="project" name="project" nzPlaceHolder="Choose"
+            <nz-select formControlName="project" name="project"  [nzPlaceHolder]="'Choose'"
               (ngModelChange)="updateEnv($event)">
               <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
             </nz-select>
@@ -74,7 +74,7 @@
           <nz-form-control>
             <div nz-row>
               <div nz-col [nzSpan]="20">
-                <textarea nz-input formControlName="filePath" name="filePath"></textarea>
+                <textarea nz-input formControlName="filePath" name="filePath" placeholder="按文件选择指定的测试用例执行，默认会缓存上一次取用例文件列表的结果，若找不到所需要的测试用例文件，可勾选强制刷新，强制获取最新的文件列表（可能会比较慢）"></textarea>
               </div>
               <div nz-col [nzSpan]="2">
                 <input type="checkbox" [(ngModel)]="forceUpdate" id="forceUpdate" [ngModelOptions]="{standalone: true}"
@@ -96,19 +96,19 @@
     <div nz-row nzGutter="16">
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="delay">用例运行间隔</nz-form-label>
+          <nz-form-label nzFor="delay">用例运行间隔(ms)</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="delay" name="delay">
+            <input nz-input formControlName="delay" name="delay" placeholder="可单独使用，也可配合持续运行时间一起使用">
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}" [nzMd]="{span:12}" nzSm="24">
-        <nz-form-item>
-          <nz-form-label nzFor="maxRetries">用例失败重试次数</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="maxRetries" name="maxRetries">
-          </nz-form-control>
-        </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>持续运行时间(s)</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="duration" name="duration" placeholder="用于做稳定性测试，配合用例运行间隔(默认1s）一起使用">
+            </nz-form-control>
+          </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
         <nz-form-item>
@@ -127,21 +127,21 @@
         <nz-form-item>
           <nz-form-label>运行线程数</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="threads" name="threads">
+            <input nz-input formControlName="threads" name="threads" placeholder="默认运行线程为50">
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}" [nzMd]="{span:12}" nzSm="24">
         <nz-form-item>
-          <nz-form-label>运行时间</nz-form-label>
+          <nz-form-label>按标签过滤</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="duration" name="duration">
+            <input nz-input formControlName="tag" name="tag" placeholder="根据用例当中配置的tag运行指定了对应tag的用例">
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
         <nz-form-item>
-          <nz-form-label>优先级</nz-form-label>
+          <nz-form-label>按优先级运行</nz-form-label>
           <nz-form-control>
             <nz-radio-group>
               <nz-checkbox-group [(ngModel)]="checkOptions" (ngModelChange)="select(checkOptions)"
@@ -153,20 +153,20 @@
     </div>
     <div nz-row nzGutter="16">
       <div nz-col nz-col nzLg="6" nzMd="12" nzSm="24">
-        <nz-form-item>
-          <nz-form-label>用例失败重试间隔(s)</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="retryInterval" name="retryInterval">
-          </nz-form-control>
-        </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzFor="maxRetries">用例失败重试次数</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="maxRetries" name="maxRetries" placeholder="用例执行失败时，重试次数">
+            </nz-form-control>
+          </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}" [nzMd]="{span:12}" nzSm="24">
-        <nz-form-item>
-          <nz-form-label>按标签过滤</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="tag" name="tag">
-          </nz-form-control>
-        </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>用例失败重试间隔(s)</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="retryInterval" name="retryInterval" placeholder="配合用例失败重试次数使用，默认垂询间隔为0s">
+            </nz-form-control>
+          </nz-form-item>
       </div>
     </div>
     <div nz-row nzGutter="16">
@@ -174,7 +174,7 @@
         <nz-form-item>
           <nz-form-label>自定义服务地址</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="url" name="url">
+            <input nz-input formControlName="url" name="url" placeholder="多个自定义服务地址使用逗号分隔，填IP:Port时，不需要写全路径，其它情况需要填写全路径">
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -182,7 +182,7 @@
         <nz-form-item>
           <nz-form-label>对比地址</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="compareUrl" name="compareUrl">
+            <input nz-input formControlName="compareUrl" name="compareUrl" placeholder="只支持单地址且必须是全路径">
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -192,15 +192,15 @@
         <nz-form-item>
           <nz-form-label>自定义测试用例</nz-form-label>
           <nz-form-control>
-            <textarea nz-input formControlName="data" name="data" rows="5"></textarea>
+            <textarea nz-input formControlName="data" name="data" rows="5" placeholder="debug等情况临时使用"></textarea>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:10, offset:2}" [nzLg]="{span:12}" [nzMd]="{span:12}" nzSm="24">
         <nz-form-item>
-          <nz-form-label>用例对比配置</nz-form-label>
+          <nz-form-label>附加验证规则配置</nz-form-label>
           <nz-form-control>
-            <textarea nz-input formControlName="compareConfig" name="compareConfig" rows="5"></textarea>
+            <textarea nz-input formControlName="compareConfig" name="compareConfig" rows="5" placeholder="该配置有两个场景可使用：&#13;&#10;1、在做服务对比的时候，如果直接使用现有的测试用例，需要忽略一些字段不参与对比，例如：..version flag ignore&#13;&#10;2、非服务对比，但希望针对所选择用例添加通用验证，例如：.root.newField=123"></textarea>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -210,7 +210,7 @@
         <nz-form-item>
           <nz-form-label>自定义参数</nz-form-label>
           <nz-form-control>
-            <textarea nz-input formControlName="parameter" name="parameter" rows="5"></textarea>
+            <textarea nz-input formControlName="parameter" name="parameter" rows="5" placeholder="格式：key=value 多个参数使用换行符分隔。当格式为key='value1','value2'格式时，会根据多个value生成多个测试用例，具体可参考帮助文档"></textarea>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -218,7 +218,7 @@
         <nz-form-item>
           <nz-form-label>参数拉取</nz-form-label>
           <nz-form-control>
-            <textarea nz-input formControlName="remoteParameter" name="remoteParameter" rows="5"></textarea>
+            <textarea nz-input formControlName="remoteParameter" name="remoteParameter" rows="5" placeholder="若参数化的内容，是动态变化，需要从第三方接口获取时，可通过参数拉取的方式获取参数化内容。&#13;&#10;使用该方式的参数化时，需要保证返回结果的格式与json参数化文件的内容格式一致，若不一致，需要自定义脚本进行转换。&#13;&#10;详细请参数帮助文档"></textarea>
           </nz-form-control>
         </nz-form-item>
       </div>

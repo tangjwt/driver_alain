@@ -26,7 +26,7 @@ import { RunResultService } from './run-result.service';
     SerManageService,
     ScriptManageService,
     TaskManageService,
-    RunResultService
+    RunResultService,
   ]
 })
 export class ServicesModule { }

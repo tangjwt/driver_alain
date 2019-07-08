@@ -30,7 +30,8 @@ export class RunSetListComponent implements OnInit {
     },
     {
       title: 'id',
-      render: 'id'
+      render: 'id',
+      width: '20'
     },
     {
       title: 'project',
@@ -42,12 +43,13 @@ export class RunSetListComponent implements OnInit {
     },
     {
       title: 'service',
-      index: 'service'
+      index: 'service',
     },
     {
       title: 'url',
       index: 'runUrl',
-      width: '100'
+      width: '200',
+      className: 'text-truncate'
     },
     {
       title: 'dataSource',
@@ -84,7 +86,6 @@ export class RunSetListComponent implements OnInit {
       title: 'runTime',
       index: 'runTime',
       type: 'date',
-      className: 'text-nowrap',
     },
     {
       title: 'operation',

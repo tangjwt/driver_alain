@@ -49,7 +49,7 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
     this.index = this.tabs.length - 1;
   }
   @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
+  canDeactivate(showModel = true): Observable<boolean> | boolean {
     if (this.tabs.length === 0) {
       return true;
     }
@@ -57,10 +57,23 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
     if (filer.length === 0) {
       return true;
     }
+    if (!showModel) {
+      return false;
+    }
     const modalRef = this.modalService.confirm({
       nzTitle: '<i>Do you Want to leave this page?</i>',
       nzOnOk: () => true,
     });
     return modalRef.afterClose;
+  }
+
+  // @HostListener allows us to also guard against browser refresh, close, etc.compatible IE and Edge
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (!this.canDeactivate(false)) {
+      $event.returnValue = true;
+    } else {
+      $event.returnValue = false;
+    }
   }
 }
