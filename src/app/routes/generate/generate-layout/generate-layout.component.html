@@ -6,11 +6,12 @@
       <nz-breadcrumb-item><a href="#/generate">Debug</a></nz-breadcrumb-item>
     </nz-breadcrumb>
   </ng-template>
-</page-header>
+</page-header> 
 
-<nz-layout>
-  <nz-sider>
-    <ul nz-menu [nzMode]="'inline'" style="height:100%" [nzInlineIndent]="10">
+<nz-layout class="left-layout">
+  <nz-sider nzTheme="light" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'lg'" [nzCollapsedWidth]="0"
+    [nzZeroTrigger]="zeroTrigger">
+    <ul nz-menu [nzMode]="'inline'" nzTheme="light" [nzInlineIndent]="10">
       <li nz-submenu *ngFor="let menu of node" [nzOpen]="'true'">
         <span title><i></i>{{menu.key}}</span>
         <ul>
@@ -20,53 +21,59 @@
     </ul>
     <!-- <nz-tree [nzData]="node" nzShowLine> </nz-tree> -->
   </nz-sider>
-  <nz-content>
-    <nz-tabset [nzType]="'card'" [nzSelectedIndex]="index" > 
-      <nz-tab [nzTitle]="titleTemplate" *ngFor="let tab of tabs; let index = index ">
-        <ng-template #titleTemplate>
-          <div>
-            {{ tab.service }}
-            <nz-dropdown class="ml-2">
-              <i nz-dropdown nz-icon nzType="down-circle"></i>
-              <ul nz-menu>
-                <li nz-menu-item (click)="show(tab)">添加关联</li>
-                <li nz-menu-item (click)="run(tab)">运行</li>
-                <li nz-menu-item (click)="reset(index)">重置</li>
-              </ul>
-            </nz-dropdown>
-            <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
-          </div>
-        </ng-template>
-        <nz-tabset [nzTabPosition]="'left'" [nzSize]="'small'"  [nzType]="'card'" [nzSelectedIndex]="tab.index"
-          (nzSelectedIndexChange)="indexChangeEvent($event,tab)">
-          <nz-tab [nzTitle]="subTitleTemplate" *ngFor="let sub of tab.subTabs; let index = index ">
-            <ng-template #subTitleTemplate>
-              <div>
-                {{sub.name}}
-                <i nz-icon type="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
-              </div>
-            </ng-template>
-            <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service"
-              (valueChange)="updateSubRequest(tab,$event,index)" [extend]="sub.params"></sn-generate-content>
-          </nz-tab>
-          <nz-tab nzTitle="main">
-            <sn-generate-content [projectName]="tab.project" [serviceName]="tab.service"
-              (valueChange)="updateRequest(tab,$event)" [extend]="tab.params"></sn-generate-content>
-          </nz-tab>
-          <nz-tab nzTitle="运行结果">
-            <sn-result-detail [detail]='tab.result' [generateView]='true' [showTitle]="false"></sn-result-detail>
-          </nz-tab>
-        </nz-tabset>
-        <footer-toolbar>
-          <button nzType="primary" nz-button (click)="show(tab)">添加关联服务</button>
-          <button nzType="primary" nz-button (click)="run(tab)" [disabled]="requestButtonDisable">运行</button>
-          <button (click)="reset(index)" type="button" nz-button>重置</button>
-        </footer-toolbar>
-      </nz-tab>
-    </nz-tabset>
-  </nz-content>
+  <nz-layout class="right-layout">
+    <nz-content>
+      <nz-tabset [nzType]="'card'" [nzSelectedIndex]="index">
+        <nz-tab [nzTitle]="titleTemplate" *ngFor="let tab of tabs; let index = index ">
+          <ng-template #titleTemplate>
+            <div>
+              {{ tab.service }}
+              <nz-dropdown class="ml-2">
+                <i nz-dropdown nz-icon nzType="down-circle"></i>
+                <ul nz-menu>
+                  <li nz-menu-item (click)="show(tab)">添加关联</li>
+                  <li nz-menu-item (click)="run(tab)">运行</li>
+                  <li nz-menu-item (click)="reset(index)">重置</li>
+                </ul>
+              </nz-dropdown>
+              <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
+            </div>
+          </ng-template>
+          <nz-tabset [nzSize]="'small'" [nzType]="'line'" [nzSelectedIndex]="tab.index"
+            (nzSelectedIndexChange)="indexChangeEvent($event,tab)">
+            <nz-tab [nzTitle]="subTitleTemplate" *ngFor="let sub of tab.subTabs; let index = index ">
+              <ng-template #subTitleTemplate>
+                <div>
+                  {{sub.name}}
+                  <i nz-icon type="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
+                </div>
+              </ng-template>
+              <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service"
+                (valueChange)="updateSubRequest(tab,$event,index)" [extend]="sub.params"></sn-generate-content>
+            </nz-tab>
+            <nz-tab nzTitle="main">
+              <sn-generate-content [projectName]="tab.project" [serviceName]="tab.service"
+                (valueChange)="updateRequest(tab,$event)" [extend]="tab.params"></sn-generate-content>
+            </nz-tab>
+            <nz-tab nzTitle="运行结果">
+              <sn-result-detail [detail]='tab.result' [generateView]='true' [showTitle]="false"></sn-result-detail>
+            </nz-tab>
+          </nz-tabset>
+          <footer-toolbar>
+            <button nzType="primary" nz-button (click)="show(tab)">添加关联</button>
+            <button nzType="primary" nz-button (click)="run(tab)" [disabled]="requestButtonDisable">运行</button>
+            <button (click)="reset(index)" type="button" nz-button>重置</button>
+          </footer-toolbar>
+        </nz-tab>
+      </nz-tabset>
+    </nz-content>
+  </nz-layout>
 </nz-layout>
 
+<ng-template #zeroTrigger>
+    <i nz-icon [nzType]="isCollapsed?'menu-unfold':'menu-fold'" nzTheme="outline"></i>
+  </ng-template>
+  
 <nz-modal nzTitle="添加关联服务" [nzVisible]="isVisible" [nzOkDisabled]="!this.serviceFG.valid"
   (nzOnOk)="handleOk(serviceFG.value)" (nzOnCancel)="handleCancel()">
   <form nz-form [formGroup]="serviceFG">

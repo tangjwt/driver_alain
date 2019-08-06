@@ -18,6 +18,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
   index = 0;
   tabs = [];
   value = '';
+  isCollapsed = false;
   serviceFG: FormGroup = this.fb.group({
     project: [''],
     service: ['', Validators.required],
@@ -229,4 +230,5 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
       this.serviceFG.get('project').setValue(event.node.parentNode.key);
     }
   }
+
 }

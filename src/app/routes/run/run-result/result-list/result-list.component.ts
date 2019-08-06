@@ -71,9 +71,9 @@ export class ResultListComponent implements OnInit {
       this.destId = params.destId;
       this.originStatus = params.originStatus;
       this.destStatus = params.destStatus;
-      if(!this.columns.includes(this.compare)){
-        this.columns.splice(0,0,this.compare);
-        this.columns.splice(2,0,this.compareId);
+      if (!this.columns.includes(this.compare)){
+        this.columns.splice(0, 0, this.compare);
+        this.columns.splice(2, 0, this.compareId);
       }
       // this.columns[0].hide = false;
       // this.columns[1].title = 'orginId';
@@ -94,6 +94,7 @@ export class ResultListComponent implements OnInit {
         this.results = data.resultList;
         this.totalRecords = data.count;
         this.finished = true;
+        console.log(data);
 
       });
     }

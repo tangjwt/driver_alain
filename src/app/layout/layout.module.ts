@@ -38,12 +38,19 @@ const HEADERCOMPONENTS = [
   HeaderUserComponent
 ];
 
+// passport
+import { LayoutPassportComponent } from './passport/passport.component';
+const PASSPORT = [
+  LayoutPassportComponent
+];
+
 @NgModule({
   imports: [SharedModule],
   entryComponents: SETTINGDRAWER,
   declarations: [
     ...COMPONENTS,
     ...HEADERCOMPONENTS,
+    ...PASSPORT
   ],
   exports: [
     ...COMPONENTS

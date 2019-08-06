@@ -45,7 +45,9 @@ export class GenerateContentComponent implements OnInit {
         ui: {
           spanLabelFixed: 100,
           grid: {
-            span: 8,
+            lg: 8,
+            md: 12,
+            sm: 24
           },
         },
       };
@@ -74,7 +76,9 @@ export class GenerateContentComponent implements OnInit {
         ui: {
           spanLabelFixed: 100,
           grid: {
-            span: 12,
+            lg: 8,
+            md: 12,
+            sm: 24
           },
         },
       };
@@ -96,7 +100,9 @@ export class GenerateContentComponent implements OnInit {
         ui: {
           widget: 'select',
           grid: {
-            span: 6,
+            lg: 6,
+            md: 12,
+            sm: 24
           },
           change: value => {
             this.updateService(value);
@@ -108,7 +114,9 @@ export class GenerateContentComponent implements OnInit {
         title: 'URL',
         ui: {
           grid: {
-            span: 18,
+            lg: 18,
+            md: 24,
+            sm: 24
           },
         },
       };
@@ -127,7 +135,9 @@ export class GenerateContentComponent implements OnInit {
       ui: {
         spanLabelFixed: 150,
         grid: {
-          span: 8,
+          lg: 8,
+          md: 12,
+          sm: 24
         },
       },
     };
@@ -136,7 +146,9 @@ export class GenerateContentComponent implements OnInit {
       ui: {
         spanLabelFixed: 150,
         grid: {
-          span: 8,
+          lg: 8,
+          md: 12,
+          sm: 24
         },
       },
     };
@@ -182,7 +194,9 @@ export class GenerateContentComponent implements OnInit {
     ui: {
       spanLabelFixed: 100,
       grid: {
-        span: 8,
+        lg: 8,
+        md: 12,
+        sm: 24
       },
     },
   };
@@ -211,7 +225,9 @@ export class GenerateContentComponent implements OnInit {
     ui: {
       spanLabelFixed: 100,
       grid: {
-        span: 8,
+        lg: 8,
+        md: 12,
+        sm: 24
       },
     },
   };

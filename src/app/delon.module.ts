@@ -50,6 +50,15 @@ export function fnPageHeaderConfig(): PageHeaderConfig {
   };
 }
 
+import { DelonAuthConfig } from '@delon/auth';
+export function fnDelonAuthConfig(): DelonAuthConfig {
+  return {
+    ...new DelonAuthConfig(),
+    login_url: '/passport/login',
+  };
+}
+
+
 import { STConfig } from '@delon/abc';
 export function fnSTConfig(): STConfig {
   return {
@@ -64,6 +73,7 @@ const GLOBAL_CONFIG_PROVIDES = [
   // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `st` 的页码默认为 `20` 行
   { provide: STConfig, useFactory: fnSTConfig },
   { provide: PageHeaderConfig, useFactory: fnPageHeaderConfig },
+  { provide: DelonAuthConfig, useFactory: fnDelonAuthConfig },
 ];
 
 // #endregion

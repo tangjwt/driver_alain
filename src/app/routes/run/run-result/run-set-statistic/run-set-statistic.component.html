@@ -7,15 +7,16 @@
     </nz-breadcrumb>
 </ng-template>
 </page-header>
-<nz-table  [nzData]="results">
+<st [data]="results" [columns]="columns" [page]="page" ></st>
+<!-- <nz-table  [nzData]="results">
   <thead >
     <tr>
-      <th scope="col">服务名称</th>
-      <th scope="col">通过</th>
-      <th scope="col">失败</th>
-      <th scope="col">错误</th>
-      <th scope="col">忽略</th>
-      <th scope="col">总和</th>
+      <th>服务名称</th>
+      <th>通过</th>
+      <th>失败</th>
+      <th>错误</th>
+      <th>忽略</th>
+      <th>总和</th>
     </tr>
   </thead>
   <tbody>
@@ -40,4 +41,4 @@
       </td>
     </tr>
   </tbody>
-</nz-table>
+</nz-table> -->

@@ -4,6 +4,7 @@
 
 export const environment = {
   SERVER_URL: `http://100.81.180.55:8180`,
+  // SERVER_URL: `./`,
   rootPath: "driver",
   production: false,
   useHash: true,
