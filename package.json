@@ -115,14 +115,10 @@
       "npm run lint:style",
       "prettier --write",
       "git add"
-    ],
-    "ignore": [
-      "src/assets/*"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
     }
   }
 }
