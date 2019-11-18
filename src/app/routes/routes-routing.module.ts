@@ -37,8 +37,12 @@ const routes: Routes = [
       loadChildren: 'app/routes/generate/generate.module#GenerateModule'
     },
     {
+      path: 'dashboard',
+      loadChildren: 'app/routes/dashboard/dashboard.module#DashboardModule'
+    },
+    {
       path: '',
-      redirectTo: 'run/result', pathMatch: 'full'
+      redirectTo: 'dashboard', pathMatch: 'full'
     }
     // canActivate: [SimpleGuard],
     // children: [

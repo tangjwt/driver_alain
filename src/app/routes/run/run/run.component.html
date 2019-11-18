@@ -46,7 +46,7 @@
     <div nz-row nzGutter="16">
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzRequired>数据源</nz-form-label>
+          <nz-form-label nzRequired nzFor="dataSource">数据源</nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-select formControlName="dataSource" name="dataSource" nzPlaceHolder="Choose">
               <nz-option *ngFor="let pro of dataSources" [nzValue]="pro" [nzLabel]="pro"></nz-option>
@@ -82,7 +82,7 @@
                 <label for="forceUpdate" class="form-check-label ml-1">强制刷新</label>
               </div>
               <div nz-col [nzSpan]="2">
-                <button nz-button [nzType]="'default'" id="caseSelect" [disabled]="project.invalid"
+                <button nz-button [nzType]="'default'" id="caseSelect" [disabled]="project.invalid "
                   (click)="updateCaseFileList();selectCase.nzVisible=true">选择</button>
               </div>
             </div>
@@ -235,9 +235,25 @@
 </ng-template>
 <nz-modal #selectCase nzTitle="选择测试用例" (nzOnCancel)="selectCase.nzVisible=false" [nzFooter]="modalFooter"
   nzClassName="info">
-  <ngx-treeview [config]="config" [items]="items"
+  <nz-tree #nzTreeComponent
+      [nzData]="nodes"
+      nzCheckable
+      nzMultiple
+      (nzCheckBoxChange)="updateCheckedValue($event)"
+      [nzTreeTemplate]="nzTreeTemplate"
+    ></nz-tree>
+    <ng-template #nzTreeTemplate let-node>
+      <span class="custom-node" [class.active]="activedNode?.key === node.key">
+          <span class="folder-name">{{ node.title }}</span>
+      </span> 
+      <nz-badge
+      [nzCount]="node.origin.count"
+      [nzStyle]="{ backgroundColor: '#52c41a'}"
+    ></nz-badge>
+    </ng-template>
+  <!-- <ngx-treeview [config]="config" [items]="items"
     (selectedChange)="runEntity.get('filePath').setValue($event.toString())">
-  </ngx-treeview>
+  </ngx-treeview> -->
 </nz-modal>
 
 <ng-template #modalFooter>

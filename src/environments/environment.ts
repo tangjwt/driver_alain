@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: `http://100.81.180.55:8180`,
+  // SERVER_URL: `http://100.81.180.55:8180`,
+
+  SERVER_URL: `http://localhost:8080`,
   // SERVER_URL: `./`,
   rootPath: "driver",
   production: false,

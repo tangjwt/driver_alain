@@ -1795,6 +1795,14 @@ this.tinycolor = tinycolor;
 @animation-duration-base: 0.2s;
 @animation-duration-fast: 0.1s; // Tooltip
 
+//CollapsePanel
+@collapse-panel-border-radius: @border-radius-base;
+
+//Dropdown
+@dropdown-vertical-padding: 5px;
+@dropdown-font-size: @font-size-base;
+@dropdown-line-height: 22px;
+
 // Form
 // ---
 @label-required-color: @highlight-color;
@@ -1915,6 +1923,8 @@ this.tinycolor = tinycolor;
 @table-row-hover-bg: @primary-1;
 @table-selected-row-color: inherit;
 @table-selected-row-bg: #fafafa;
+@table-body-selected-sort-bg: @table-selected-row-bg;
+@table-selected-row-hover-bg: @table-selected-row-bg;
 @table-expanded-row-bg: #fbfbfb;
 @table-padding-vertical: 16px;
 @table-padding-horizontal: 16px;
@@ -2566,7 +2576,9 @@ darker  @grey-9;
 @reuse-tab-border-color: #d9d9d9;
 
 @st-prefix: ~'.st';
-@st-btn-disabled-color: rgba(0,0,0,.25);
+@st-btn-disabled-color: rgba(0, 0, 0, 0.25);
+@st-title-optional-color: rgba(0, 0, 0, 0.35);
+
 @sv-prefix: ~'.sv';
 @sv-label-color: rgba(0, 0, 0, 0.5);
 @sv-label-optional-color: rgba(0, 0, 0, 0.35);
@@ -4393,6 +4405,14 @@ this.tinycolor = tinycolor;
 @animation-duration-base: 0.2s;
 @animation-duration-fast: 0.1s; // Tooltip
 
+//CollapsePanel
+@collapse-panel-border-radius: @border-radius-base;
+
+//Dropdown
+@dropdown-vertical-padding: 5px;
+@dropdown-font-size: @font-size-base;
+@dropdown-line-height: 22px;
+
 // Form
 // ---
 @label-required-color: @highlight-color;
@@ -4513,6 +4533,8 @@ this.tinycolor = tinycolor;
 @table-row-hover-bg: @primary-1;
 @table-selected-row-color: inherit;
 @table-selected-row-bg: #fafafa;
+@table-body-selected-sort-bg: @table-selected-row-bg;
+@table-selected-row-hover-bg: @table-selected-row-bg;
 @table-expanded-row-bg: #fbfbfb;
 @table-padding-vertical: 16px;
 @table-padding-horizontal: 16px;
@@ -7048,6 +7070,7 @@ textarea.cdk-textarea-autosize-measuring {
   > i,
   > span {
     display: inline-block;
+    transition: margin-left 0.3s @ease-in-out;
     pointer-events: none;
   }
 
@@ -7538,6 +7561,10 @@ a.@{btn-prefix-cls} {
     border-color: @border-color-split;
     border-bottom: @border-width-base solid @component-background;
   }
+  &&-card &-card-bar &-tab-disabled {
+    color: @tabs-card-active-color;
+    color: @disabled-color;
+  }
   &&-card &-card-bar &-tab-inactive {
     padding: 0;
   }
@@ -7863,17 +7890,17 @@ a.@{btn-prefix-cls} {
         margin-right: 8px;
       }
 
+      &-active {
+        color: @tabs-highlight-color;
+        font-weight: 500;
+      }
+
       &-disabled {
         &,
         &:hover {
           color: @disabled-color;
           cursor: not-allowed;
         }
-      }
-
-      &-active {
-        color: @tabs-highlight-color;
-        font-weight: 500;
       }
     }
   }
@@ -7925,14 +7952,9 @@ a.@{btn-prefix-cls} {
   .@{tab-prefix-cls}-right-bar {
     height: 100%;
     border-bottom: 0;
-    &-tab-prev,
-    &-tab-next {
-      width: @tabs-scrolling-size;
-      height: 0;
-      transition: height 0.3s @ease-in-out, opacity 0.3s @ease-in-out, color 0.3s @ease-in-out;
-    }
-    &-tab-prev.@{tab-prefix-cls}-tab-arrow-show,
-    &-tab-next.@{tab-prefix-cls}-tab-arrow-show {
+
+    .@{tab-prefix-cls}-tab-arrow-show,
+    .@{tab-prefix-cls}-tab-arrow-show {
       width: 100%;
       height: @tabs-scrolling-size;
     }
@@ -7986,6 +8008,7 @@ a.@{btn-prefix-cls} {
     }
 
     .@{tab-prefix-cls}-tab-next {
+      right: 0;
       bottom: 0;
       width: 100%;
       height: @tabs-scrolling-size;
@@ -8746,7 +8769,7 @@ a.@{btn-prefix-cls} {
   background-color: @collapse-header-bg;
   border: @border-width-base @border-style-base @border-color-base;
   border-bottom: 0;
-  border-radius: @border-radius-base;
+  border-radius: @collapse-panel-border-radius;
 
   & > &-item {
     border-bottom: @border-width-base @border-style-base @border-color-base;
@@ -8754,7 +8777,7 @@ a.@{btn-prefix-cls} {
     &:last-child {
       &,
       & > .@{collapse-prefix-cls}-header {
-        border-radius: 0 0 @border-radius-base @border-radius-base;
+        border-radius: 0 0 @collapse-panel-border-radius @collapse-panel-border-radius;
       }
     }
 
@@ -8834,7 +8857,7 @@ a.@{btn-prefix-cls} {
 
   &-item:last-child {
     > .@{collapse-prefix-cls}-content {
-      border-radius: 0 0 @border-radius-base @border-radius-base;
+      border-radius: 0 0 @collapse-panel-border-radius @collapse-panel-border-radius;
     }
   }
 
@@ -9466,6 +9489,67 @@ a.@{btn-prefix-cls} {
   }
 }
 
+.calendarLeftArrow() {
+  height: 100%;
+
+  &::before,
+  &::after {
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    vertical-align: middle;
+    border: 0 solid #aaa;
+    border-width: 1.5px 0 0 1.5px;
+    border-radius: 1px;
+    transform: rotate(-45deg) scale(.8);
+    transition: all .3s;
+    content: '';
+  }
+
+  &:hover::before,
+  &:hover::after {
+    border-color: @text-color;
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
+.calendarLeftDoubleArrow() {
+  .calendarLeftArrow;
+
+  &::after {
+    position: relative;
+    left: -3px;
+    display: inline-block;
+  }
+}
+
+.calendarRightArrow() {
+  .calendarLeftArrow;
+
+  &::before,
+  &::after {
+    transform: rotate(135deg) scale(.8);
+  }
+}
+
+.calendarRightDoubleArrow() {
+  .calendarRightArrow;
+
+  &::before {
+    position: relative;
+    left: 3px;
+  }
+
+  &::after {
+    display: inline-block;
+  }
+}
+
 .calendarPanelHeader(@calendar-prefix-cls) {
   height: 40px;
   line-height: 40px;
@@ -9517,36 +9601,24 @@ a.@{btn-prefix-cls} {
   .@{calendar-prefix-cls}-prev-decade-btn,
   .@{calendar-prefix-cls}-prev-year-btn {
     left: 7px;
-
-    &::after {
-      content: '«';
-    }
+    .calendarLeftDoubleArrow;
   }
 
   .@{calendar-prefix-cls}-next-century-btn,
   .@{calendar-prefix-cls}-next-decade-btn,
   .@{calendar-prefix-cls}-next-year-btn {
     right: 7px;
-
-    &::after {
-      content: '»';
-    }
+    .calendarRightDoubleArrow;
   }
 
   .@{calendar-prefix-cls}-prev-month-btn {
     left: 29px;
-
-    &::after {
-      content: '‹';
-    }
+    .calendarLeftArrow;
   }
 
   .@{calendar-prefix-cls}-next-month-btn {
     right: 29px;
-
-    &::after {
-      content: '›';
-    }
+    .calendarRightArrow;
   }
 }
 
@@ -9915,10 +9987,10 @@ a.@{btn-prefix-cls} {
   .@{calendar-prefix-cls}-input,
   .@{calendar-timepicker-prefix-cls}-input {
     .input;
-
     height: @input-height-sm;
     padding-right: 0;
     padding-left: 0;
+    line-height: @input-height-sm;
     border: 0;
     box-shadow: none;
 
@@ -10099,7 +10171,6 @@ a.@{btn-prefix-cls} {
   &-select {
     position: relative; // Fix chrome weird render bug
     float: left;
-    box-sizing: border-box;
     height: 226px;
     overflow: hidden;
     font-size: @font-size-base;
@@ -10119,7 +10190,6 @@ a.@{btn-prefix-cls} {
     }
 
     ul {
-      box-sizing: border-box;
       width: 100%;
       max-height: 206px;
       margin: 0;
@@ -10128,30 +10198,35 @@ a.@{btn-prefix-cls} {
     }
 
     li {
-      box-sizing: content-box;
       width: 100%;
       height: 24px;
       margin: 0;
-      padding-left: 32px;
       line-height: 24px;
+      text-align: center;
       list-style: none;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all .3s;
       user-select: none;
-    }
 
-    li:last-child::after {
-      display: block;
-      height: 202px;
-      content: '';
-    }
+      &:last-child::after {
+        display: block;
+        height: 202px;
+        content: '';
+      }
 
-    li:hover {
-      background: @item-hover-bg;
+      &:hover {
+        background: @item-hover-bg;
+      }
+
+      &:focus {
+        color: @primary-color;
+        font-weight: 600;
+        outline: none;
+      }
     }
 
     li&-option-selected {
-      font-weight: bold;
+      font-weight: 600;
       background: @time-picker-selected-bg;
     }
 
@@ -10614,7 +10689,6 @@ a.@{btn-prefix-cls} {
 
     &-wrap {
       position: relative;
-      box-sizing: border-box;
       padding: 7px 2px 7px @control-padding-horizontal;
       border-bottom: @border-width-base @border-style-base @border-color-split;
     }
@@ -10631,7 +10705,6 @@ a.@{btn-prefix-cls} {
   &-select {
     position: relative; // Fix chrome weird render bug
     float: left;
-    box-sizing: border-box;
     width: @time-picker-panel-column-width;
     max-height: @timepicker-item-height * 6;
     overflow: hidden;
@@ -10656,7 +10729,6 @@ a.@{btn-prefix-cls} {
     }
 
     ul {
-      box-sizing: border-box;
       width: 100%;
       margin: 0;
       padding: 0 0 @timepicker-item-height * 5;
@@ -10664,7 +10736,6 @@ a.@{btn-prefix-cls} {
     }
 
     li {
-      box-sizing: content-box;
       width: 100%;
       height: @timepicker-item-height;
       margin: 0;
@@ -10673,8 +10744,14 @@ a.@{btn-prefix-cls} {
       text-align: left;
       list-style: none;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s;
       user-select: none;
+
+      &:focus {
+        color: @primary-color;
+        font-weight: 600;
+        outline: none;
+      }
     }
 
     li:hover {
@@ -10682,7 +10759,7 @@ a.@{btn-prefix-cls} {
     }
 
     li&-option-selected {
-      font-weight: bold;
+      font-weight: 600;
       background: @time-picker-selected-bg;
       &:hover {
         background: @time-picker-selected-bg;
@@ -10942,6 +11019,7 @@ a.@{btn-prefix-cls} {
   }
 
   &-row {
+    > th,
     > td {
       padding-bottom: 16px;
     }
@@ -10952,14 +11030,23 @@ a.@{btn-prefix-cls} {
 
   &-item-label {
     color: @heading-color;
+    font-weight: normal;
     font-size: @font-size-base;
     line-height: @line-height-base;
     white-space: nowrap;
+
     &::after {
       position: relative;
       top: -0.5px;
       margin: 0 8px 0 2px;
       content: ':';
+    }
+  }
+
+  &-item-no-label {
+    &::after {
+      margin: 0;
+      content: '';
     }
   }
 
@@ -10975,49 +11062,31 @@ a.@{btn-prefix-cls} {
     > span {
       display: inline-block;
     }
-    .@{descriptions-prefix-cls}-item-label {
-      float: left;
-      padding: 0 !important;
-    }
-    .@{descriptions-prefix-cls}-item-content {
-      float: left;
-      padding: 0 !important;
-    }
   }
 
-  // padding setting
-  .@{descriptions-prefix-cls}-item-label,
-  .@{descriptions-prefix-cls}-item-content {
-    padding: @descriptions-default-padding;
-  }
-
-  &.bordered.middle {
-    .@{descriptions-prefix-cls}-item-label,
-    .@{descriptions-prefix-cls}-item-content {
-      padding: @descriptions-middle-padding;
-    }
-  }
-  &.bordered.small {
-    .@{descriptions-prefix-cls}-item-label,
-    .@{descriptions-prefix-cls}-item-content {
-      padding: @descriptions-small-padding;
-    }
-  }
-  &.bordered {
+  &-bordered {
     .@{descriptions-prefix-cls}-view {
       border: 1px solid @border-color-split;
       > table {
         table-layout: auto;
       }
     }
+
     .@{descriptions-prefix-cls}-item-label,
     .@{descriptions-prefix-cls}-item-content {
+      padding: @descriptions-default-padding;
       border-right: 1px solid @border-color-split;
+
+      &:last-child {
+        border-right: none;
+      }
     }
 
-    .@{descriptions-prefix-cls}-item-label:last-child,
-    .@{descriptions-prefix-cls}-item-content:last-child {
-      border-right: none;
+    .@{descriptions-prefix-cls}-item-label {
+      background-color: #fafafa;
+      &::after {
+        display: none;
+      }
     }
 
     .@{descriptions-prefix-cls}-row {
@@ -11027,10 +11096,17 @@ a.@{btn-prefix-cls} {
       }
     }
 
-    .@{descriptions-prefix-cls}-item-label {
-      background-color: #fafafa;
-      &::after {
-        display: none;
+    &.@{descriptions-prefix-cls}-middle {
+      .@{descriptions-prefix-cls}-item-label,
+      .@{descriptions-prefix-cls}-item-content {
+        padding: @descriptions-middle-padding;
+      }
+    }
+
+    &.@{descriptions-prefix-cls}-small {
+      .@{descriptions-prefix-cls}-item-label,
+      .@{descriptions-prefix-cls}-item-content {
+        padding: @descriptions-small-padding;
       }
     }
   }
@@ -11433,11 +11509,11 @@ a.@{btn-prefix-cls} {
     &-submenu-title {
       clear: both;
       margin: 0;
-      padding: 5px @control-padding-horizontal;
+      padding: @dropdown-vertical-padding @control-padding-horizontal;
       color: @text-color;
       font-weight: normal;
-      font-size: @font-size-base;
-      line-height: 22px;
+      font-size: @dropdown-font-size;
+      line-height: @dropdown-line-height;
       white-space: nowrap;
       cursor: pointer;
       transition: all 0.3s;
@@ -11974,6 +12050,7 @@ a.@{btn-prefix-cls} {
   .@{ant-prefix}-input {
     &,
     &:hover {
+      background-color: @background-color;
       border-color: @border-color;
     }
 
@@ -12137,35 +12214,6 @@ a.@{btn-prefix-cls} {
 
   &.@{form-prefix-cls}-item-no-colon::after {
     content: ' ';
-  }
-}
-
-// Radio && Checkbox
-input[type='radio'],
-input[type='checkbox'] {
-  &[disabled],
-  &.disabled {
-    cursor: not-allowed;
-  }
-}
-
-// These classes are used directly on <label>s
-.@{ant-prefix}-radio-inline,
-.@{ant-prefix}-radio-vertical,
-.@{ant-prefix}-checkbox-inline,
-.@{ant-prefix}-checkbox-vertical {
-  &.disabled {
-    cursor: not-allowed;
-  }
-}
-
-// These classes are used on elements with <label> descendants
-.@{ant-prefix}-radio,
-.@{ant-prefix}-checkbox {
-  &.disabled {
-    label {
-      cursor: not-allowed;
-    }
   }
 }
 
@@ -12368,33 +12416,6 @@ form {
     top: -1px;
     display: inline-block;
     vertical-align: middle;
-  }
-}
-
-// Input combined with select
-.@{ant-prefix}-input-group-wrap {
-  .@{ant-prefix}-select-selection {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    &:hover {
-      border-color: @border-color-base;
-    }
-  }
-
-  .@{ant-prefix}-select-selection--single {
-    height: @input-height-lg;
-    margin-left: -1px;
-    background-color: fade(@black, 7%);
-    .@{ant-prefix}-select-selection__rendered {
-      padding-right: 25px;
-      padding-left: 8px;
-      line-height: 30px;
-    }
-  }
-
-  .@{ant-prefix}-select-open .@{ant-prefix}-select-selection {
-    border-color: @border-color-base;
-    box-shadow: none;
   }
 }
 
@@ -14368,23 +14389,29 @@ form {
   // Arrows
   &-arrow {
     position: absolute;
-    width: 0;
-    height: 0;
-    border-color: transparent;
+    display: block;
+    width: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2);
+    height: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2);
+    background: transparent;
     border-style: solid;
+    border-width: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2) / 2;
+    transform: rotate(45deg);
   }
 
   &-placement-top &-arrow,
   &-placement-topLeft &-arrow,
   &-placement-topRight &-arrow {
-    bottom: @tooltip-distance - @tooltip-arrow-width;
-    border-width: @tooltip-arrow-width @tooltip-arrow-width 0;
-    border-top-color: @tooltip-arrow-color;
+    bottom: @tooltip-distance - @tooltip-arrow-width + 2.2px;
+    border-top-color: transparent;
+    border-right-color: tint(fadein(@tooltip-bg, 100%), 25%); // make it not transparent
+    border-bottom-color: tint(fadein(@tooltip-bg, 100%), 25%); // make it not transparent
+    border-left-color: transparent;
+    box-shadow: 3px 3px 7px fade(@black, 7%);
   }
 
   &-placement-top &-arrow {
     left: 50%;
-    margin-left: -@tooltip-arrow-width;
+    transform: translateX(-50%) rotate(45deg);
   }
 
   &-placement-topLeft &-arrow {
@@ -14398,14 +14425,17 @@ form {
   &-placement-right &-arrow,
   &-placement-rightTop &-arrow,
   &-placement-rightBottom &-arrow {
-    left: @tooltip-distance - @tooltip-arrow-width;
-    border-width: @tooltip-arrow-width @tooltip-arrow-width @tooltip-arrow-width 0;
-    border-right-color: @tooltip-arrow-color;
+    left: @tooltip-distance - @tooltip-arrow-width + 2px;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    border-left-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    box-shadow: -3px 3px 7px fade(@black, 7%);
   }
 
   &-placement-right &-arrow {
     top: 50%;
-    margin-top: -@tooltip-arrow-width;
+    transform: translateY(-50%) rotate(45deg);
   }
 
   &-placement-rightTop &-arrow {
@@ -14419,14 +14449,17 @@ form {
   &-placement-left &-arrow,
   &-placement-leftTop &-arrow,
   &-placement-leftBottom &-arrow {
-    right: @tooltip-distance - @tooltip-arrow-width;
-    border-width: @tooltip-arrow-width 0 @tooltip-arrow-width @tooltip-arrow-width;
-    border-left-color: @tooltip-arrow-color;
+    right: @tooltip-distance - @tooltip-arrow-width + 2px;
+    border-top-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    border-right-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    box-shadow: 3px -3px 7px fade(@black, 7%);
   }
 
   &-placement-left &-arrow {
     top: 50%;
-    margin-top: -@tooltip-arrow-width;
+    transform: translateY(-50%) rotate(45deg);
   }
 
   &-placement-leftTop &-arrow {
@@ -14440,14 +14473,17 @@ form {
   &-placement-bottom &-arrow,
   &-placement-bottomLeft &-arrow,
   &-placement-bottomRight &-arrow {
-    top: @tooltip-distance - @tooltip-arrow-width;
-    border-width: 0 @tooltip-arrow-width @tooltip-arrow-width;
-    border-bottom-color: @tooltip-arrow-color;
+    top: @tooltip-distance - @tooltip-arrow-width + 2px;
+    border-top-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: tint(fadein(@tooltip-bg, 100%), 25%);
+    box-shadow: -2px -2px 5px fade(@black, 6%);
   }
 
   &-placement-bottom &-arrow {
     left: 50%;
-    margin-left: -@tooltip-arrow-width;
+    transform: translateX(-50%) rotate(45deg);
   }
 
   &-placement-bottomLeft &-arrow {
@@ -15134,11 +15170,11 @@ form {
     margin: 0 12px;
   }
 
-  .@{ant-prefix}-breadcrumb {
-    margin-bottom: 12px;
+  .@{ant-prefix}-breadcrumb + &-heading {
+    margin-top: 12px;
   }
 
-  &-title-view {
+  &-heading {
     display: inline-block;
     &-title {
       display: inline-block;
@@ -15175,7 +15211,7 @@ form {
     }
   }
 
-  &-content-view {
+  &-content {
     padding-top: 12px;
   }
 
@@ -16143,6 +16179,12 @@ form {
   &-circle&-status-success {
     .@{progress-prefix-cls}-text {
       color: @success-color;
+    }
+  }
+
+  &-circle-gradient {
+    .@{progress-prefix-cls}-circle-path {
+      stroke: url(#gradient);
     }
   }
 }
@@ -17861,6 +17903,19 @@ span.@{radio-prefix-cls} + * {
         background: @table-row-hover-bg;
       }
     }
+    &.@{table-prefix-cls}-row-selected > td {
+      &.@{table-prefix-cls}-column-sort {
+        background: @table-body-selected-sort-bg;
+      }
+    }
+    &:hover {
+      &.@{table-prefix-cls}-row-selected > td {
+        background: @table-selected-row-hover-bg;
+        &.@{table-prefix-cls}-column-sort {
+          background: @table-body-selected-sort-bg;
+        }
+      }
+    }
   }
 
   &-thead > tr:hover {
@@ -18441,9 +18496,9 @@ span.@{radio-prefix-cls} + * {
       > .@{table-prefix-cls}-thead > tr > th,
       > .@{table-prefix-cls}-tbody > tr > td {
         padding: @table-padding-vertical-sm @table-padding-horizontal-sm;
+        background-color: transparent;
       }
       > .@{table-prefix-cls}-thead > tr {
-        background-color: transparent;
         border-bottom: @border-width-base @border-style-base @border-color-split;
       }
       > .@{table-prefix-cls}-thead > tr > th.@{table-prefix-cls}-column-sort {
@@ -18689,6 +18744,12 @@ nz-table {
           background: @component-background;
         }
       }
+      > .@{table-prefix-cls}-tbody > tr > td {
+        &.@{table-td-left-cls}-sticky,
+        &.@{table-td-right-cls}-sticky {
+          background: @component-background;
+        }
+      }
 
       > .@{table-prefix-cls}-thead > tr > th,
       > .@{table-prefix-cls}-tbody > tr > td {
@@ -18700,6 +18761,18 @@ nz-table {
 
 // style dependencies
 // deps-lint-skip: menu
+
+a[nz-tab-link] {
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    content: '';
+  }
+}
 
 @timeline-prefix-cls: ~'@{ant-prefix}-timeline';
 @timeline-color: @border-color-split;
@@ -19904,6 +19977,8 @@ nz-table {
     // Keep it static for https://github.com/ant-design/ant-design/issues/16738
     position: static;
     width: 100%;
+    // https://github.com/ant-design/ant-design/issues/17582
+    padding-right: 24px;
     // Add important to fix https://github.com/ant-design/ant-design/issues/5078
     // because input.less will compile after cascader.less
     background-color: transparent !important;
@@ -19953,7 +20028,7 @@ nz-table {
       width: 100%;
       height: 20px;
       margin-top: -10px;
-      padding: 0 @control-padding-horizontal;
+      padding: 0 20px 0 @control-padding-horizontal;
       overflow: hidden;
       line-height: 20px;
       white-space: nowrap;
@@ -20104,7 +20179,7 @@ nz-table {
     }
 
     &-expand &-expand-icon,
-    &-expand &-loading-icon {
+    &-loading-icon {
       .iconfont-size-under-12px(10px);
 
       position: absolute;
@@ -21011,6 +21086,74 @@ nz-table {
 }
 
 // style dependencies
+
+@result-prefix-cls: ~'@{ant-prefix}-result';
+
+.@{result-prefix-cls} {
+  padding: 48px 32px;
+  background-color: @component-background;
+
+  // status color
+  &-success .anticon {
+    color: @success-color;
+  }
+
+  &-error .anticon {
+    color: @error-color;
+  }
+
+  &-info .anticon {
+    color: @info-color;
+  }
+
+  &-warning .anticon {
+    color: @warning-color;
+  }
+
+  // Exception Status image
+  &-image {
+    width: 250px;
+    height: 295px;
+    margin: auto;
+  }
+
+  &-icon {
+    margin-bottom: 24px;
+    text-align: center;
+
+    > .anticon {
+      font-size: 72px;
+    }
+  }
+
+  &-title {
+    color: @heading-color;
+    font-size: 24px;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  &-subtitle {
+    color: @text-color-secondary;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  &-extra {
+    margin-top: 32px;
+    text-align: center;
+    > * {
+      margin-right: 8px;
+    }
+  }
+
+  &-content {
+    margin-top: 24px;
+    padding: 24px 40px;
+    background-color: @background-color-light;
+  }
+}
 
 // FIXED-CHECK
 // fix: https://github.com/NG-ZORRO/ng-zorro-antd/issues/1360
@@ -22508,6 +22651,18 @@ code {
       padding: @layout-gutter;
     }
   }
+  // Title
+  .@{ant-prefix}-table-column-title {
+    display: flex;
+    align-items: center;
+  }
+  &__head {
+    &-optional,
+    &-tip {
+      margin-left: 2px;
+      color: @st-title-optional-color;
+    }
+  }
   // 修复自动定义图标无法高亮问题
   .@{ant-prefix}-table-thead > tr > th .@{ant-prefix}-table-filter-selected.@{ant-prefix}-table-filter-icon {
     color: @primary-color;
@@ -22560,6 +22715,8 @@ code {
   }
   &__title {
     display: block;
+    float: none;
+    clear: both;
     margin-bottom: @sv-bottom;
     color: @heading-color;
     font-weight: 500;
@@ -22579,6 +22736,9 @@ code {
         margin: 0 8px 0 2px;
         content: ':';
       }
+    }
+    &-text {
+      margin-right: 2px;
     }
     &-optional {
       color: @sv-label-optional-color;
@@ -22640,6 +22800,16 @@ code {
       font-size: 16px;
     }
   }
+  &__horizontal {
+    @{sv-prefix}__label-width {
+      display: flex;
+      justify-content: flex-end;
+      @{sv-prefix}__label-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
   &__vertical {
     @{sv-prefix}__label {
       padding-bottom: 8px;
@@ -22655,8 +22825,10 @@ code {
 @{se-prefix} {
   &__title {
     display: block;
+    float: none;
+    clear: both;
     color: @heading-color;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 14px;
     line-height: @form-component-max-height - 0.0001px;
   }
@@ -22720,6 +22892,22 @@ code {
       &:last-child {
         margin-bottom: 0;
       }
+      @{se-prefix}__label {
+        display: flex;
+        justify-content: flex-end;
+        &-text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .@{ant-prefix}-form-item {
+        &-required::before {
+          line-height: inherit;
+        }
+        &-label > label::after {
+          margin-left: 4px;
+        }
+      }
     }
   }
   &__vertical {
@@ -22728,7 +22916,7 @@ code {
     }
   }
   &__inline {
-    @{se-prefix}__label,
+    .@{ant-prefix}-form-item-label,
     @{se-prefix}__control {
       flex: none;
       width: initial !important;
@@ -23306,32 +23494,49 @@ ellipsis {
 
 @{reuse-tab-prefix} {
   display: block;
-  padding: @reuse-tab-padding;
   background-color: @reuse-tab-bg;
-  border-bottom: 1px solid @reuse-tab-border-color;
   outline: none;
   user-select: none;
-  .@{ant-prefix}-tabs-bar {
-    margin-bottom: 0;
-    border-bottom: none;
+  &__line {
+    padding: @reuse-tab-padding;
+    border-bottom: 1px solid @reuse-tab-border-color;
+    .@{ant-prefix}-tabs {
+      &-bar {
+        margin-bottom: 0;
+        border-bottom: none;
+      }
+      &-nav .@{ant-prefix}-tabs-tab {
+        padding: 0;
+        @{reuse-tab-prefix}__op {
+          position: absolute;
+          top: 12px;
+          right: 2px;
+          display: none;
+          margin: 0;
+          font-size: 10px;
+        }
+        &:hover {
+          @{reuse-tab-prefix}__op {
+            display: block;
+          }
+        }
+        @{reuse-tab-prefix}__name {
+          display: inline-block;
+          padding: 8px 20px;
+        }
+      }
+    }
   }
-  .@{ant-prefix}-tabs-nav .@{ant-prefix}-tabs-tab {
-    padding: 0;
-    @{reuse-tab-prefix}__name {
-      display: inline-block;
-      padding: 8px 20px;
+  &__card {
+    padding-top: @reuse-tab-padding;
+    .@{ant-prefix}-tabs-nav-container {
+      padding: 0 8px;
     }
-    @{reuse-tab-prefix}__op {
-      position: absolute;
-      top: 14px;
-      right: 2px;
-      display: none;
-      margin: 0;
-      font-size: 10px;
-    }
-    &:hover {
+    .@{ant-prefix}-tabs-nav .@{ant-prefix}-tabs-tab {
       @{reuse-tab-prefix}__op {
-        display: block;
+        margin-right: 0;
+        margin-left: 4px;
+        color: rgba(0, 0, 0, 0.45);
       }
     }
   }

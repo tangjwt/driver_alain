@@ -1,7 +1,7 @@
 <page-header [breadcrumb]="breadcrumb" title="">
   <ng-template #breadcrumb>
     <nz-breadcrumb>
-      <nz-breadcrumb-item><a href="#/">home</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a href="#/">首页</a></nz-breadcrumb-item>
       <nz-breadcrumb-item>服务</nz-breadcrumb-item>
       <nz-breadcrumb-item><a href="#/generate">Debug</a></nz-breadcrumb-item>
     </nz-breadcrumb>
@@ -80,7 +80,7 @@
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">关联服务</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
-        <nz-tree-select nzShowSearch [nzNodes]="node" [nzDropdownStyle]="{ 'max-height': '300px' }"
+        <nz-tree-select nzShowSearch [nzNodes]="node" [nzHideUnMatched]="'true'" [nzDropdownStyle]="{ 'max-height': '300px' }"
           [nzDefaultExpandAll]="'true'" formControlName="service" nzPlaceHolder="Please select"
           (nzTreeClick)="updateProject($event)" (ngModelChange)="serviceFG.get('subName').setValue($event)">
         </nz-tree-select>

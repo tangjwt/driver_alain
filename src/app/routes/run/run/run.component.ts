@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ProjectManageService } from '../../../services/project-manage.service';
@@ -17,11 +18,18 @@ import { Router } from '@angular/router';
 import { TreeviewItem } from 'ngx-treeview';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { PriorityOptions} from '../../../services/convert';
+import {
+  NzTreeComponent,
+  NzTreeNodeOptions,
+  NzTreeNode
+} from 'ng-zorro-antd';
+
 @Component({
   selector: 'sn-run',
   templateUrl: './run.component.html',
 })
-export class RunComponent implements OnInit {
+export class RunComponent implements OnInit { 
+  @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent: NzTreeComponent;
   @Input() set runEntityValue(value: any) {
     if (value) {
       this.runEntity.setValue(value);
@@ -79,6 +87,7 @@ export class RunComponent implements OnInit {
     remoteParameter: [''],
   });
   items: TreeviewItem[];
+  nodes: NzTreeNodeOptions[];
   serviceItems: TreeviewItem[] = [];
   checkOptions = PriorityOptions;
   forceUpdate = false;
@@ -238,10 +247,11 @@ export class RunComponent implements OnInit {
       this.filepathService
         .getFilePath(this.runEntity.get('project').value, this.forceUpdate)
         .subscribe(data => {
-          this.items = this.filepathService.arrayToTreeviewItem(
-            data.resultList,
-            Utils.toArray(this.runEntity.get('filePath').value),
-          );
+          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          // this.items = this.filepathService.arrayToTreeviewItem(
+          //   data.resultList,
+          //   Utils.toArray(this.runEntity.get('filePath').value),
+          // );
         });
     } else if (!this.runEntity.get('fuwu').value) {
       this.filepathService
@@ -251,10 +261,11 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.items = this.filepathService.arrayToTreeviewItem(
-            data.resultList,
-            Utils.toArray(this.runEntity.get('filePath').value),
-          );
+          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          // this.items = this.filepathService.arrayToTreeviewItem(
+          //   data.resultList,
+          //   Utils.toArray(this.runEntity.get('filePath').value),
+          // );
         });
     } else {
       this.filepathService
@@ -265,11 +276,33 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.items = this.filepathService.arrayToTreeviewItem(
-            data.resultList,
-            Utils.toArray(this.runEntity.get('filePath').value),
-          );
+          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          console.log(this.nodes);
+          
+          // this.items = this.filepathService.arrayToTreeviewItem(
+          //   data.resultList,
+          //   Utils.toArray(this.runEntity.get('filePath').value),
+          // );
         });
     }
   }
+
+  updateCheckedValue(event){
+   let nodes= this.nzTreeComponent.getCheckedNodeList();
+   this.runEntity.get('filePath').setValue(this.getSelectedLeafNodes(nodes));
+   
+  }
+
+  private getSelectedLeafNodes(nodes: NzTreeNode[]):string{
+    let selected="";
+    nodes.forEach(node => {
+      if(node.isLeaf){
+        selected+=node.key+",";
+      }else{
+        selected+=this.getSelectedLeafNodes(node.children);
+      }
+    });
+    return selected;
+  }
+
 }

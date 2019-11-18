@@ -46,7 +46,7 @@ import { PageHeaderConfig } from '@delon/abc';
 export function fnPageHeaderConfig(): PageHeaderConfig {
   return {
     ...new PageHeaderConfig(),
-    ...{ homeI18n: 'home', autoTitle: false } as PageHeaderConfig
+    ...{ homeI18n: '首页', autoTitle: false } as PageHeaderConfig
   };
 }
 

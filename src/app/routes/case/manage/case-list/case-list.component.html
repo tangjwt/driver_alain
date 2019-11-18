@@ -1,0 +1,16 @@
+<nz-tree
+      [nzData]="nodes"
+      nzCheckable
+      nzMultiple
+      (nzClick)="activeNode($event)"
+      (nzDblClick)="openFolder($event)"
+      [nzTreeTemplate]="nzTreeTemplate"
+    ></nz-tree>
+    <ng-template #nzTreeTemplate let-node>
+      <span class="custom-node" [class.active]="activedNode?.key === node.key">
+          <span class="folder-name">{{ node.title }}</span>
+      </span> <nz-badge
+      [nzCount]="104"
+      [nzStyle]="{ backgroundColor: '#52c41a' }"
+    ></nz-badge>
+    </ng-template>

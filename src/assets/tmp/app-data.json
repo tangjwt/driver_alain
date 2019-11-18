@@ -41,6 +41,10 @@
             {
               "text": "Debug",
               "link": "/case/debug"
+            },
+            {
+              "text": "管理",
+              "link": "/case/list"
             }
           ]
         },
