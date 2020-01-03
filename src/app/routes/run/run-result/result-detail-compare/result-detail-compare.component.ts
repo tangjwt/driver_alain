@@ -16,11 +16,11 @@ export class ResultDetailCompareComponent implements OnInit {
   ngOnInit() {
     let params = this.route.snapshot.params;
     this.resultService.getRunResultDetail(params.originId).subscribe(data=>{
-      this.detail1 = data.resultList[0];
+      this.detail1 = data.data;
     });
     
     this.resultService.getRunResultDetail(params.destId).subscribe(data=>{
-      this.detail2 = data.resultList[0];
+      this.detail2 = data.data;
     }); 
   }
 

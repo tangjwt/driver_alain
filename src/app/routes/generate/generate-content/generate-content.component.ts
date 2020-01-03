@@ -83,7 +83,7 @@ export class GenerateContentComponent implements OnInit {
         },
       };
       const options = [];
-      this.envUrls = result.resultList.filter(data => {
+      this.envUrls = result.data.filter(data => {
         if (data.serviceName === this._serviceName) {
           this.envs.push(data.envName);
           options.push({ label: data.envName, value: data.envName });
@@ -155,10 +155,10 @@ export class GenerateContentComponent implements OnInit {
     const required = [];
     const defaultRequired = [];
     this.auto.getFieldsByService(serviceName).subscribe(data => {
-      if (!data.resultList) {
+      if (!data.data) {
         return;
       }
-      data.resultList.forEach(field => {
+      data.data.forEach(field => {
         if (field.value) {
           this.showDefault = true;
           // defaultFieldS.properties[field.name] = { type: 'string' };

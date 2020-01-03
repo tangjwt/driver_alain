@@ -8,7 +8,7 @@ import { STColumn } from '@delon/abc';
   selector: 'sn-result-list',
   templateUrl: './result-list.component.html'
 })
-export class ResultListComponent implements OnInit {
+export class dataComponent implements OnInit {
 
   itemsPerPage = 15;
   page: STPage = {
@@ -79,8 +79,8 @@ export class ResultListComponent implements OnInit {
       // this.columns[1].title = 'orginId';
       // this.columns[2].title = 'destId';
       // this.columns[2].hide = false;
-      this.runResultService.getCompareRunResultList(this.originId, this.destId, this.originStatus, this.destStatus, 1, this.itemsPerPage).subscribe(data => {
-        this.results = data.resultList;
+      this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, 1, this.itemsPerPage).subscribe(data => {
+        this.results = data.data;
         this.totalRecords = data.count;
         this.finished = true;
       });
@@ -90,8 +90,8 @@ export class ResultListComponent implements OnInit {
       // this.columns[2].hide = true;
       this.status = this.route.snapshot.params.status;
       this.serviceName = this.route.snapshot.params.serviceName;
-      this.runResultService.getRunResultList(this.id, this.status,this.serviceName, 1, this.itemsPerPage).subscribe(data => {
-        this.results = data.resultList;
+      this.runResultService.getRundata(this.id, this.status,this.serviceName, 1, this.itemsPerPage).subscribe(data => {
+        this.results = data.data;
         this.totalRecords = data.count;
         this.finished = true;
         console.log(data);
@@ -102,13 +102,13 @@ export class ResultListComponent implements OnInit {
 
   public onChangeTable(event: any) {
     if (this.originId && this.destId) {
-      this.runResultService.getCompareRunResultList(this.originId, this.destId, this.originStatus, this.destStatus, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
-        this.results = data.resultList;
+      this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
+        this.results = data.data;
         this.totalRecords = data.count;
       });
     } else {
-      this.runResultService.getRunResultList(this.id, this.status,this.serviceName, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
-        this.results = data.resultList;
+      this.runResultService.getRundata(this.id, this.status,this.serviceName, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
+        this.results = data.data;
         this.totalRecords = data.count;
       });
     }

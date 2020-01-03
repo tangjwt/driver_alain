@@ -75,7 +75,7 @@ export class ScriptComponent implements OnInit {
 
   ngOnInit() {
     this.scriptService.getScriptList().subscribe(data => {
-      this.scriptList = data.resultList ? data.resultList : [];
+      this.scriptList = data.data ? data.data : [];
     });
   }
 
@@ -103,7 +103,7 @@ export class ScriptComponent implements OnInit {
       } else {
         this.isOkLoading = false;
         this.isVisible = true;
-        this.message.error(data.errorMessage, {
+        this.message.error(data.message, {
           nzDuration: 5000
         });
       }
@@ -113,13 +113,13 @@ export class ScriptComponent implements OnInit {
 
   getScript(id: string){
     this.scriptService.getScriptById(id).subscribe(data => {
-      if( data.resultList.length > 0) {
+      if( data.data.length > 0) {
         this.scriptFG.setValue({
-          id: data.resultList[0].id,
-          name: data.resultList[0].name,
-          type: data.resultList[0].type,
-          content: data.resultList[0]. content,
-          description: data.resultList[0].description ? data.resultList[0].description : ''
+          id: data.data[0].id,
+          name: data.data[0].name,
+          type: data.data[0].type,
+          content: data.data[0]. content,
+          description: data.data[0].description ? data.data[0].description : ''
         });
 
         this.isVisible = true;

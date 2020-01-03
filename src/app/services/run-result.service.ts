@@ -1,82 +1,125 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BasicResult } from '../common/basic-result';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Result } from '../common/result';
 import { Observable } from 'rxjs';
+import { httpOptions } from './http-option';
 
-@Injectable() 
+@Injectable()
 export class RunResultService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
-
-
-  deleteByRunsetId(id: string): Observable<BasicResult> {
-    return this.httpClient.delete<BasicResult>('/runResult/' + id);
+  deleteByRunsetId(id: string): Observable<Result> {
+    return this.httpClient.delete<Result>('/runResult/' + id);
   }
 
-  getRunsetById(id: string): Observable<BasicResult> {
-    return this.httpClient.get<BasicResult>('/runResult/' + id);
+  getRunsetById(id: string): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/' + id);
   }
 
-
-  getRunResultDetail(id: string): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult/cases/'+id);
+  getRunResultDetail(id: string): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/cases/' + id);
   }
 
-  getSubRunResultList(id: string): Observable<BasicResult> {
-    let url = '/runResult/cases/'+id+'/subcases';
-    return this.httpClient
-      .get<BasicResult>(url);
+  getSubRundata(id: string): Observable<Result> {
+    const url = '/runResult/cases/' + id + '/subcases';
+    return this.httpClient.get<Result>(url);
   }
 
-  getRunResultList(id: string,status:string,serviceName:string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
-    let url = '/runResult/'+id+'/cases;pageNum='+pageNum+';pageSize='+pageSize;
-    if(status){
-      url = url+';status='+status;
+  getRundata(
+    id: string,
+    status: string,
+    serviceName: string,
+    pageNum: number = 1,
+    pageSize: number = 0,
+  ): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString()),
+    };
+    if (status) {
+      httpOption.params = httpOption.params.set('status', status);
     }
-    if(serviceName){
-      url = url+';serviceName='+serviceName;
+    const url = '/runResult/' + id + '/cases';
+    if (serviceName) {
+      httpOption.params = httpOption.params.append('serviceName', serviceName);
     }
-    return this.httpClient
-      .get<BasicResult>(url);
+    console.log(httpOption);
+    return this.httpClient.get<Result>(url, httpOption);
   }
 
-
-  getCompareRunResultList(id: string,compareId:string,originStatus:string,destinationStatus:string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult>{
-    let url = '/runResult/comparedetail/'+id+'/'+compareId+';originStatus='+originStatus+';destinationStatus='+destinationStatus+';pageNum='+pageNum+';pageSize='+pageSize;
-    return this.httpClient
-      .get<BasicResult>(url);
+  getCompareRundata(
+    id: string,
+    compareId: string,
+    originStatus: string,
+    destinationStatus: string,
+    pageNum: number = 1,
+    pageSize: number = 0,
+  ): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString())
+        .set('originStatus', originStatus)
+        .set('destinationStatus', destinationStatus),
+    };
+    const url = '/runResult/comparedetail/' + id + '/' + compareId;
+    return this.httpClient.get<Result>(url, httpOption);
   }
 
-
-  getCompareRunResultStatistic(originId: string,destId:string ): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult/compare/'+originId+'/'+destId);
+  getCompareRunResultStatistic(
+    originId: string,
+    destId: string,
+  ): Observable<Result> {
+    return this.httpClient.get<Result>(
+      '/runResult/compare/' + originId + '/' + destId,
+    );
   }
 
-  hasSubRunSetList(id: string): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult/hasSubRunset/'+id);
+  hasSubRunSetList(id: string): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/hasSubRunset/' + id);
   }
 
-  getSubRunSetList(id: string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult/subRunset/'+id+';pageNum='+pageNum+';pageSize='+pageSize);
+  getSubRunSetList(
+    id: string,
+    pageNum: number = 1,
+    pageSize: number = 0,
+  ): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString()),
+    };
+    return this.httpClient.get<Result>(
+      '/runResult/subRunset/' + id,
+      httpOption,
+    );
   }
 
-  getRunSetList(pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult;pageNum='+pageNum+';pageSize='+pageSize);
+  getRunSetList(pageNum: number = 1, pageSize: number = 0): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString()),
+    };
+    return this.httpClient.get<Result>('/runResult', httpOption);
   }
 
-  getRunSetListByTask(taskid: string,pageNum: number = 1, pageSize: number = 0): Observable<BasicResult> {
-    let url = `/runResult/task/${taskid};pageNum=${pageNum};pageSize=${pageSize}`;
-    return this.httpClient
-      .get<BasicResult>(url);
+  getRunSetListByTask(
+    taskid: string,
+    pageNum: number = 1,
+    pageSize: number = 0,
+  ): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString()),
+    };
+    const url = `/runResult/task/${taskid}`;
+    return this.httpClient.get<Result>(url, httpOption);
   }
 
-  getRunResultStatistic(id: string ): Observable<BasicResult> {
-    return this.httpClient
-      .get<BasicResult>('/runResult/'+id+'/statistic');
+  getRunResultStatistic(id: string): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/' + id + '/statistic');
   }
 }

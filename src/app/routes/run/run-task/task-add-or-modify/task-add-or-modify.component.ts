@@ -66,8 +66,8 @@ export class TaskAddOrModifyComponent implements OnInit {
         this.isTaskAdd = false;
         let id = params.get('id');
         this.taskService.getTaskById(id).subscribe(data => {
-          if (data.resultList.length > 0) {
-            this.task = data.resultList[0];
+          if (data.data.length > 0) {
+            this.task = data.data[0];
             this.detail = this.task.detail;
             if (this.task.sendEmail === 'BY_PRIORITY' && this.task.threshold) {
               this.task.threshold.split(';').forEach(element => {
@@ -126,7 +126,7 @@ export class TaskAddOrModifyComponent implements OnInit {
         }
         this.router.navigate(['/run/task']);
       } else {
-        this.message.warning(data.errorMessage);
+        this.message.warning(data.message);
       }
     });
   }

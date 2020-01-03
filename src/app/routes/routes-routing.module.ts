@@ -41,6 +41,10 @@ const routes: Routes = [
       loadChildren: 'app/routes/dashboard/dashboard.module#DashboardModule'
     },
     {
+      path: 'swagger',
+      loadChildren: 'app/routes/swagger/swagger.module#SwaggerModule'
+    },
+    {
       path: '',
       redirectTo: 'dashboard', pathMatch: 'full'
     }

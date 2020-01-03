@@ -78,7 +78,7 @@ export class RunSetStatisticCompareComponent implements OnInit {
     this.resultService.getCompareRunResultStatistic(this.originId,this.destId).subscribe(data =>{
       let tmp:Array<any> = [];
       for(let sta of this.status){
-        const result = data.resultList.filter(row =>{
+        const result = data.data.filter(row =>{
           return row.field == sta;
         });
         this.basic.field = sta;

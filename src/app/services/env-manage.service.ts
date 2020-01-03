@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BasicResult } from '../common/basic-result';
+import { Result } from '../common/result';
 import { httpOptions } from './http-option';
 
 @Injectable()
@@ -9,27 +9,27 @@ export class EnvManageService {
 
   constructor(private http:HttpClient) { }
 
-  getEnvList():Observable<BasicResult>{
-    return this.http.get<BasicResult>("/env");
+  getEnvList():Observable<Result>{
+    return this.http.get<Result>("/env");
   }
 
-  getEnvById(id:string):Observable<BasicResult>{
-    return this.http.get<BasicResult>(`/env/${id}`);
+  getEnvById(id:string):Observable<Result>{
+    return this.http.get<Result>(`/env/${id}`);
   }
 
-  addOrModifyEnv(env:any):Observable<BasicResult>{
-    return this.http.post<BasicResult>("/env",env,httpOptions)
+  addOrModifyEnv(env:any):Observable<Result>{
+    return this.http.post<Result>("/env",env,httpOptions)
   }
 
-  getEnvListByProject(project:string):Observable<BasicResult>{
-    return this.http.get<BasicResult>("/env/list/"+project);
+  getEnvListByProject(project:string):Observable<Result>{
+    return this.http.get<Result>("/env/list/"+project);
   }
 
-  getDataSourceList(project:string):Observable<BasicResult>{
-    return this.http.get<BasicResult>("/datasource/"+project);
+  getDataSourceList(project:string):Observable<Result>{
+    return this.http.get<Result>("/datasource/"+project);
   }
 
-  deleteById(id:string):Observable<BasicResult>{
-    return this.http.delete<BasicResult>(`/env/${id}`);
+  deleteById(id:string):Observable<Result>{
+    return this.http.delete<Result>(`/env/${id}`);
   }
 }

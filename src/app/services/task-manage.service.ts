@@ -1,42 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BasicResult } from '../common/basic-result';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Result } from '../common/result';
 import { httpOptions } from './http-option';
 
 @Injectable()
 export class TaskManageService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
-
-  getTaskList(pageNum: number = 1, pageSize: number = 0, taskName: string = "") {
+  getTaskList(
+    pageNum: number = 1,
+    pageSize: number = 0,
+    taskName: string = '',
+  ) {
+    const httpOption = {
+      params: new HttpParams()
+        .set('pageNum', pageNum.toString())
+        .set('pageSize', pageSize.toString()),
+    };
     if (taskName) {
-      return this.httpClient.get<BasicResult>(`/task;pageNum=${pageNum};pageSize=${pageSize};taskName=${taskName}`);
-    } else {
-      return this.httpClient.get<BasicResult>("/task;pageNum=" + pageNum + ";pageSize=" + pageSize);
+      httpOption.params = httpOption.params.set('taskName', taskName);
     }
+
+    return this.httpClient.get<Result>('/task', httpOption);
   }
 
   getTaskById(id: string) {
-    return this.httpClient.get<BasicResult>(`/task/${id}`);
+    return this.httpClient.get<Result>(`/task/${id}`);
   }
 
   add(task: any) {
-    return this.httpClient.post<BasicResult>('/task', task, httpOptions);
+    return this.httpClient.post<Result>('/task', task, httpOptions);
   }
 
   pause(id: string) {
-    return this.httpClient.get<BasicResult>(`/task/${id}/pause`);
+    return this.httpClient.get<Result>(`/task/${id}/pause`);
   }
 
   resume(id: string) {
-    return this.httpClient.get<BasicResult>(`/task/${id}/resume`);
+    return this.httpClient.get<Result>(`/task/${id}/resume`);
   }
 
   delete(id: string) {
-    return this.httpClient.delete<BasicResult>(`/task/${id}`);
+    return this.httpClient.delete<Result>(`/task/${id}`);
   }
 
   runOnce(id: string) {
-    return this.httpClient.get<BasicResult>(`/task/${id}/runOnce`);
+    return this.httpClient.get<Result>(`/task/${id}/runOnce`);
   }
 }

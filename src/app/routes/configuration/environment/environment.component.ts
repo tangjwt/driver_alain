@@ -79,7 +79,7 @@ export class EnvironmentComponent implements OnInit {
 
   ngOnInit() {
     this.environmentService.getEnvList().subscribe(data => {
-      this.envs = data.resultList ? data.resultList : [];
+      this.envs = data.data ? data.data : [];
     });
   }
 
@@ -109,7 +109,7 @@ export class EnvironmentComponent implements OnInit {
       } else {
         this.isOkLoading = false;
         this.isVisible = true;
-        this.message.error(data.errorMessage, {
+        this.message.error(data.message, {
           nzDuration: 5000
         });
       }
@@ -119,12 +119,12 @@ export class EnvironmentComponent implements OnInit {
   getEnv(id: string) {
     this.getProjectList();
     this.environmentService.getEnvById(id).subscribe(data => {
-      if (data.resultList.length > 0) {
+      if (data.data.length > 0) {
         this.envFG.setValue({
-          id: data.resultList[0].id,
-          name: data.resultList[0].name,
-          projectId: data.resultList[0].projectId,
-          description: data.resultList[0].description ? data.resultList[0].description : ''
+          id: data.data[0].id,
+          name: data.data[0].name,
+          projectId: data.data[0].projectId,
+          description: data.data[0].description ? data.data[0].description : ''
         });
         this.isVisible = true;
       }
@@ -134,7 +134,7 @@ export class EnvironmentComponent implements OnInit {
 
   getProjectList(){
     this.projectService.getProjectList().subscribe(data =>{
-      this.projects = data.resultList;
+      this.projects = data.data;
     });
   }
 

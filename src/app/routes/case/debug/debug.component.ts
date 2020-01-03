@@ -26,8 +26,8 @@ export class DebugComponent implements OnInit {
   @Input() set id(id: string) {
     if (id) {
       this.runResultService.getRunResultDetail(id).subscribe(data => {
-        if (data.resultList.length > 0) {
-          this.runResult = data.resultList[0];
+        if (data.data) {
+          this.runResult = data.data;
           this.project = this.runResult.projectName;
           this.updateEnv(this.project);
           this.env = this.runResult.runEnv;
@@ -82,14 +82,14 @@ export class DebugComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.getProjectList().subscribe(data => {
-      this.projects = data.resultList;
+      this.projects = data.data;
     });
     // this.route.paramMap.subscribe(params => {
     //   if (params.has('id')) {
     //     const id = params.get('id');
     //     this.runResultService.getRunResultDetail(id).subscribe(data => {
-    //       if (data.resultList.length > 0) {
-    //         this.runResult = data.resultList[0];
+    //       if (data.data.length > 0) {
+    //         this.runResult = data.data[0];
     //         this.project = this.runResult.projectName;
     //         this.updateEnv(this.project);
     //         this.env = this.runResult.runEnv;
@@ -109,10 +109,10 @@ export class DebugComponent implements OnInit {
 
   updateEnv(event: any) {
     this.envService.getEnvListByProject(event).subscribe(data => {
-      this.envs = data.resultList;
+      this.envs = data.data;
     });
     this.envService.getDataSourceList(event).subscribe(data => {
-      this.dataSources = data.resultList;
+      this.dataSources = data.data;
     });
   }
 
@@ -120,7 +120,7 @@ export class DebugComponent implements OnInit {
     this.envUrlService
       .getEnvUrlListByProjectAndEnv(this.project, event)
       .subscribe(data => {
-        this.sers = data.resultList;
+        this.sers = data.data;
         this.updateUrl(this.service);
       });
   }
@@ -143,7 +143,7 @@ export class DebugComponent implements OnInit {
     this.autocompleteService.getFieldsByService(serviceName).subscribe(data => {
       this.fields = [];
       this._fields = [];
-      data.resultList.forEach(field => {
+      data.data.forEach(field => {
         const label = field.name ? field.name : field.fieldName;
         let value = '__' + label + '__ = "';
         if (field.value) {
@@ -182,8 +182,8 @@ export class DebugComponent implements OnInit {
       .debug(this.project, this.env, this.service, requestParams)
       .subscribe(
         data => {
-          if (data.resultList.length > 0) {
-            this.runResult = data.resultList[0];
+          if (data.data.length > 0) {
+            this.runResult = data.data[0];
             if (this.runResult.subCases) {
               this.subCase = Object.values(this.runResult.subCases);
             }

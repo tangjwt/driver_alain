@@ -1,7 +1,8 @@
 export class Utils {
-
-    public static toArray(str:string,split:string=','):Array<any>{
-        return str.split(split).map((value) => value.trim()).filter(value => value)
-    }
-   
+  public static toArray(str: string, split: string = ','): Array<any> {
+    return str
+      .split(split)
+      .map(value => value.trim())
+      .filter(value => value);
+  }
 }

@@ -76,7 +76,7 @@ export class ServiceComponent implements OnInit {
 
   ngOnInit() {
     this.serviceManage.getServiceList().subscribe(data => {
-      this.serviceList = data.resultList ? data.resultList : [];
+      this.serviceList = data.data ? data.data : [];
     });
   }
 
@@ -105,7 +105,7 @@ export class ServiceComponent implements OnInit {
       } else {
         this.isOkLoading = false;
         this.isVisible = true;
-        this.message.error(data.errorMessage, {
+        this.message.error(data.message, {
           nzDuration: 5000
         });
       }
@@ -115,13 +115,13 @@ export class ServiceComponent implements OnInit {
     this.getProjectList();
     this.serviceFG.reset();
     this.serviceManage.getServiceById(id).subscribe(data => {
-      if (data.resultList.length > 0) {
+      if (data.data.length > 0) {
         this.serviceFG.setValue({
-          id: data.resultList[0].id,
-          name: data.resultList[0].name,
-          projectId: data.resultList[0].projectId,
-          configFile: data.resultList[0].configFile,
-          description: data.resultList[0].description ? data.resultList[0].description : ''
+          id: data.data[0].id,
+          name: data.data[0].name,
+          projectId: data.data[0].projectId,
+          configFile: data.data[0].configFile,
+          description: data.data[0].description ? data.data[0].description : ''
         });
         this.isVisible = true;
       }
@@ -131,7 +131,7 @@ export class ServiceComponent implements OnInit {
 
   getProjectList() {
     this.projectService.getProjectList().subscribe(data =>{
-      this.projects = data.resultList;
+      this.projects = data.data;
     });
   }
 

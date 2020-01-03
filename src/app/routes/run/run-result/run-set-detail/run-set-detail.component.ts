@@ -20,8 +20,8 @@ export class RunSetDetailComponent implements OnInit {
   ngOnInit() {
 
     this.runResultService.getRunsetById(this.id).subscribe(data => {
-      if (data.resultList.length > 0) {
-        this.detail = data.resultList[0];
+      if (data.data.length > 0) {
+        this.detail = data.data[0];
         if(this.detail.launchParam){
           this.detail.launchParam = JSON.parse(this.detail.launchParam);
           if(this.detail.launchParam.remoteParameter){
@@ -29,7 +29,7 @@ export class RunSetDetailComponent implements OnInit {
             this.detail.launchParam.remove('remoteParameter')
           }
         }
-        // this.detail = JSON.stringify(data.resultList[0], null, "   ");
+        // this.detail = JSON.stringify(data.data[0], null, "   ");
       }
     });
   }

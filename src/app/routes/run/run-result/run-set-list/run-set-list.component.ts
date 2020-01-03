@@ -129,7 +129,7 @@ export class RunSetListComponent implements OnInit {
       if (params.has('id')) {
         this.id = params.get('id');
         this.runResultService.getSubRunSetList(this.id, 1, this.itemsPerPage).subscribe(data => {
-          this.results = data.resultList;
+          this.results = data.data;
           this.totalRecords = data.count;
         });
       } else if (params.has('taskId')) {
@@ -138,7 +138,7 @@ export class RunSetListComponent implements OnInit {
           this.columns.splice(8, 0, {title: 'pass', index: 'isPass'});
         }
         this.runResultService.getRunSetListByTask(this.taskId, 1, this.itemsPerPage).subscribe(data => {
-          this.results = data.resultList;
+          this.results = data.data;
           this.totalRecords = data.count;
         });
       } else {
@@ -146,7 +146,7 @@ export class RunSetListComponent implements OnInit {
         //   this.columns.splice(8, 1);
         // }
         this.runResultService.getRunSetList(1, this.itemsPerPage).subscribe(data => {
-          this.results = data.resultList;
+          this.results = data.data;
           this.totalRecords = data.count;
           this.id = null;
         });
@@ -229,18 +229,18 @@ export class RunSetListComponent implements OnInit {
   pageChange(event: any){
     if (this.id) {
       this.runResultService.getSubRunSetList(this.id, event.pi, event.ps).subscribe(data => {
-        this.results = data.resultList;
+        this.results = data.data;
         this.totalRecords = data.count;
       });
     } else if (this.taskId) {
       this.runResultService.getRunSetListByTask(this.taskId, event.pi, event.ps).subscribe(data => {
-        this.results = data.resultList;
+        this.results = data.data;
         this.totalRecords = data.count;
 
       });
     } else {
       this.runResultService.getRunSetList(event.pi, event.ps).subscribe(data => {
-        this.results = data.resultList;
+        this.results = data.data;
         this.totalRecords = data.count;
       });
     }

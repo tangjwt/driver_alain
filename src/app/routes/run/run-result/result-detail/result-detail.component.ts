@@ -99,15 +99,15 @@ export class ResultDetailComponent implements OnInit {
     caseDetail: true,
     requestHeader: true,
     responseHeader: true,
-    errorMessage: true,
+    message: true,
   };
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       if (params.has('id') && !this.debugView) {
         const id = params.get('id');
         this.runResultService.getRunResultDetail(id).subscribe(data => {
-          if (data.resultList.length > 0) {
-            this.details = data.resultList[0];
+          if (data.data) {
+            this.details = data.data;
             if (this.details.errorLine) {
               const str: string[] = this.details.errorLine.split(';');
               this.errorLine = str[0];
@@ -138,20 +138,20 @@ export class ResultDetailComponent implements OnInit {
             // }
           }
         });
-        this.runResultService.getSubRunResultList(id).subscribe(data => {
-          this.subCase = data.resultList;
+        this.runResultService.getSubRundata(id).subscribe(data => {
+          this.subCase = data.data;
         });
       }
     });
     // snapshot 只适用于页面不会更新的情况，如果有：A页面，存在链接，再跳转到A页面这种情况， 会导致页面不刷新
     // let id = this.route.snapshot.params.id;
     // this.runResultService.getRunResultDetail(id).subscribe(data => {
-    //   if(data.resultList.length >0){
-    //     this.details = data.resultList[0];
+    //   if(data.data.length >0){
+    //     this.details = data.data[0];
     //   }
     // });
-    // this.runResultService.getSubRunResultList(id).subscribe(data => {
-    //   this.sutCase = data.resultList;
+    // this.runResultService.getSubRundata(id).subscribe(data => {
+    //   this.sutCase = data.data;
     // }
     // );
   }

@@ -55,7 +55,7 @@ export class RunSetStatisticComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       let id = params.get('id');
       this.runResultService.getRunResultStatistic(id).subscribe(data => {
-        this.results = data.resultList;
+        this.results = data.data;
       });
     }
     );

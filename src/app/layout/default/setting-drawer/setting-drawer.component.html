@@ -3,8 +3,7 @@
     <div class="setting-drawer__body setting-drawer__theme">
       <h3 class="setting-drawer__title">主题色</h3>
       <span *ngFor="let c of colors" nz-tooltip [ngStyle]="{ 'background-color': c.color }" (click)="changeColor(c.color)"
-            nz-tooltip [nzTitle]="c.key" class="setting-drawer__theme-tag"><i *ngIf="color === c.color"
-           class="anticon anticon-check"></i></span>
+            nz-tooltip [nzTitle]="c.key" class="setting-drawer__theme-tag"><i nz-icon nzType="check" *ngIf="color === c.color"></i></span>
     </div>
     <nz-divider></nz-divider>
     <div class="setting-drawer__body">
@@ -58,5 +57,5 @@
   </div>
 </nz-drawer>
 <div class="setting-drawer__handle" [ngClass]="{'setting-drawer__handle-opened': collapse}" (click)="toggle()">
-  <i nz-icon [type]="!collapse ? 'setting' : 'close'" class="setting-drawer__handle-icon"></i>
+  <i nz-icon [nzType]="!collapse ? 'setting' : 'close'" class="setting-drawer__handle-icon"></i>
 </div>

@@ -12,7 +12,7 @@
       <ng-template #titleTemplate>
         <div>
           {{ tab }}
-          <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
+          <i nz-icon nzType="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
         </div>
       </ng-template>
       <sn-debug [id]="id" *ngIf="index==0" (serviceChange)="tab=$event;updateTabs(index,$event)"></sn-debug>
@@ -20,5 +20,5 @@
     </nz-tab>
   </nz-tabset> 
   <ng-template #extraTemplate>
-    <i class="ant-tabs-new-tab" nz-icon type="plus" (click)="newTab()"></i>
+    <i class="ant-tabs-new-tab" nz-icon nzType="plus" (click)="newTab()"></i>
   </ng-template>

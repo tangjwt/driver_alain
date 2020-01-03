@@ -69,7 +69,7 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.taskService.getTaskList(1, this.itemsPerPage).subscribe(data => {
-      this.results =  data.resultList ? data.resultList : [];
+      this.results =  data.data ? data.data : [];
       this.totalRecords = data.count;
     });
   }
@@ -88,7 +88,7 @@ export class TaskListComponent implements OnInit {
   pageChange(event: any) {
     this.event = event;
     this.taskService.getTaskList(event.pi, event.ps).subscribe(data => {
-      this.results = data.resultList;
+      this.results = data.data;
       this.totalRecords = data.count;
     });
   }

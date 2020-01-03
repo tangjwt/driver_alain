@@ -28,15 +28,15 @@
           <ng-template #titleTemplate>
             <div>
               {{ tab.service }}
-              <nz-dropdown class="ml-2">
+              <nz-dropdown-menu class="ml-2">
                 <i nz-dropdown nz-icon nzType="down-circle"></i>
                 <ul nz-menu>
                   <li nz-menu-item (click)="show(tab)">添加关联</li>
                   <li nz-menu-item (click)="run(tab)">运行</li>
                   <li nz-menu-item (click)="reset(index)">重置</li>
                 </ul>
-              </nz-dropdown>
-              <i nz-icon type="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
+              </nz-dropdown-menu>
+              <i nz-icon nzType="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
             </div>
           </ng-template>
           <nz-tabset [nzSize]="'small'" [nzType]="'line'" [nzSelectedIndex]="tab.index"
@@ -45,7 +45,7 @@
               <ng-template #subTitleTemplate>
                 <div>
                   {{sub.name}}
-                  <i nz-icon type="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
+                  <i nz-icon nzType="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
                 </div>
               </ng-template>
               <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service"

@@ -69,13 +69,13 @@
     <pre
       [attr.data-line]="addtionalErrorLine"><code snPrismHighlight class="language-javascript line-numbers" [highlightValue]="details?.additionalExpect">{{details?.additionalExpect}}</code></pre>
   </nz-card>
-  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.errorMessage" [nzExtra]="errorMessageExtraTemplate">
-    <pre *ngIf="cardView.errorMessage"><code style="color: #f5222d;">{{details?.errorMessage}}</code></pre>
+  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.message" [nzExtra]="messageExtraTemplate">
+    <pre *ngIf="cardView.message"><code style="color: #f5222d;">{{details?.message}}</code></pre>
   </nz-card>
-  <ng-template #errorMessageExtraTemplate>
-      <a (click)="cardView.errorMessage = !cardView.errorMessage">{{cardView.errorMessage?'Hide':'Show'}}</a>
+  <ng-template #messageExtraTemplate>
+      <a (click)="cardView.message = !cardView.message">{{cardView.message?'Hide':'Show'}}</a>
   </ng-template> 
-  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="子用例" *ngIf="subCase">
+  <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="子用例" *ngIf="subCase && subCase.length>0">
     <st [data]="subCase" [page]="{show : false}" [columns]="columns">
       <ng-template st-row="id" let-item>
         <a routerLink="/run/result/casedetail/{{item.id}}">{{item.id}}</a>

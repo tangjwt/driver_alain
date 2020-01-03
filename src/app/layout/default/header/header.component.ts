@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SettingsService } from '@delon/theme';
-import { environment } from '@env/environment'
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'layout-header',

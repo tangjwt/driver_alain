@@ -115,7 +115,7 @@ export class RunComponent implements OnInit {
     //   { label: 'P4', value: 'P4', checked: this.initSelect('P4') }
     // ];
     this.projectService.getProjectList().subscribe(data => {
-      this.projects = data.resultList;
+      this.projects = data.data;
     });
     this.runEntity.valueChanges.subscribe(change =>{
       this.entityValue.emit(this.runEntity);
@@ -145,10 +145,10 @@ export class RunComponent implements OnInit {
       return;
     }
     this.envService.getEnvListByProject(event).subscribe(data => {
-      this.envs = data.resultList;
+      this.envs = data.data;
     });
     this.envService.getDataSourceList(event).subscribe(data => {
-      this.dataSources = data.resultList;
+      this.dataSources = data.data;
     });
   }
 
@@ -160,7 +160,7 @@ export class RunComponent implements OnInit {
           event,
         )
         .subscribe(data => {
-          this.sers = data.resultList;
+          this.sers = data.data;
           const servers = Utils.toArray(service);
           this.serviceItems = this.sers.map(item => {
             let check = false;
@@ -247,9 +247,9 @@ export class RunComponent implements OnInit {
       this.filepathService
         .getFilePath(this.runEntity.get('project').value, this.forceUpdate)
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
           // this.items = this.filepathService.arrayToTreeviewItem(
-          //   data.resultList,
+          //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
           // );
         });
@@ -261,9 +261,9 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
           // this.items = this.filepathService.arrayToTreeviewItem(
-          //   data.resultList,
+          //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
           // );
         });
@@ -276,11 +276,11 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.resultList,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
           console.log(this.nodes);
           
           // this.items = this.filepathService.arrayToTreeviewItem(
-          //   data.resultList,
+          //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
           // );
         });

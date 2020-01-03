@@ -98,7 +98,7 @@ export class EnvUrlComponent implements OnInit {
 
   ngOnInit() {
     this.envUrlService.getEnvUrlList().subscribe(data => {
-      this.envUrlList = data.resultList ? data.resultList : [];
+      this.envUrlList = data.data ? data.data : [];
       this.envUrlList.forEach(data => {
         const tmp: STColumnFilterMenu = {
           text: data.envName,
@@ -139,7 +139,7 @@ export class EnvUrlComponent implements OnInit {
         } else {
           this.isOkLoading = false;
           this.isVisible = true;
-          this.message.error(data.errorMessage, {
+          this.message.error(data.message, {
             nzDuration: 5000,
           });
         }
@@ -148,7 +148,7 @@ export class EnvUrlComponent implements OnInit {
 
   getProjectList() {
     this.projectService.getProjectList().subscribe(data => {
-      this.projects = data.resultList;
+      this.projects = data.data;
     });
   }
 
@@ -156,25 +156,25 @@ export class EnvUrlComponent implements OnInit {
     if (!event) return;
     let current = this.projects.filter(data => data.id == event)[0].name;
     this.environmentService.getEnvListByProject(current).subscribe(data => {
-      this.envs = data.resultList;
+      this.envs = data.data;
     });
     this.serviceManage.getServiceListByProject(current).subscribe(data => {
-      this.servers = data.resultList;
+      this.servers = data.data;
     });
   }
 
   getEnvUrl(id: string) {
     this.envUrlService.getEnvUrlById(id).subscribe(data => {
-      if (data.resultList.length > 0) {
+      if (data.data.length > 0) {
         this.envUrlFG.reset();
         this.envUrlFG.setValue({
-          id: data.resultList[0].id,
-          serviceUrl: data.resultList[0].serviceUrl,
-          projectId: data.resultList[0].projectId,
-          envId: data.resultList[0].envId,
-          serviceId: data.resultList[0].serviceId,
-          description: data.resultList[0].description
-            ? data.resultList[0].description
+          id: data.data[0].id,
+          serviceUrl: data.data[0].serviceUrl,
+          projectId: data.data[0].projectId,
+          envId: data.data[0].envId,
+          serviceId: data.data[0].serviceId,
+          description: data.data[0].description
+            ? data.data[0].description
             : '',
         });
         this.isVisible = true;

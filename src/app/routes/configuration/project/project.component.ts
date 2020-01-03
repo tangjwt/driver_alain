@@ -81,7 +81,7 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.getProjectList().subscribe(data => {
-      this.projects = data.resultList ? data.resultList : [];
+      this.projects = data.data ? data.data : [];
     });
   }
 
@@ -110,7 +110,7 @@ export class ProjectComponent implements OnInit {
         } else {
           this.isOkLoading = false;
           this.isVisible = true;
-          this.message.error(data.errorMessage, {
+          this.message.error(data.message, {
             nzDuration: 5000,
           });
         }
@@ -121,13 +121,13 @@ export class ProjectComponent implements OnInit {
     this.projectFG.reset();
     this.projectService.getById(id).subscribe(data => {
       this.projectFG.setValue({
-        id: data.resultList[0].id,
-        name: data.resultList[0].name,
-        svnPath: data.resultList[0].svnPath,
-        username: data.resultList[0].username,
-        password: data.resultList[0].password,
-        description: data.resultList[0].description
-          ? data.resultList[0].description
+        id: data.data[0].id,
+        name: data.data[0].name,
+        svnPath: data.data[0].svnPath,
+        username: data.data[0].username,
+        password: data.data[0].password,
+        description: data.data[0].description
+          ? data.data[0].description
           : '',
       });
       this.isVisible = true;

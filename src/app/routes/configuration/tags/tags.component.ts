@@ -79,7 +79,7 @@ export class TagsComponent implements OnInit {
 
   ngOnInit() {
     this.tagService.getTagsList().subscribe(data => {
-      this.tags = data.resultList ? data.resultList : [];
+      this.tags = data.data ? data.data : [];
     });
   }
 
@@ -87,13 +87,13 @@ export class TagsComponent implements OnInit {
   getTag(id: string) {
     this.tagsFG.reset();
     this.tagService.getTagsById(id).subscribe(data => {
-      if (data.resultList.length > 0) {
+      if (data.data.length > 0) {
         this.tagsFG.setValue({
-          id: data.resultList[0].id,
-          tagKey: data.resultList[0].tagKey,
-          type: data.resultList[0].type ? data.resultList[0].type : '',
-          tagValue: data.resultList[0]. tagValue,
-          description: data.resultList[0].description ? data.resultList[0].description : ''
+          id: data.data[0].id,
+          tagKey: data.data[0].tagKey,
+          type: data.data[0].type ? data.data[0].type : '',
+          tagValue: data.data[0]. tagValue,
+          description: data.data[0].description ? data.data[0].description : ''
         });
 
         this.isVisible = true;
@@ -125,7 +125,7 @@ export class TagsComponent implements OnInit {
       } else {
         this.isOkLoading = false;
         this.isVisible = true;
-        this.message.error(data.errorMessage, {
+        this.message.error(data.message, {
           nzDuration: 5000
         });
       }

@@ -4,7 +4,7 @@ import { RunSetListComponent } from './run-result/run-set-list/run-set-list.comp
 import { RunSetDetailComponent } from './run-result/run-set-detail/run-set-detail.component';
 import { RunSetStatisticComponent } from './run-result/run-set-statistic/run-set-statistic.component';
 import { RunSetStatisticCompareComponent } from './run-result/run-set-statistic-compare/run-set-statistic-compare.component';
-import { ResultListComponent } from './run-result/result-list/result-list.component';
+import { dataComponent } from './run-result/result-list/result-list.component';
 import { ResultDetailComponent } from './run-result/result-detail/result-detail.component';
 import { RunComponent } from './run/run.component';
 import { TaskListComponent } from './run-task/task-list/task-list.component';
@@ -42,11 +42,11 @@ const routes: Routes = [
   },
   {
     path: 'result/:id/cases',
-    component: ResultListComponent
+    component: dataComponent
   },
   {
     path: 'result/:originId/:originStatus/:destId/:destStatus/cases',
-    component: ResultListComponent
+    component: dataComponent
   },
   {
     path: 'result/casedetail/:id',

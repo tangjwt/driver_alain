@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BasicResult } from '../common/basic-result';
+import { Result } from '../common/result';
 import { httpOptions } from './http-option';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,19 +9,19 @@ export class ScriptManageService {
 
   constructor(private http:HttpClient) { }
 
-  getScriptList():Observable<BasicResult>{
-    return this.http.get<BasicResult>('/script');
+  getScriptList():Observable<Result>{
+    return this.http.get<Result>('/script');
   }
 
-  getScriptById(id:string):Observable<BasicResult>{
-    return this.http.get<BasicResult>(`/script/${id}`);
+  getScriptById(id:string):Observable<Result>{
+    return this.http.get<Result>(`/script/${id}`);
   }
 
-  deleteScriptById(id:string):Observable<BasicResult>{
-    return this.http.delete<BasicResult>(`/script/${id}`);
+  deleteScriptById(id:string):Observable<Result>{
+    return this.http.delete<Result>(`/script/${id}`);
   }
 
-  addOrModify(script:any):Observable<BasicResult>{
-    return this.http.post<BasicResult>('/script',script,httpOptions);
+  addOrModify(script:any):Observable<Result>{
+    return this.http.post<Result>('/script',script,httpOptions);
   }
 }

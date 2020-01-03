@@ -6,7 +6,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { forkJoin, Observable } from 'rxjs';
 import { CanComponentDeactivate } from '../../../guard/can-deactivate.guard';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BasicResult } from '../../../common/basic-result';
+import { Result } from '../../../common/result';
 
 @Component({
   selector: 'sn-generate-layout',
@@ -67,7 +67,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
     this.projectManage.getProjectList().subscribe(data => {
       const requests = [];
       const nodes = [];
-      data.resultList.forEach(pro => {
+      data.data.forEach(pro => {
         const projects = {
           title: pro.name,
           key: pro.name,
@@ -79,9 +79,9 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
         nodes.push(projects);
       });
       forkJoin(requests).subscribe(results => {
-        results.forEach((re:BasicResult, index) => {
-          if (re.resultList) {
-            re.resultList.forEach(service => {
+        results.forEach((re:Result, index) => {
+          if (re.data) {
+            re.data.forEach(service => {
               nodes[index].children.push({
                 title: service.name,
                 key: service.name,
@@ -151,7 +151,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
       .debug(event.project, 'dev', event.service, requestParams)
       .subscribe(data => {
         if (data.status === 'STATUS_SUCCESS') {
-          event.result = data.resultList[0];
+          event.result = data.data[0];
           this.messageService.success(`Service ${event.service} debug success`);
           if (event.subTabs) {
             event.index = event.subTabs.length + 1;
@@ -159,7 +159,7 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
             event.index = 1;
           }
         } else {
-          this.messageService.error(data.errorMessage);
+          this.messageService.error(data.message);
         }
         this.requestButtonDisable = false;
       });

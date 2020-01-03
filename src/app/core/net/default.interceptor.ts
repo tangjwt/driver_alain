@@ -125,7 +125,8 @@ export class DefaultInterceptor implements HttpInterceptor {
     // }
 
     // const newReq = req.clone({ url });
-
+    // console.log(req);
+    
     let tmpurl = req.url;
     if(!tmpurl.startsWith("/")){
         tmpurl ="/"+tmpurl;

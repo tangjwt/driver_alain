@@ -1672,9 +1672,9 @@ this.tinycolor = tinycolor;
 @btn-default-bg: @component-background;
 @btn-default-border: @border-color-base;
 
-@btn-danger-color: @error-color;
-@btn-danger-bg: @background-color-base;
-@btn-danger-border: @border-color-base;
+@btn-danger-color: #fff;
+@btn-danger-bg: color(~`colorPalette('@{error-color}', 5) `);
+@btn-danger-border: color(~`colorPalette('@{error-color}', 5) `);
 
 @btn-disable-color: @disabled-color;
 @btn-disable-bg: @disabled-bg;
@@ -1694,6 +1694,10 @@ this.tinycolor = tinycolor;
 @btn-circle-size-lg: @btn-height-lg;
 @btn-circle-size-sm: @btn-height-sm;
 
+@btn-square-size: @btn-height-base;
+@btn-square-size-lg: @btn-height-lg;
+@btn-square-size-sm: @btn-height-sm;
+
 @btn-group-border: @primary-5;
 
 // Checkbox
@@ -1702,8 +1706,10 @@ this.tinycolor = tinycolor;
 @checkbox-check-color: #fff;
 @checkbox-border-width: @border-width-base;
 
-// Dropdown
+// Descriptions
+@descriptions-bg: #fafafa;
 
+// Dropdown
 @dropdown-selected-color: @primary-color;
 
 // Empty
@@ -1831,8 +1837,11 @@ this.tinycolor = tinycolor;
 @input-border-color: @border-color-base;
 @input-bg: @component-background;
 @input-number-handler-active-bg: #f4f4f4;
+@input-number-handler-hover-bg: @primary-5;
+@input-number-handler-bg: @component-background;
+@input-number-handler-border-color: @border-color-base;
 @input-addon-bg: @background-color-light;
-@input-hover-border-color: @primary-color;
+@input-hover-border-color: @primary-5;
 @input-disabled-bg: @disabled-bg;
 @input-outline-offset: 0 0;
 
@@ -1840,6 +1849,13 @@ this.tinycolor = tinycolor;
 // ---
 @select-border-color: @border-color-base;
 @select-item-selected-font-weight: 600;
+@select-dropdown-bg: @component-background;
+@select-item-selected-bg: @background-color-light;
+@select-item-active-bg: @item-active-bg;
+
+// Anchor
+// ---
+@anchor-border-color: @border-color-split;
 
 // Tooltip
 // ---
@@ -1879,13 +1895,15 @@ this.tinycolor = tinycolor;
 @modal-body-padding: 24px;
 @modal-header-bg: @component-background;
 @modal-footer-bg: transparent;
-@modal-mask-bg: fade(@black, 65%);
+@modal-footer-border-color-split: @border-color-split;
+@modal-mask-bg: fade(@black, 45%);
 
 // Progress
 // --
 @progress-default-color: @processing-color;
 @progress-remaining-color: @background-color-base;
 @progress-text-color: @text-color;
+@progress-radius: 100px;
 
 // Menu
 // ---
@@ -1899,6 +1917,17 @@ this.tinycolor = tinycolor;
 @menu-item-active-bg: @item-active-bg;
 @menu-item-active-border-width: 3px;
 @menu-item-group-title-color: @text-color-secondary;
+@menu-icon-size: @font-size-base;
+@menu-icon-size-lg: @font-size-lg;
+
+@menu-item-vertical-margin: 4px;
+@menu-item-font-size: @font-size-base;
+@menu-item-boundary-margin: 8px;
+@menu-icon-size: @font-size-base;
+@menu-icon-size-lg: @font-size-lg;
+@menu-dark-selected-item-icon-color: @white;
+@menu-dark-selected-item-text-color: @white;
+@dark-menu-item-hover-bg: transparent;
 
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
@@ -1907,7 +1936,9 @@ this.tinycolor = tinycolor;
 @menu-dark-submenu-bg: #000c17;
 @menu-dark-highlight-color: #fff;
 @menu-dark-item-active-bg: @primary-color;
-
+@menu-dark-selected-item-icon-color: @white;
+@menu-dark-selected-item-text-color: @white;
+@menu-dark-item-hover-bg: transparent;
 // Spin
 // ---
 @spin-dot-size-sm: 14px;
@@ -1929,6 +1960,8 @@ this.tinycolor = tinycolor;
 @table-padding-vertical: 16px;
 @table-padding-horizontal: 16px;
 @table-border-radius-base: @border-radius-base;
+@table-footer-bg: @background-color-light;
+@table-footer-color: @heading-color;
 
 // Tag
 // --
@@ -1970,7 +2003,8 @@ this.tinycolor = tinycolor;
 @card-inner-head-padding: 12px;
 @card-padding-base: 24px;
 @card-actions-background: @background-color-light;
-@card-background: #cfd8dc;
+@card-skeleton-bg: #cfd8dc;
+@card-background: @component-background;
 @card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
 @card-radius: @border-radius-sm;
 
@@ -2005,6 +2039,8 @@ this.tinycolor = tinycolor;
 @tabs-highlight-color: @primary-color;
 @tabs-hover-color: @primary-5;
 @tabs-active-color: @primary-7;
+@tabs-card-gutter: 2px;
+@tabs-card-tab-active-border-top: 2px solid transparent;
 
 // BackTop
 // ---
@@ -2043,8 +2079,10 @@ this.tinycolor = tinycolor;
 
 // PageHeader
 // ---
-@page-header-padding-horizontal: 24px;
+@page-header-padding: 24px;
 @page-header-padding-vertical: 16px;
+@page-header-padding-breadcrumb: 12px;
+@page-header-back-color: #000;
 
 // Breadcrumb
 // ---
@@ -2064,11 +2102,14 @@ this.tinycolor = tinycolor;
 @slider-rail-background-color-hover: #e1e1e1;
 @slider-track-background-color: @primary-3;
 @slider-track-background-color-hover: @primary-4;
+@slider-handle-border-width: 2px;
+@slider-handle-background-color: @component-background;
 @slider-handle-color: @primary-3;
 @slider-handle-color-hover: @primary-4;
 @slider-handle-color-focus: tint(@primary-color, 20%);
 @slider-handle-color-focus-shadow: fade(@primary-color, 20%);
 @slider-handle-color-tooltip-open: @primary-color;
+@slider-handle-shadow: 0;
 @slider-dot-border-color: @border-color-split;
 @slider-dot-border-color-active: tint(@primary-color, 50%);
 @slider-disabled-color: @disabled-color;
@@ -2080,6 +2121,8 @@ this.tinycolor = tinycolor;
 @tree-child-padding: 18px;
 @tree-directory-selected-color: #fff;
 @tree-directory-selected-bg: @primary-color;
+@tree-node-hover-bg: @item-hover-bg;
+@tree-node-selected-bg: @primary-2;
 
 // Collapse
 // ---
@@ -2137,12 +2180,24 @@ this.tinycolor = tinycolor;
 @statistic-title-font-size: @font-size-base;
 @statistic-content-font-size: 24px;
 @statistic-unit-font-size: 16px;
-@statistic-font-family: Tahoma, 'Helvetica Neue', @font-family;
+@statistic-font-family: @font-family;
 
 // Drawer
 // ---
 @drawer-header-padding: 16px 24px;
 @drawer-body-padding: 24px;
+
+// Timeline
+// ---
+@timeline-width: 2px;
+@timeline-color: @border-color-split;
+@timeline-dot-border-width: 2px;
+@timeline-dot-color: @primary-color;
+@timeline-dot-bg: @component-background;
+
+// Typography
+// ---
+@typography-title-font-weight: 600;
 
 // Mixins
 // --------------------------------------------------
@@ -2173,6 +2228,10 @@ this.tinycolor = tinycolor;
   // Safari and Chrome
   &::-webkit-input-placeholder {
     color: @color;
+  }
+
+  &:placeholder-shown {
+    text-overflow: ellipsis;
   }
 }
 
@@ -2536,6 +2595,7 @@ darker  @grey-9;
 @se-label-color: rgba(0, 0, 0, 0.5);
 @se-label-optional-color: rgba(0, 0, 0, 0.35);
 @se-compact-bottom: @layout-gutter;
+@se-optional-margin: 2px;
 
 @ellipsis-prefix: ~'.ellipsis';
 
@@ -2591,6 +2651,7 @@ darker  @grey-9;
 @sv-default-text: '-';
 @sv-unit-margin: 8px;
 @sv-unit-color: @grey-7;
+@sv-optional-margin: 2px;
 
 @g2-card-prefix: ~'.g2-card';
 
@@ -4282,9 +4343,9 @@ this.tinycolor = tinycolor;
 @btn-default-bg: @component-background;
 @btn-default-border: @border-color-base;
 
-@btn-danger-color: @error-color;
-@btn-danger-bg: @background-color-base;
-@btn-danger-border: @border-color-base;
+@btn-danger-color: #fff;
+@btn-danger-bg: color(~`colorPalette('@{error-color}', 5) `);
+@btn-danger-border: color(~`colorPalette('@{error-color}', 5) `);
 
 @btn-disable-color: @disabled-color;
 @btn-disable-bg: @disabled-bg;
@@ -4304,6 +4365,10 @@ this.tinycolor = tinycolor;
 @btn-circle-size-lg: @btn-height-lg;
 @btn-circle-size-sm: @btn-height-sm;
 
+@btn-square-size: @btn-height-base;
+@btn-square-size-lg: @btn-height-lg;
+@btn-square-size-sm: @btn-height-sm;
+
 @btn-group-border: @primary-5;
 
 // Checkbox
@@ -4312,8 +4377,10 @@ this.tinycolor = tinycolor;
 @checkbox-check-color: #fff;
 @checkbox-border-width: @border-width-base;
 
-// Dropdown
+// Descriptions
+@descriptions-bg: #fafafa;
 
+// Dropdown
 @dropdown-selected-color: @primary-color;
 
 // Empty
@@ -4441,8 +4508,11 @@ this.tinycolor = tinycolor;
 @input-border-color: @border-color-base;
 @input-bg: @component-background;
 @input-number-handler-active-bg: #f4f4f4;
+@input-number-handler-hover-bg: @primary-5;
+@input-number-handler-bg: @component-background;
+@input-number-handler-border-color: @border-color-base;
 @input-addon-bg: @background-color-light;
-@input-hover-border-color: @primary-color;
+@input-hover-border-color: @primary-5;
 @input-disabled-bg: @disabled-bg;
 @input-outline-offset: 0 0;
 
@@ -4450,6 +4520,13 @@ this.tinycolor = tinycolor;
 // ---
 @select-border-color: @border-color-base;
 @select-item-selected-font-weight: 600;
+@select-dropdown-bg: @component-background;
+@select-item-selected-bg: @background-color-light;
+@select-item-active-bg: @item-active-bg;
+
+// Anchor
+// ---
+@anchor-border-color: @border-color-split;
 
 // Tooltip
 // ---
@@ -4489,13 +4566,15 @@ this.tinycolor = tinycolor;
 @modal-body-padding: 24px;
 @modal-header-bg: @component-background;
 @modal-footer-bg: transparent;
-@modal-mask-bg: fade(@black, 65%);
+@modal-footer-border-color-split: @border-color-split;
+@modal-mask-bg: fade(@black, 45%);
 
 // Progress
 // --
 @progress-default-color: @processing-color;
 @progress-remaining-color: @background-color-base;
 @progress-text-color: @text-color;
+@progress-radius: 100px;
 
 // Menu
 // ---
@@ -4509,6 +4588,17 @@ this.tinycolor = tinycolor;
 @menu-item-active-bg: @item-active-bg;
 @menu-item-active-border-width: 3px;
 @menu-item-group-title-color: @text-color-secondary;
+@menu-icon-size: @font-size-base;
+@menu-icon-size-lg: @font-size-lg;
+
+@menu-item-vertical-margin: 4px;
+@menu-item-font-size: @font-size-base;
+@menu-item-boundary-margin: 8px;
+@menu-icon-size: @font-size-base;
+@menu-icon-size-lg: @font-size-lg;
+@menu-dark-selected-item-icon-color: @white;
+@menu-dark-selected-item-text-color: @white;
+@dark-menu-item-hover-bg: transparent;
 
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
@@ -4517,7 +4607,9 @@ this.tinycolor = tinycolor;
 @menu-dark-submenu-bg: #000c17;
 @menu-dark-highlight-color: #fff;
 @menu-dark-item-active-bg: @primary-color;
-
+@menu-dark-selected-item-icon-color: @white;
+@menu-dark-selected-item-text-color: @white;
+@menu-dark-item-hover-bg: transparent;
 // Spin
 // ---
 @spin-dot-size-sm: 14px;
@@ -4539,6 +4631,8 @@ this.tinycolor = tinycolor;
 @table-padding-vertical: 16px;
 @table-padding-horizontal: 16px;
 @table-border-radius-base: @border-radius-base;
+@table-footer-bg: @background-color-light;
+@table-footer-color: @heading-color;
 
 // Tag
 // --
@@ -4580,7 +4674,8 @@ this.tinycolor = tinycolor;
 @card-inner-head-padding: 12px;
 @card-padding-base: 24px;
 @card-actions-background: @background-color-light;
-@card-background: #cfd8dc;
+@card-skeleton-bg: #cfd8dc;
+@card-background: @component-background;
 @card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
 @card-radius: @border-radius-sm;
 
@@ -4615,6 +4710,8 @@ this.tinycolor = tinycolor;
 @tabs-highlight-color: @primary-color;
 @tabs-hover-color: @primary-5;
 @tabs-active-color: @primary-7;
+@tabs-card-gutter: 2px;
+@tabs-card-tab-active-border-top: 2px solid transparent;
 
 // BackTop
 // ---
@@ -4653,8 +4750,10 @@ this.tinycolor = tinycolor;
 
 // PageHeader
 // ---
-@page-header-padding-horizontal: 24px;
+@page-header-padding: 24px;
 @page-header-padding-vertical: 16px;
+@page-header-padding-breadcrumb: 12px;
+@page-header-back-color: #000;
 
 // Breadcrumb
 // ---
@@ -4674,11 +4773,14 @@ this.tinycolor = tinycolor;
 @slider-rail-background-color-hover: #e1e1e1;
 @slider-track-background-color: @primary-3;
 @slider-track-background-color-hover: @primary-4;
+@slider-handle-border-width: 2px;
+@slider-handle-background-color: @component-background;
 @slider-handle-color: @primary-3;
 @slider-handle-color-hover: @primary-4;
 @slider-handle-color-focus: tint(@primary-color, 20%);
 @slider-handle-color-focus-shadow: fade(@primary-color, 20%);
 @slider-handle-color-tooltip-open: @primary-color;
+@slider-handle-shadow: 0;
 @slider-dot-border-color: @border-color-split;
 @slider-dot-border-color-active: tint(@primary-color, 50%);
 @slider-disabled-color: @disabled-color;
@@ -4690,6 +4792,8 @@ this.tinycolor = tinycolor;
 @tree-child-padding: 18px;
 @tree-directory-selected-color: #fff;
 @tree-directory-selected-bg: @primary-color;
+@tree-node-hover-bg: @item-hover-bg;
+@tree-node-selected-bg: @primary-2;
 
 // Collapse
 // ---
@@ -4747,12 +4851,24 @@ this.tinycolor = tinycolor;
 @statistic-title-font-size: @font-size-base;
 @statistic-content-font-size: 24px;
 @statistic-unit-font-size: 16px;
-@statistic-font-family: Tahoma, 'Helvetica Neue', @font-family;
+@statistic-font-family: @font-family;
 
 // Drawer
 // ---
 @drawer-header-padding: 16px 24px;
 @drawer-body-padding: 24px;
+
+// Timeline
+// ---
+@timeline-width: 2px;
+@timeline-color: @border-color-split;
+@timeline-dot-border-width: 2px;
+@timeline-dot-color: @primary-color;
+@timeline-dot-bg: @component-background;
+
+// Typography
+// ---
+@typography-title-font-weight: 600;
 
 // Mixins
 // --------------------------------------------------
@@ -4783,6 +4899,10 @@ this.tinycolor = tinycolor;
   // Safari and Chrome
   &::-webkit-input-placeholder {
     color: @color;
+  }
+
+  &:placeholder-shown {
+    text-overflow: ellipsis;
   }
 }
 
@@ -6116,6 +6236,7 @@ textarea.cdk-textarea-autosize-measuring {
 
   position: relative;
   padding: 8px 15px 8px 37px;
+  word-wrap: break-word;
   border-radius: @border-radius-base;
 
   &&-no-icon {
@@ -6177,6 +6298,8 @@ textarea.cdk-textarea-autosize-measuring {
     overflow: hidden;
     font-size: @font-size-sm;
     line-height: 22px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
 
     .@{iconfont-css-prefix}-close {
@@ -6189,8 +6312,11 @@ textarea.cdk-textarea-autosize-measuring {
   }
 
   &-close-text {
-    position: absolute;
-    right: 16px;
+    color: @alert-close-color;
+    transition: color 0.3s;
+    &:hover {
+      color: @alert-close-hover-color;
+    }
   }
 
   &-with-description {
@@ -6225,6 +6351,10 @@ textarea.cdk-textarea-autosize-measuring {
     margin-bottom: 4px;
     color: @alert-message-color;
     font-size: @font-size-lg;
+  }
+
+  &-message {
+    color: @alert-message-color;
   }
 
   &-with-description &-description {
@@ -6304,7 +6434,7 @@ textarea.cdk-textarea-autosize-measuring {
       width: @anchor-border-width;
       height: 100%;
       margin: 0 auto;
-      background-color: @border-color-split;
+      background-color: @anchor-border-color;
       content: ' ';
     }
     &-ball {
@@ -6394,6 +6524,7 @@ textarea.cdk-textarea-autosize-measuring {
     display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -6675,6 +6806,9 @@ textarea.cdk-textarea-autosize-measuring {
 
   & > span:last-child {
     color: @breadcrumb-last-item-color;
+    a {
+      color: @breadcrumb-last-item-color;
+    }
   }
 
   & > span:last-child &-separator {
@@ -6694,6 +6828,14 @@ textarea.cdk-textarea-autosize-measuring {
 
   &-overlay-link {
     > .@{iconfont-css-prefix} {
+      margin-left: 4px;
+    }
+  }
+}
+
+.@{breadcrumb-prefix-cls} {
+  &-link {
+    .@{iconfont-css-prefix} + span {
       margin-left: 4px;
     }
   }
@@ -6767,26 +6909,6 @@ textarea.cdk-textarea-autosize-measuring {
   }
   .button-disabled();
 }
-.button-variant-danger(@color; @background; @border) {
-  .button-color(@color; @background; @border);
-  &:hover {
-    .button-color(
-      @btn-primary-color; ~`colorPalette('@{color}', 5) `; ~`colorPalette('@{color}', 5) `
-    );
-  }
-  &:focus {
-    .button-color(
-      ~`colorPalette('@{color}', 5) `; @component-background; ~`colorPalette('@{color}', 5) `
-    );
-  }
-  &:active,
-  &.active {
-    .button-color(
-      @btn-primary-color; ~`colorPalette('@{color}', 7) `; ~`colorPalette('@{color}', 7) `
-    );
-  }
-  .button-disabled();
-}
 .button-variant-ghost(@color; @border: @color) {
   .button-color(@color; transparent; @border);
   text-shadow: none;
@@ -6851,6 +6973,11 @@ textarea.cdk-textarea-autosize-measuring {
     .button-size(@btn-height-lg; @btn-padding-lg; @btn-font-size-lg; 0);
     line-height: @btn-height-lg - 2px;
   }
+  &-lg > .@{btnClassName}.@{btnClassName}-icon-only {
+    .square(@btn-height-lg);
+    padding-right: 0;
+    padding-left: 0;
+  }
   &-sm > .@{btnClassName},
   &-sm > span > .@{btnClassName} {
     .button-size(@btn-height-sm; @btn-padding-sm; @font-size-base; 0);
@@ -6858,6 +6985,11 @@ textarea.cdk-textarea-autosize-measuring {
     > .@{iconfont-css-prefix} {
       font-size: @font-size-base;
     }
+  }
+  &-sm > .@{btnClassName}.@{btnClassName}-icon-only {
+    .square(@btn-height-sm);
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 // Base styles of buttons
@@ -6931,7 +7063,7 @@ textarea.cdk-textarea-autosize-measuring {
 }
 // danger button style
 .btn-danger() {
-  .button-variant-danger(@btn-danger-color, @btn-danger-bg, @btn-danger-border);
+  .button-variant-primary(@btn-danger-color, @btn-danger-bg);
 }
 // link button style
 .btn-link() {
@@ -6946,10 +7078,10 @@ textarea.cdk-textarea-autosize-measuring {
 }
 // round button
 .btn-round(@btnClassName: btn) {
-  .button-size(@btn-circle-size; 0 @btn-circle-size / 2; @font-size-base + 2px; @btn-circle-size);
+  .button-size(@btn-circle-size; 0 @btn-circle-size / 2; @font-size-base; @btn-circle-size);
   &.@{btnClassName}-lg {
     .button-size(
-      @btn-circle-size-lg; 0 @btn-circle-size-lg / 2; @btn-font-size-lg + 2px; @btn-circle-size-lg
+      @btn-circle-size-lg; 0 @btn-circle-size-lg / 2; @btn-font-size-lg; @btn-circle-size-lg
     );
   }
   &.@{btnClassName}-sm {
@@ -6958,17 +7090,33 @@ textarea.cdk-textarea-autosize-measuring {
     );
   }
 }
-// circle button: the content only contains icon
-.btn-circle(@btnClassName: btn) {
-  .square(@btn-circle-size);
-  .button-size(@btn-circle-size; 0; @font-size-base + 2px; 50%);
+// square button: the content only contains icon
+.btn-square(@btnClassName: btn) {
+  .square(@btn-square-size);
+  .button-size(@btn-square-size; 0; @font-size-base + 2px; @btn-border-radius-base);
   &.@{btnClassName}-lg {
-    .square(@btn-circle-size-lg);
-    .button-size(@btn-circle-size-lg; 0; @btn-font-size-lg + 2px; 50%);
+    .square(@btn-square-size-lg);
+    .button-size(@btn-square-size-lg; 0; @btn-font-size-lg + 2px; @btn-border-radius-base);
   }
   &.@{btnClassName}-sm {
-    .square(@btn-circle-size-sm);
-    .button-size(@btn-circle-size-sm; 0; @font-size-base; 50%);
+    .square(@btn-square-size-sm);
+    .button-size(@btn-square-size-sm; 0; @font-size-base; @btn-border-radius-base);
+  }
+}
+// circle button: the content only contains icon
+.btn-circle(@btnClassName: btn) {
+  min-width: @btn-height-base;
+  padding-right: 0;
+  padding-left: 0;
+  text-align: center;
+  border-radius: 50%;
+  &.@{btnClassName}-lg {
+    min-width: @btn-height-lg;
+    border-radius: 50%;
+  }
+  &.@{btnClassName}-sm {
+    min-width: @btn-height-sm;
+    border-radius: 50%;
   }
 }
 // Horizontal button groups style
@@ -7058,10 +7206,7 @@ textarea.cdk-textarea-autosize-measuring {
 // Button styles
 // -----------------------------
 .@{btn-prefix-cls} {
-  // Fixing https://github.com/ant-design/ant-design/issues/12978
-  // It is a render problem of chrome, which is only happened in the codesandbox demo
-  // 0.001px solution works and I don't why
-  line-height: @line-height-base - 0.001;
+  line-height: @line-height-base;
   .btn;
   .btn-default;
 
@@ -7120,8 +7265,15 @@ textarea.cdk-textarea-autosize-measuring {
     .btn-link;
   }
 
+  &-icon-only {
+    .btn-square(@btn-prefix-cls);
+  }
+
   &-round {
     .btn-round(@btn-prefix-cls);
+    &.@{btn-prefix-cls}-icon-only {
+      width: auto;
+    }
   }
 
   &-circle,
@@ -7185,11 +7337,6 @@ textarea.cdk-textarea-autosize-measuring {
     .btn-group(@btn-prefix-cls);
   }
 
-  &:not(&-circle):not(&-circle-outline)&-icon-only {
-    padding-right: 8px;
-    padding-left: 8px;
-  }
-
   // http://stackoverflow.com/a/21281554/3040605
   &:focus > span,
   &:active > span {
@@ -7213,7 +7360,7 @@ textarea.cdk-textarea-autosize-measuring {
   }
 
   &-background-ghost&-danger {
-    .button-variant-ghost(@btn-danger-color);
+    .button-variant-ghost(@btn-danger-border);
   }
 
   &-background-ghost&-link {
@@ -7242,7 +7389,12 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 a.@{btn-prefix-cls} {
+  // Fixing https://github.com/ant-design/ant-design/issues/12978
+  // It is a render problem of chrome, which is only happened in the codesandbox demo
+  // 0.1px for padding-top solution works and I don't why
+  padding-top: 0.1px;
   line-height: @btn-height-base - 2px;
+
   &-lg {
     line-height: @btn-height-lg - 2px;
   }
@@ -7254,15 +7406,16 @@ a.@{btn-prefix-cls} {
 @card-prefix-cls: ~'@{ant-prefix}-card';
 @card-head-height: 48px;
 @card-hover-border: fade(@black, 9%);
+@card-action-icon-size: 16px;
 
-@gradient-min: fade(@card-background, 20%);
-@gradient-max: fade(@card-background, 40%);
+@gradient-min: fade(@card-skeleton-bg, 20%);
+@gradient-max: fade(@card-skeleton-bg, 40%);
 
 .@{card-prefix-cls} {
   .reset-component;
 
   position: relative;
-  background: @component-background;
+  background: @card-background;
   border-radius: @card-radius;
   transition: all 0.3s;
 
@@ -7347,10 +7500,12 @@ a.@{btn-prefix-cls} {
       1px 1px 0 0 @border-color-split, 1px 0 0 0 @border-color-split inset,
       0 1px 0 0 @border-color-split inset;
     transition: all 0.3s;
-    &:hover {
-      position: relative;
-      z-index: 1;
-      box-shadow: @box-shadow-base;
+    &-hoverable {
+      &:hover {
+        position: relative;
+        z-index: 1;
+        box-shadow: @box-shadow-base;
+      }
     }
   }
 
@@ -7387,9 +7542,9 @@ a.@{btn-prefix-cls} {
       color: @text-color-secondary;
       text-align: center;
 
-      & > span {
+      > span {
         position: relative;
-        display: inline-block;
+        display: block;
         min-width: 32px;
         font-size: 14px;
         line-height: 22px;
@@ -7400,20 +7555,22 @@ a.@{btn-prefix-cls} {
           transition: color 0.3s;
         }
 
-        & > .anticon {
-          font-size: 16px;
-          line-height: 22px;
-        }
-
-        a {
+        a:not(.@{ant-prefix}-btn),
+        > .anticon {
           display: inline-block;
           width: 100%;
           color: @text-color-secondary;
           line-height: 22px;
+          transition: color 0.3s;
 
           &:hover {
             color: @primary-color;
           }
+        }
+
+        > .anticon {
+          font-size: @card-action-icon-size;
+          line-height: 22px;
         }
       }
 
@@ -7546,7 +7703,7 @@ a.@{btn-prefix-cls} {
   &&-card &-card-bar &-tab {
     height: @tabs-card-height;
     margin: 0;
-    margin-right: 2px;
+    margin-right: @tabs-card-gutter;
     padding: 0 16px;
     line-height: @tabs-card-height - 2px;
     background: @tabs-card-head-background;
@@ -7560,6 +7717,10 @@ a.@{btn-prefix-cls} {
     background: @component-background;
     border-color: @border-color-split;
     border-bottom: @border-width-base solid @component-background;
+
+    &::before {
+      border-top: @tabs-card-tab-active-border-top;
+    }
   }
   &&-card &-card-bar &-tab-disabled {
     color: @tabs-card-active-color;
@@ -7600,7 +7761,8 @@ a.@{btn-prefix-cls} {
   }
 
   &-extra-content {
-    line-height: @tabs-card-height;
+    line-height: @tabs-title-font-size * @line-height-base + extract(@tabs-horizontal-padding, 1) *
+      2;
 
     .@{tab-prefix-cls}-new-tab {
       position: relative;
@@ -7627,6 +7789,23 @@ a.@{btn-prefix-cls} {
         margin: auto;
       }
     }
+  }
+
+  // https://github.com/ant-design/ant-design/issues/17865
+  &&-large &-extra-content {
+    line-height: @tabs-title-font-size-lg * @line-height-base +
+      extract(@tabs-horizontal-padding-lg, 1) * 2;
+  }
+
+  // https://github.com/ant-design/ant-design/issues/17865
+  &&-small &-extra-content {
+    line-height: @tabs-title-font-size-sm * @line-height-base +
+      extract(@tabs-horizontal-padding-sm, 1) * 2;
+  }
+
+  // https://github.com/ant-design/ant-design/issues/17865
+  &&-card &-extra-content {
+    line-height: @tabs-card-height;
   }
 
   // https://github.com/ant-design/ant-design/issues/4669
@@ -7874,6 +8053,18 @@ a.@{btn-prefix-cls} {
       cursor: pointer;
       transition: color 0.3s @ease-in-out;
 
+      &::before {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        border-top: 2px solid transparent;
+        border-radius: @border-radius-base @border-radius-base 0 0;
+        transition: all 0.3s;
+        content: '';
+        pointer-events: none;
+      }
+
       &:last-child {
         margin-right: 0;
       }
@@ -7923,6 +8114,14 @@ a.@{btn-prefix-cls} {
     }
   }
 
+  // Create an empty element to avoid margin collapsing
+  // https://github.com/ant-design/ant-design/issues/18103
+  &-content::before {
+    display: block;
+    overflow: hidden;
+    content: '';
+  }
+
   // Horizontal Content
   .@{tab-prefix-cls}-top-content,
   .@{tab-prefix-cls}-bottom-content {
@@ -7953,7 +8152,6 @@ a.@{btn-prefix-cls} {
     height: 100%;
     border-bottom: 0;
 
-    .@{tab-prefix-cls}-tab-arrow-show,
     .@{tab-prefix-cls}-tab-arrow-show {
       width: 100%;
       height: @tabs-scrolling-size;
@@ -8130,8 +8328,6 @@ a.@{btn-prefix-cls} {
   .col(@index, @list) when (@index > @grid-columns) {
     @{list} {
       position: relative;
-      // Prevent columns from collapsing when empty
-      min-height: 1px;
       padding-right: (@grid-gutter-width / 2);
       padding-left: (@grid-gutter-width / 2);
     }
@@ -8270,6 +8466,8 @@ a.@{btn-prefix-cls} {
 
 .@{ant-prefix}-col {
   position: relative;
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
 }
 
 .make-grid-columns();
@@ -8579,7 +8777,7 @@ a.@{btn-prefix-cls} {
       border-radius: @border-radius-sm;
       visibility: hidden;
       animation: antCheckboxEffect 0.36s ease-in-out;
-      animation-fill-mode: both;
+      animation-fill-mode: backwards;
       content: '';
     }
 
@@ -8685,6 +8883,12 @@ a.@{btn-prefix-cls} {
       color: @disabled-color;
       cursor: not-allowed;
     }
+
+    // Not show highlight border of checkbox when disabled
+    &:hover::after,
+    .@{checkbox-prefix-cls}-wrapper:hover &::after {
+      visibility: hidden;
+    }
   }
 
   .@{checkbox-prefix-cls}-wrapper {
@@ -8698,7 +8902,6 @@ a.@{btn-prefix-cls} {
     }
   }
 
-  .@{checkbox-prefix-cls}-wrapper + span,
   .@{checkbox-prefix-cls} + span {
     padding-right: 8px;
     padding-left: 8px;
@@ -8985,19 +9188,18 @@ a.@{btn-prefix-cls} {
 }
 
 @input-affix-width: 19px;
+@input-affix-with-clear-btn-width: 38px;
 
 // size mixins for input
 .input-lg() {
   height: @input-height-lg;
   padding: @input-padding-vertical-lg @input-padding-horizontal-lg;
   font-size: @font-size-lg;
-  line-height: @input-height-lg;
 }
 
 .input-sm() {
   height: @input-height-sm;
   padding: @input-padding-vertical-sm @input-padding-horizontal-sm;
-  line-height: @input-height-sm;
 }
 
 // input status
@@ -9011,7 +9213,7 @@ a.@{btn-prefix-cls} {
 
 // == when hoverd
 .hover(@color: @input-hover-border-color) {
-  border-color: ~`colorPalette('@{color}', 5) `;
+  border-color: @color;
   border-right-width: @border-width-base !important;
 }
 
@@ -9020,6 +9222,7 @@ a.@{btn-prefix-cls} {
   background-color: @input-disabled-bg;
   cursor: not-allowed;
   opacity: 1;
+
   &:hover {
     .hover(@input-border-color);
   }
@@ -9034,7 +9237,7 @@ a.@{btn-prefix-cls} {
   padding: @input-padding-vertical-base @input-padding-horizontal-base;
   color: @input-color;
   font-size: @font-size-base;
-  line-height: @input-height-base;
+  line-height: @line-height-base;
   background-color: @input-bg;
   background-image: none;
   border: @border-width-base @border-style-base @input-border-color;
@@ -9095,6 +9298,7 @@ a.@{btn-prefix-cls} {
 
   > [class*='col-'] {
     padding-right: 8px;
+
     &:last-child {
       padding-right: 0;
     }
@@ -9126,10 +9330,12 @@ a.@{btn-prefix-cls} {
     width: 100%;
     margin-bottom: 0;
     text-align: inherit;
+
     &:focus {
       z-index: 1; // Fix https://gw.alipayobjects.com/zos/rmsportal/DHNpoqfMXSfrSnlZvhsJ.png
       border-right-width: 1px;
     }
+
     &:hover {
       z-index: 1;
       border-right-width: 1px;
@@ -9142,7 +9348,6 @@ a.@{btn-prefix-cls} {
     color: @input-color;
     font-weight: normal;
     font-size: @font-size-base;
-    line-height: 1;
     text-align: center;
     background-color: @input-addon-bg;
     border: @border-width-base @border-style-base @input-border-color;
@@ -9208,6 +9413,7 @@ a.@{btn-prefix-cls} {
   &-addon:first-child {
     border-right: 0;
   }
+
   &-addon:last-child {
     border-left: 0;
   }
@@ -9259,9 +9465,11 @@ a.@{btn-prefix-cls} {
     > .@{inputClass} {
       &:not(:first-child):not(:last-child) {
         border-right-width: @border-width-base;
+
         &:hover {
           z-index: 1;
         }
+
         &:focus {
           z-index: 1;
         }
@@ -9294,9 +9502,11 @@ a.@{btn-prefix-cls} {
     & > .@{ant-prefix}-time-picker .@{ant-prefix}-time-picker-input {
       border-right-width: @border-width-base;
       border-radius: 0;
+
       &:hover {
         z-index: 1;
       }
+
       &:focus {
         z-index: 1;
       }
@@ -9348,16 +9558,32 @@ a.@{btn-prefix-cls} {
     text-align: inherit;
   }
 
+  // Should not break align of icon & text
+  // https://github.com/ant-design/ant-design/issues/18087
+  // https://github.com/ant-design/ant-design/issues/17414
+  // https://github.com/ant-design/ant-design/pull/17684
+  // https://codesandbox.io/embed/pensive-paper-di2wk
+  // https://codesandbox.io/embed/nifty-benz-gb7ml
   .@{inputClass}-prefix,
   .@{inputClass}-suffix {
     position: absolute;
     top: 50%;
     z-index: 2;
+    display: flex;
+    align-items: center;
     color: @input-color;
     line-height: 0;
     transform: translateY(-50%);
+
     :not(.anticon) {
       line-height: @line-height-base;
+    }
+  }
+
+  .@{inputClass}-disabled ~ .@{inputClass}-suffix {
+    .anticon {
+      color: @disabled-color;
+      cursor: not-allowed;
     }
   }
 
@@ -9375,6 +9601,10 @@ a.@{btn-prefix-cls} {
 
   .@{inputClass}:not(:last-child) {
     padding-right: @input-padding-horizontal-base + @input-affix-width;
+  }
+
+  &.@{inputClass}-affix-wrapper-with-clear-btn .@{inputClass}:not(:last-child) {
+    padding-right: @input-padding-horizontal-base + @input-affix-with-clear-btn-width;
   }
 }
 
@@ -9436,7 +9666,7 @@ a.@{btn-prefix-cls} {
   }
 
   &:hover &-input:not(.@{ant-prefix}-input-disabled) {
-    border-color: @primary-color;
+    border-color: @input-hover-border-color;
   }
 
   &:focus &-input:not(.@{ant-prefix}-input-disabled) {
@@ -9503,8 +9733,8 @@ a.@{btn-prefix-cls} {
     border: 0 solid #aaa;
     border-width: 1.5px 0 0 1.5px;
     border-radius: 1px;
-    transform: rotate(-45deg) scale(.8);
-    transition: all .3s;
+    transform: rotate(-45deg) scale(0.8);
+    transition: all 0.3s;
     content: '';
   }
 
@@ -9533,7 +9763,7 @@ a.@{btn-prefix-cls} {
 
   &::before,
   &::after {
-    transform: rotate(135deg) scale(.8);
+    transform: rotate(135deg) scale(0.8);
   }
 }
 
@@ -9619,6 +9849,18 @@ a.@{btn-prefix-cls} {
   .@{calendar-prefix-cls}-next-month-btn {
     right: 29px;
     .calendarRightArrow;
+  }
+}
+
+.calendar-selected-cell() {
+  .@{calendar-prefix-cls}-date {
+    color: @text-color-inverse;
+    background: @primary-color;
+    border: @border-width-base @border-style-base transparent;
+
+    &:hover {
+      background: @primary-color;
+    }
   }
 }
 
@@ -9746,26 +9988,17 @@ a.@{btn-prefix-cls} {
     border-color: @primary-color;
   }
 
+  &-selected-day &-date {
+    background: @primary-2;
+  }
+
   &-last-month-cell &-date,
   &-next-month-btn-day &-date {
-    color: @disabled-color;
-  }
-
-  &-selected-day &-date {
-    background: tint(@primary-color, 80%);
-  }
-
-  &-selected-date,
-  &-selected-start-date,
-  &-selected-end-date {
-    .@{calendar-prefix-cls}-date {
-      color: @text-color-inverse;
-      background: @primary-color;
-      border: @border-width-base @border-style-base transparent;
-
-      &:hover {
-        background: @primary-color;
-      }
+    &,
+    &:hover {
+      color: @disabled-color;
+      background: transparent;
+      border-color: transparent;
     }
   }
 
@@ -9975,6 +10208,22 @@ a.@{btn-prefix-cls} {
     transform: translateX(-50%);
   }
 
+  .@{calendar-prefix-cls}-today
+    :not(.@{calendar-prefix-cls}-disabled-cell)
+    :not(.@{calendar-prefix-cls}-last-month-cell)
+    :not(.@{calendar-prefix-cls}-next-month-btn-day) {
+    .@{calendar-prefix-cls}-date {
+      color: @primary-color;
+      background: @primary-2;
+      border-color: @primary-color;
+    }
+  }
+
+  .@{calendar-prefix-cls}-selected-start-date,
+  .@{calendar-prefix-cls}-selected-end-date {
+    .calendar-selected-cell;
+  }
+
   &.@{calendar-prefix-cls}-time &-right .@{calendar-prefix-cls}-date-input-wrap {
     margin-left: 0;
   }
@@ -10061,7 +10310,8 @@ a.@{btn-prefix-cls} {
 
   .@{calendar-prefix-cls},
   .@{calendar-prefix-cls}-month-panel,
-  .@{calendar-prefix-cls}-year-panel {
+  .@{calendar-prefix-cls}-year-panel,
+  .@{calendar-prefix-cls}-decade-panel {
     &-header {
       border-bottom: 0;
     }
@@ -10275,7 +10525,7 @@ a.@{btn-prefix-cls} {
 
 .@{calendar-prefix-cls}-month-panel {
   position: absolute;
-  top: 1px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
@@ -10298,6 +10548,7 @@ a.@{btn-prefix-cls} {
 
 .@{calendar-prefix-cls}-month-panel-header {
   .calendarPanelHeader(~'@{calendar-prefix-cls}-month-panel');
+  position: relative;
 }
 
 .@{calendar-prefix-cls}-month-panel-body {
@@ -10361,7 +10612,7 @@ a.@{btn-prefix-cls} {
 
 .@{calendar-prefix-cls}-year-panel {
   position: absolute;
-  top: 1px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
@@ -10384,6 +10635,7 @@ a.@{btn-prefix-cls} {
 
 .@{calendar-prefix-cls}-year-panel-header {
   .calendarPanelHeader(~'@{calendar-prefix-cls}-year-panel');
+  position: relative;
 }
 
 .@{calendar-prefix-cls}-year-panel-body {
@@ -10464,6 +10716,7 @@ a.@{btn-prefix-cls} {
 
 .@{calendar-prefix-cls}-decade-panel-header {
   .calendarPanelHeader(~'@{calendar-prefix-cls}-decade-panel');
+  position: relative;
 }
 
 .@{calendar-prefix-cls}-decade-panel-body {
@@ -10604,7 +10857,9 @@ a.@{btn-prefix-cls} {
 .@{ant-prefix}-input-clear-icon {
   color: @disabled-color;
   font-size: @font-size-sm;
-  vertical-align: top;
+  // https://github.com/ant-design/ant-design/pull/18151
+  // https://codesandbox.io/s/wizardly-sun-u10br
+  vertical-align: 0;
   cursor: pointer;
   transition: color 0.3s;
 
@@ -10729,7 +10984,9 @@ a.@{btn-prefix-cls} {
     }
 
     ul {
-      width: 100%;
+      // use fixed width instead of 100%
+      // to fix strange render bug in safari: https://github.com/ant-design/ant-design/issues/17842
+      width: @time-picker-panel-column-width;
       margin: 0;
       padding: 0 0 @timepicker-item-height * 5;
       list-style: none;
@@ -11039,6 +11296,12 @@ a.@{btn-prefix-cls} {
       position: relative;
       top: -0.5px;
       margin: 0 8px 0 2px;
+      content: ' ';
+    }
+  }
+
+  &-item-colon {
+    &::after {
       content: ':';
     }
   }
@@ -11064,6 +11327,24 @@ a.@{btn-prefix-cls} {
     }
   }
 
+  &-middle {
+    .@{descriptions-prefix-cls}-row {
+      > th,
+      > td {
+        padding-bottom: 12px;
+      }
+    }
+  }
+
+  &-small {
+    .@{descriptions-prefix-cls}-row {
+      > th,
+      > td {
+        padding-bottom: 8px;
+      }
+    }
+  }
+
   &-bordered {
     .@{descriptions-prefix-cls}-view {
       border: 1px solid @border-color-split;
@@ -11083,7 +11364,7 @@ a.@{btn-prefix-cls} {
     }
 
     .@{descriptions-prefix-cls}-item-label {
-      background-color: #fafafa;
+      background-color: @descriptions-bg;
       &::after {
         display: none;
       }
@@ -11230,14 +11511,15 @@ a.@{btn-prefix-cls} {
   z-index: @zindex-modal;
   width: 0%;
   height: 100%;
-
+  transition: transform @animation-duration-slow @ease-base-out,
+    height 0s ease @animation-duration-slow, width 0s ease @animation-duration-slow;
   > * {
-    transition: transform @animation-duration-slow @ease-base-in,
-      box-shadow @animation-duration-slow @ease-base-in;
+    transition: transform @animation-duration-slow @ease-base-out,
+      box-shadow @animation-duration-slow @ease-base-out;
   }
 
   &-content-wrapper {
-    position: fixed;
+    position: absolute;
   }
   .@{drawer-prefix-cls}-content {
     width: 100%;
@@ -11254,6 +11536,7 @@ a.@{btn-prefix-cls} {
     }
     &.@{drawer-prefix-cls}-open {
       width: 100%;
+      transition: transform @animation-duration-slow @ease-base-out;
     }
     &.@{drawer-prefix-cls}-open.no-mask {
       width: 0%;
@@ -11280,6 +11563,11 @@ a.@{btn-prefix-cls} {
       .@{drawer-prefix-cls}-content-wrapper {
         box-shadow: @shadow-1-left;
       }
+      // https://github.com/ant-design/ant-design/issues/18607, Avoid edge alignment bug.
+      &.no-mask {
+        right: 1px;
+        transform: translateX(1px);
+      }
     }
   }
 
@@ -11294,6 +11582,7 @@ a.@{btn-prefix-cls} {
     }
     &.@{drawer-prefix-cls}-open {
       height: 100%;
+      transition: transform @animation-duration-slow @ease-base-out;
     }
     &.@{drawer-prefix-cls}-open.no-mask {
       height: 0%;
@@ -11322,6 +11611,10 @@ a.@{btn-prefix-cls} {
       .@{drawer-prefix-cls}-content-wrapper {
         box-shadow: @shadow-1-up;
       }
+      &.no-mask {
+        bottom: 1px;
+        transform: translateY(1px);
+      }
     }
   }
 
@@ -11329,7 +11622,7 @@ a.@{btn-prefix-cls} {
     .@{drawer-prefix-cls} {
       &-mask {
         height: 100%;
-        opacity: 0.3;
+        opacity: 1;
         transition: none;
         animation: antdDrawerFadeIn @animation-duration-slow @ease-base-out;
       }
@@ -11347,6 +11640,7 @@ a.@{btn-prefix-cls} {
   &-content {
     position: relative;
     z-index: 1;
+    overflow: auto;
     background-color: @component-background;
     background-clip: padding-box;
     border: 0;
@@ -11405,18 +11699,17 @@ a.@{btn-prefix-cls} {
   }
 
   &-mask {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 0;
     background-color: @modal-mask-bg;
     opacity: 0;
-    filter: ~'alpha(opacity=50)';
+    filter: ~'alpha(opacity=45)';
     transition: opacity @animation-duration-slow linear, height 0s ease @animation-duration-slow;
   }
   &-open {
-    transition: transform @animation-duration-slow @ease-base-out;
     &-content {
       box-shadow: @shadow-2;
     }
@@ -11428,7 +11721,7 @@ a.@{btn-prefix-cls} {
     opacity: 0;
   }
   100% {
-    opacity: 0.3;
+    opacity: 1;
   }
 }
 
@@ -11700,6 +11993,11 @@ a.@{btn-prefix-cls} {
     img {
       height: 100%;
     }
+
+    svg {
+      height: 100%;
+      margin: auto;
+    }
   }
 
   &-description {
@@ -11761,7 +12059,7 @@ a.@{btn-prefix-cls} {
     }
     &:hover &-up-inner,
     &:hover &-down-inner {
-      color: @primary-5;
+      color: @input-number-handler-hover-bg;
     }
   }
 
@@ -11841,8 +12139,8 @@ a.@{btn-prefix-cls} {
     right: 0;
     width: 22px;
     height: 100%;
-    background: @component-background;
-    border-left: @border-width-base @border-style-base @border-color-base;
+    background: @input-number-handler-bg;
+    border-left: @border-width-base @border-style-base @input-number-handler-border-color;
     border-radius: 0 @border-radius-base @border-radius-base 0;
     opacity: 0;
     transition: opacity 0.24s linear 0.1s;
@@ -11870,6 +12168,7 @@ a.@{btn-prefix-cls} {
   }
 
   &-handler-up {
+    border-top-right-radius: @border-radius-base;
     cursor: pointer;
     &-inner {
       top: 50%;
@@ -11884,6 +12183,7 @@ a.@{btn-prefix-cls} {
   &-handler-down {
     top: 0;
     border-top: @border-width-base @border-style-base @border-color-base;
+    border-bottom-right-radius: @border-radius-base;
     cursor: pointer;
     &-inner {
       top: 50%;
@@ -12019,6 +12319,7 @@ a.@{btn-prefix-cls} {
 
         &-right {
           left: -@layout-zero-trigger-width;
+          border-radius: @border-radius-base 0 0 @border-radius-base;
         }
       }
     }
@@ -12986,7 +13287,7 @@ form {
     }
   }
 
-  &-grid &-item {
+  &-grid .@{ant-prefix}-col > &-item {
     display: block;
     max-width: 100%;
     margin-bottom: 16px;
@@ -13356,6 +13657,10 @@ form {
       padding: 0 6px;
       color: @text-color;
       transition: none;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     &:focus,
@@ -14050,11 +14355,11 @@ form {
     .@{menu-prefix-cls}-item,
     .@{menu-prefix-cls}-submenu-title {
       height: @menu-item-height;
-      margin-top: 4px;
-      margin-bottom: 4px;
+      margin-top: @menu-item-vertical-margin;
+      margin-bottom: @menu-item-vertical-margin;
       padding: 0 16px;
       overflow: hidden;
-      font-size: @font-size-base;
+      font-size: @menu-item-font-size;
       line-height: @menu-item-height;
       text-overflow: ellipsis;
     }
@@ -14065,7 +14370,7 @@ form {
     }
 
     .@{menu-prefix-cls}-item:not(:last-child) {
-      margin-bottom: 8px;
+      margin-bottom: @menu-item-boundary-margin;
     }
 
     > .@{menu-prefix-cls}-item,
@@ -14294,6 +14599,9 @@ form {
       }
     }
   }
+  &-dark &-item:hover {
+    background-color: @menu-dark-item-hover-bg;
+  }
 
   &-dark &-item-selected {
     color: @menu-dark-highlight-color;
@@ -14304,6 +14612,12 @@ form {
     > a,
     > a:hover {
       color: @menu-dark-highlight-color;
+    }
+    .@{iconfont-css-prefix} {
+      color: @menu-dark-selected-item-icon-color;
+    }
+    .@{iconfont-css-prefix} + span {
+      color: @menu-dark-selected-item-text-color;
     }
   }
 
@@ -14337,6 +14651,14 @@ form {
 
 @tooltip-prefix-cls: ~'@{ant-prefix}-tooltip';
 
+@tooltip-arrow-shadow-width: 3px;
+
+@tooltip-arrow-rotate-width: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2) +
+  @tooltip-arrow-shadow-width * 2;
+
+@tooltip-arrow-offset-vertical: 5px; // 8 - 3px
+@tooltip-arrow-offset-horizontal: 13px; // 16 - 3px
+
 // Base class
 .@{tooltip-prefix-cls} {
   .reset-component;
@@ -14356,16 +14678,19 @@ form {
   &-placement-topRight {
     padding-bottom: @tooltip-distance;
   }
+
   &-placement-right,
   &-placement-rightTop,
   &-placement-rightBottom {
     padding-left: @tooltip-distance;
   }
+
   &-placement-bottom,
   &-placement-bottomLeft,
   &-placement-bottomRight {
     padding-top: @tooltip-distance;
   }
+
   &-placement-left,
   &-placement-leftTop,
   &-placement-leftBottom {
@@ -14390,108 +14715,122 @@ form {
   &-arrow {
     position: absolute;
     display: block;
-    width: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2);
-    height: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2);
+    width: @tooltip-arrow-rotate-width;
+    height: @tooltip-arrow-rotate-width;
+    overflow: hidden;
     background: transparent;
-    border-style: solid;
-    border-width: sqrt(@tooltip-arrow-width * @tooltip-arrow-width * 2) / 2;
-    transform: rotate(45deg);
+    pointer-events: none;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: @tooltip-arrow-width;
+      height: @tooltip-arrow-width;
+      margin: auto;
+      background-color: @tooltip-bg;
+      content: '';
+      pointer-events: auto;
+    }
   }
 
   &-placement-top &-arrow,
   &-placement-topLeft &-arrow,
   &-placement-topRight &-arrow {
-    bottom: @tooltip-distance - @tooltip-arrow-width + 2.2px;
-    border-top-color: transparent;
-    border-right-color: tint(fadein(@tooltip-bg, 100%), 25%); // make it not transparent
-    border-bottom-color: tint(fadein(@tooltip-bg, 100%), 25%); // make it not transparent
-    border-left-color: transparent;
-    box-shadow: 3px 3px 7px fade(@black, 7%);
+    bottom: @tooltip-distance - @tooltip-arrow-rotate-width;
+
+    &::before {
+      box-shadow: @tooltip-arrow-shadow-width @tooltip-arrow-shadow-width 7px fade(@black, 7%);
+      transform: translateY(-@tooltip-arrow-rotate-width / 2) rotate(45deg);
+    }
   }
 
   &-placement-top &-arrow {
     left: 50%;
-    transform: translateX(-50%) rotate(45deg);
+    transform: translateX(-50%);
   }
 
   &-placement-topLeft &-arrow {
-    left: 16px;
+    left: @tooltip-arrow-offset-horizontal;
   }
 
   &-placement-topRight &-arrow {
-    right: 16px;
+    right: @tooltip-arrow-offset-horizontal;
   }
 
   &-placement-right &-arrow,
   &-placement-rightTop &-arrow,
   &-placement-rightBottom &-arrow {
-    left: @tooltip-distance - @tooltip-arrow-width + 2px;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    border-left-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    box-shadow: -3px 3px 7px fade(@black, 7%);
+    left: @tooltip-distance - @tooltip-arrow-rotate-width;
+
+    &::before {
+      box-shadow: -@tooltip-arrow-shadow-width @tooltip-arrow-shadow-width 7px fade(@black, 7%);
+      transform: translateX(@tooltip-arrow-rotate-width / 2) rotate(45deg);
+    }
   }
 
   &-placement-right &-arrow {
     top: 50%;
-    transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%);
   }
 
   &-placement-rightTop &-arrow {
-    top: 8px;
+    top: @tooltip-arrow-offset-vertical;
   }
 
   &-placement-rightBottom &-arrow {
-    bottom: 8px;
+    bottom: @tooltip-arrow-offset-vertical;
   }
 
   &-placement-left &-arrow,
   &-placement-leftTop &-arrow,
   &-placement-leftBottom &-arrow {
-    right: @tooltip-distance - @tooltip-arrow-width + 2px;
-    border-top-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    border-right-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-    box-shadow: 3px -3px 7px fade(@black, 7%);
+    right: @tooltip-distance - @tooltip-arrow-rotate-width;
+
+    &::before {
+      box-shadow: @tooltip-arrow-shadow-width -@tooltip-arrow-shadow-width 7px fade(@black, 7%);
+      transform: translateX(-@tooltip-arrow-rotate-width / 2) rotate(45deg);
+    }
   }
 
   &-placement-left &-arrow {
     top: 50%;
-    transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%);
   }
 
   &-placement-leftTop &-arrow {
-    top: 8px;
+    top: @tooltip-arrow-offset-vertical;
   }
 
   &-placement-leftBottom &-arrow {
-    bottom: 8px;
+    bottom: @tooltip-arrow-offset-vertical;
   }
 
   &-placement-bottom &-arrow,
   &-placement-bottomLeft &-arrow,
   &-placement-bottomRight &-arrow {
-    top: @tooltip-distance - @tooltip-arrow-width + 2px;
-    border-top-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: tint(fadein(@tooltip-bg, 100%), 25%);
-    box-shadow: -2px -2px 5px fade(@black, 6%);
+    top: @tooltip-distance - @tooltip-arrow-rotate-width;
+
+    &::before {
+      box-shadow: -@tooltip-arrow-shadow-width -@tooltip-arrow-shadow-width 7px fade(@black, 7%);
+      transform: translateY(@tooltip-arrow-rotate-width / 2) rotate(45deg);
+    }
   }
 
   &-placement-bottom &-arrow {
     left: 50%;
-    transform: translateX(-50%) rotate(45deg);
+    transform: translateX(-50%);
   }
 
   &-placement-bottomLeft &-arrow {
-    left: 16px;
+    left: @tooltip-arrow-offset-horizontal;
   }
 
   &-placement-bottomRight &-arrow {
-    right: 16px;
+    right: @tooltip-arrow-offset-horizontal;
   }
 }
 
@@ -14798,7 +15137,7 @@ form {
     padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
     text-align: right;
     background: @modal-footer-bg;
-    border-top: @border-width-base @border-style-base @border-color-split;
+    border-top: @border-width-base @border-style-base @modal-footer-border-color-split;
     border-radius: 0 0 @border-radius-base @border-radius-base;
     button + button {
       margin-bottom: 0;
@@ -15146,21 +15485,30 @@ form {
   .reset-component;
 
   position: relative;
-  padding: @page-header-padding-vertical @page-header-padding-horizontal;
-  background: @component-background;
+  padding: @page-header-padding-vertical @page-header-padding;
+  background-color: @component-background;
 
-  &.@{pageheader-prefix-cls}-has-footer {
+  &-ghost {
+    background-color: inherit;
+  }
+
+  &.has-breadcrumb {
+    padding-top: @page-header-padding-breadcrumb;
+  }
+
+  &.has-footer {
     padding-bottom: 0;
   }
 
   &-back {
-    display: inline-block;
-    padding: 4px 0;
+    float: left;
+    margin: 8px 0;
+    margin-right: 16px;
     font-size: 16px;
-    line-height: 100%;
+    line-height: 1;
     &-button {
       .operation-unit();
-      color: @text-color;
+      color: @page-header-back-color;
       cursor: pointer;
     }
   }
@@ -15168,40 +15516,48 @@ form {
   .@{ant-prefix}-divider-vertical {
     height: 14px;
     margin: 0 12px;
+    vertical-align: middle;
   }
 
   .@{ant-prefix}-breadcrumb + &-heading {
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   &-heading {
-    display: inline-block;
+    width: 100%;
+    overflow: hidden;
     &-title {
-      display: inline-block;
+      display: block;
+      float: left;
+      margin-bottom: 0;
       padding-right: 12px;
       color: @heading-color;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 1.4;
+      font-weight: 600;
+      font-size: @heading-4-size;
+      line-height: 32px;
+    }
+
+    .@{ant-prefix}-avatar {
+      float: left;
+      margin-right: 12px;
     }
 
     &-sub-title {
-      display: inline-block;
-      padding-right: 12px;
+      float: left;
+      margin: 5px 0;
+      margin-right: 12px;
       color: @text-color-secondary;
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 22px;
     }
 
     &-tags {
-      display: inline-block;
-      vertical-align: top;
+      float: left;
+      margin: 4px 0;
     }
 
     &-extra {
-      position: absolute;
-      top: 16px;
-      right: @page-header-padding-horizontal;
+      float: right;
       > * {
         margin-left: 8px;
       }
@@ -15213,22 +15569,33 @@ form {
 
   &-content {
     padding-top: 12px;
+    overflow: hidden;
   }
 
   &-footer {
-    margin: 0 -8px;
-    padding-top: 24px;
+    margin-top: 16px;
     .@{ant-prefix}-tabs-bar {
       margin-bottom: 1px;
       border-bottom: 0;
       .@{ant-prefix}-tabs-nav .@{ant-prefix}-tabs-tab {
-        padding: 12px 8px;
-        padding-top: 0;
+        padding: 8px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media (max-width: @screen-sm) {
+    &-heading {
+      &-extra {
+        display: block;
+        float: unset;
+        width: 100%;
+        padding-top: 12px;
+        overflow: hidden;
       }
     }
   }
 }
-
 // style dependencies
 
 // style dependencies
@@ -15334,7 +15701,6 @@ form {
     &-selected-value {
       float: left;
       max-width: 100%;
-      padding-right: 20px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -15379,6 +15745,16 @@ form {
     position: relative;
     height: @input-height-base;
     cursor: pointer;
+
+    .@{select-prefix-cls}-selection__rendered {
+      margin-right: 24px;
+    }
+  }
+
+  &-no-arrow {
+    .@{select-prefix-cls}-selection__rendered {
+      margin-right: @control-padding-horizontal - 1px;
+    }
   }
 
   &-selection__rendered {
@@ -15425,7 +15801,7 @@ form {
       height: @input-height-sm;
     }
     .@{select-prefix-cls}-selection__rendered {
-      margin: 0 @control-padding-horizontal-sm - 1px;
+      margin-left: @control-padding-horizontal-sm - 1px;
       line-height: @input-height-sm - 2px;
     }
     .@{select-prefix-cls}-selection--multiple {
@@ -15665,7 +16041,7 @@ form {
   // https://github.com/ant-design/ant-design/issues/11456
   // https://github.com/ant-design/ant-design/issues/11843
   font-variant: initial;
-  background-color: @component-background;
+  background-color: @select-dropdown-bg;
   border-radius: @border-radius-base;
   outline: none;
   box-shadow: @box-shadow-base;
@@ -15750,7 +16126,7 @@ form {
       &-selected {
         color: @text-color;
         font-weight: @select-item-selected-font-weight;
-        background-color: @background-color-light;
+        background-color: @select-item-selected-bg;
       }
 
       &-disabled {
@@ -15764,7 +16140,7 @@ form {
       }
 
       &-active:not(&-disabled) {
-        background-color: @item-active-bg;
+        background-color: @select-item-active-bg;
       }
 
       &-divider {
@@ -16064,9 +16440,10 @@ form {
     position: relative;
     display: inline-block;
     width: 100%;
+    overflow: hidden;
     vertical-align: middle;
     background-color: @progress-remaining-color;
-    border-radius: 100px;
+    border-radius: @progress-radius;
   }
 
   &-circle-trail {
@@ -16075,13 +16452,19 @@ form {
 
   &-circle-path {
     animation: ~'@{ant-prefix}-progress-appear' 0.3s;
-    stroke: @progress-default-color;
+  }
+
+  &-inner:not(.@{ant-prefix}-progress-circle-gradient) {
+    .@{ant-prefix}-progress-circle-path {
+      stroke: @progress-default-color;
+    }
   }
 
   &-success-bg,
   &-bg {
     position: relative;
     background-color: @progress-default-color;
+    border-radius: @progress-radius;
     transition: all 0.4s @ease-out-circ 0s;
   }
 
@@ -16130,6 +16513,9 @@ form {
     .@{progress-prefix-cls}-text {
       color: @error-color;
     }
+  }
+
+  &-status-exception &-inner:not(.@{progress-prefix-cls}-circle-gradient) {
     .@{progress-prefix-cls}-circle-path {
       stroke: @error-color;
     }
@@ -16142,6 +16528,9 @@ form {
     .@{progress-prefix-cls}-text {
       color: @success-color;
     }
+  }
+
+  &-status-success &-inner:not(.@{progress-prefix-cls}-circle-gradient) {
     .@{progress-prefix-cls}-circle-path {
       stroke: @success-color;
     }
@@ -16179,12 +16568,6 @@ form {
   &-circle&-status-success {
     .@{progress-prefix-cls}-text {
       color: @success-color;
-    }
-  }
-
-  &-circle-gradient {
-    .@{progress-prefix-cls}-circle-path {
-      stroke: url(#gradient);
     }
   }
 }
@@ -16434,16 +16817,18 @@ span.@{radio-prefix-cls} + * {
     pointer-events: none;
   }
 
-  &-checked {
+  &-checked:not(&-disabled) {
     z-index: 1;
     color: @radio-dot-color;
     background: @radio-button-checked-bg;
     border-color: @radio-dot-color;
     box-shadow: -1px 0 0 0 @radio-dot-color;
+
     &::before {
       background-color: @radio-dot-color !important;
       opacity: 0.1;
     }
+
     &:first-child {
       border-color: @radio-dot-color;
       box-shadow: none !important;
@@ -16553,11 +16938,14 @@ span.@{radio-prefix-cls} + * {
     position: relative;
     display: inline-block;
     margin: 0;
-    margin-right: 8px;
     padding: 0;
     color: inherit;
     cursor: pointer;
     transition: all 0.3s;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
 
     > div {
       &:focus {
@@ -16763,7 +17151,7 @@ span.@{radio-prefix-cls} + * {
     width: 100%;
     height: 4px;
     background-color: @slider-rail-background-color;
-    border-radius: 2px;
+    border-radius: @border-radius-sm;
     transition: background-color 0.3s;
   }
 
@@ -16772,7 +17160,7 @@ span.@{radio-prefix-cls} + * {
     height: 4px;
     background-color: @slider-track-background-color;
     border-radius: @border-radius-base;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
   }
 
   &-handle {
@@ -16781,10 +17169,10 @@ span.@{radio-prefix-cls} + * {
     height: 14px;
     margin-top: -5px;
     margin-left: -7px;
-    background-color: @component-background;
-    border: solid 2px @slider-handle-color;
+    background-color: @slider-handle-background-color;
+    border: solid @slider-handle-border-width @slider-handle-color;
     border-radius: 50%;
-    box-shadow: 0;
+    box-shadow: @slider-handle-shadow;
     cursor: pointer;
     transition: border-color 0.3s, box-shadow 0.6s,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -16988,12 +17376,15 @@ span.@{radio-prefix-cls} + * {
 @error-description-color: @error-color;
 @error-tail-color: @wait-tail-color;
 @steps-background: @component-background;
+@steps-nav-arrow-color: fade(@black, 25%);
+@steps-nav-active-color: @primary-color;
 
 @steps-icon-size: 32px;
 @steps-small-icon-size: 24px;
 @steps-dot-size: 8px;
 @steps-current-dot-size: 10px;
 @steps-desciption-max-width: 140px;
+@steps-nav-content-max-width: @steps-desciption-max-width;
 
 .@{steps-prefix-cls} {
   .reset-component;
@@ -17010,12 +17401,16 @@ span.@{radio-prefix-cls} + * {
   overflow: hidden;
   vertical-align: top;
 
+  &-container {
+    outline: none;
+  }
+
   &:last-child {
     flex: none;
   }
 
-  &:last-child > &-tail,
-  &:last-child > &-content > &-title::after {
+  &:last-child > &-container > &-tail,
+  &:last-child > &-container > &-content > &-title::after {
     display: none;
   }
 
@@ -17078,6 +17473,13 @@ span.@{radio-prefix-cls} + * {
       content: '';
     }
   }
+  &-subtitle {
+    display: inline;
+    margin-left: 8px;
+    color: @text-color-secondary;
+    font-weight: normal;
+    font-size: @font-size-base;
+  }
   &-description {
     color: @text-color-secondary;
     font-size: @font-size-base;
@@ -17099,12 +17501,12 @@ span.@{radio-prefix-cls} + * {
   &.@{steps-prefix-cls}-next-error .@{steps-prefix-cls}-item-title::after {
     background: @error-icon-color;
   }
+}
 
-  // ===================== Clickable =====================
-  &[role='button'] {
-    outline: none;
-
-    &:not(.@{steps-prefix-cls}-item-process) {
+// ===================== Clickable =====================
+.@{steps-prefix-cls} .@{steps-prefix-cls}-item {
+  &:not(.@{steps-prefix-cls}-item-active) {
+    & > .@{steps-prefix-cls}-item-container[role='button'] {
       cursor: pointer;
 
       .@{steps-prefix-cls}-item {
@@ -17118,10 +17520,17 @@ span.@{radio-prefix-cls} + * {
       &:hover {
         .@{steps-prefix-cls}-item {
           &-title,
+          &-subtitle,
           &-description {
             color: @primary-color;
           }
+        }
+      }
+    }
 
+    &:not(.@{steps-prefix-cls}-item-process) {
+      & > .@{steps-prefix-cls}-item-container[role='button']:hover {
+        .@{steps-prefix-cls}-item {
           &-icon {
             border-color: @primary-color;
 
@@ -17170,16 +17579,16 @@ span.@{radio-prefix-cls} + * {
       }
     }
   }
-  &-@{status} > &-content > &-title {
+  &-@{status} > &-container > &-content > &-title {
     color: @@title-color;
     &::after {
       background-color: @@tail-color;
     }
   }
-  &-@{status} > &-content > &-description {
+  &-@{status} > &-container > &-content > &-description {
     color: @@description-color;
   }
-  &-@{status} > &-tail::after {
+  &-@{status} > &-container > &-tail::after {
     background-color: @@tail-color;
   }
 }
@@ -17246,7 +17655,6 @@ span.@{radio-prefix-cls} + * {
   }
   .@{steps-prefix-cls}-item-tail {
     top: 8px;
-    padding: 0 8px;
   }
   .@{steps-prefix-cls}-item-custom .@{steps-prefix-cls}-item-icon {
     width: inherit;
@@ -17285,7 +17693,9 @@ span.@{radio-prefix-cls} + * {
     }
   }
 
-  > .@{steps-prefix-cls}-item > .@{steps-prefix-cls}-item-tail {
+  > .@{steps-prefix-cls}-item
+    > .@{steps-prefix-cls}-item-container
+    > .@{steps-prefix-cls}-item-tail {
     position: absolute;
     top: 0;
     left: 16px;
@@ -17298,11 +17708,14 @@ span.@{radio-prefix-cls} + * {
     }
   }
 
-  > .@{steps-prefix-cls}-item:not(:last-child) > .@{steps-prefix-cls}-item-tail {
+  > .@{steps-prefix-cls}-item:not(:last-child)
+    > .@{steps-prefix-cls}-item-container
+    > .@{steps-prefix-cls}-item-tail {
     display: block;
   }
 
   > .@{steps-prefix-cls}-item
+    > .@{steps-prefix-cls}-item-container
     > .@{steps-prefix-cls}-item-content
     > .@{steps-prefix-cls}-item-title {
     &::after {
@@ -17310,7 +17723,7 @@ span.@{radio-prefix-cls} + * {
     }
   }
 
-  &.@{steps-prefix-cls}-small {
+  &.@{steps-prefix-cls}-small .@{steps-prefix-cls}-item-container {
     .@{steps-prefix-cls}-item-tail {
       position: absolute;
       top: 0;
@@ -17367,7 +17780,8 @@ span.@{radio-prefix-cls} + * {
   }
 }
 
-.@{steps-prefix-cls}-dot {
+.@{steps-prefix-cls}-dot,
+.@{steps-prefix-cls}-dot.@{steps-prefix-cls}-small {
   .@{steps-prefix-cls}-item {
     &-title {
       line-height: @line-height-base;
@@ -17432,7 +17846,8 @@ span.@{radio-prefix-cls} + * {
     margin-top: 8px;
     margin-left: 0;
   }
-  .@{steps-prefix-cls}-item-tail {
+  // https://github.com/ant-design/ant-design/issues/18354
+  .@{steps-prefix-cls}-item > .@{steps-prefix-cls}-item-container > .@{steps-prefix-cls}-item-tail {
     top: 2px;
     left: -9px;
     margin: 0;
@@ -17443,6 +17858,98 @@ span.@{radio-prefix-cls} + * {
   }
   .@{steps-prefix-cls}-item-process .@{steps-prefix-cls}-icon-dot {
     left: -2px;
+  }
+}
+
+.@{steps-prefix-cls}-navigation {
+  padding-top: 12px;
+
+  &.@{steps-prefix-cls}-small {
+    .@{steps-prefix-cls}-item {
+      &-container {
+        margin-left: -12px;
+      }
+    }
+  }
+
+  .@{steps-prefix-cls}-item {
+    overflow: visible;
+    text-align: center;
+
+    &-container {
+      display: inline-block;
+      height: 100%;
+      margin-left: -16px;
+      padding-bottom: 12px;
+      text-align: left;
+      transition: opacity 0.3s;
+
+      .@{steps-prefix-cls}-item-content {
+        max-width: @steps-nav-content-max-width;
+      }
+
+      .@{steps-prefix-cls}-item-title {
+        max-width: 100%;
+        padding-right: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    &:not(.@{steps-prefix-cls}-item-active) {
+      .@{steps-prefix-cls}-item-container[role='button'] {
+        cursor: pointer;
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+    }
+
+    &:last-child {
+      flex: 1;
+      &::after {
+        display: none;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-top: -14px;
+      margin-left: -2px;
+      border: 1px solid @steps-nav-arrow-color;
+      border-bottom: none;
+      border-left: none;
+      transform: rotate(45deg);
+      content: '';
+    }
+
+    &::before {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      display: inline-block;
+      width: 0;
+      height: 3px;
+      background-color: @steps-nav-active-color;
+      transition: width 0.3s, left 0.3s;
+      transition-timing-function: ease-out;
+      content: '';
+    }
+  }
+
+  .@{steps-prefix-cls}-item.@{steps-prefix-cls}-item-active::before {
+    left: 0;
+    width: 100%;
   }
 }
 
@@ -17700,11 +18207,13 @@ span.@{radio-prefix-cls} + * {
     overflow-y: hidden !important;
   }
 
+  // https://github.com/ant-design/ant-design/issues/17611
   table {
     width: 100%;
     text-align: left;
     border-radius: @table-border-radius-base @table-border-radius-base 0 0;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
   }
 
   &-thead > tr > th {
@@ -17899,7 +18408,7 @@ span.@{radio-prefix-cls} + * {
     transition: all 0.3s, height 0s;
     &.@{table-prefix-cls}-row-hover,
     &:hover {
-      &:not(.@{table-prefix-cls}-expanded-row) > td {
+      &:not(.@{table-prefix-cls}-expanded-row):not(.@{table-prefix-cls}-row-selected) > td {
         background: @table-row-hover-bg;
       }
     }
@@ -17925,7 +18434,8 @@ span.@{radio-prefix-cls} + * {
   &-footer {
     position: relative;
     padding: @table-padding-vertical @table-padding-horizontal;
-    background: @table-header-bg;
+    color: @table-footer-color;
+    background: @table-footer-bg;
     border-top: @border-width-base @border-style-base @border-color-split;
     border-radius: 0 0 @table-border-radius-base @table-border-radius-base;
     &::before {
@@ -17934,7 +18444,7 @@ span.@{radio-prefix-cls} + * {
       left: 0;
       width: 100%;
       height: 1px;
-      background: @table-header-bg;
+      background: @table-footer-bg;
       content: '';
     }
   }
@@ -18092,9 +18602,6 @@ span.@{radio-prefix-cls} + * {
     border-top: @border-width-base @border-style-base @border-color-split;
     border-bottom: @border-width-base @border-style-base @border-color-split;
     border-radius: 0 0 @border-radius-base @border-radius-base;
-    .@{iconfont-css-prefix} {
-      margin-right: 4px;
-    }
   }
 
   &-pagination.@{ant-prefix}-pagination {
@@ -18141,6 +18648,10 @@ span.@{radio-prefix-cls} + * {
 
     .@{ant-prefix}-dropdown-menu-item {
       overflow: hidden;
+    }
+
+    .@{ant-prefix}-checkbox-wrapper + span {
+      padding-left: 8px;
     }
 
     > .@{ant-prefix}-dropdown-menu > .@{ant-prefix}-dropdown-menu-item:last-child,
@@ -18211,15 +18722,26 @@ span.@{radio-prefix-cls} + * {
 
   &-row {
     &-expand-icon {
+      .operation-unit();
+
       display: inline-block;
       width: 17px;
       height: 17px;
-      line-height: 14px;
+      color: inherit;
+      line-height: 13px;
       text-align: center;
       background: @component-background;
       border: @border-width-base @border-style-base @border-color-split;
-      cursor: pointer;
+      border-radius: @border-radius-sm;
+      outline: none;
+      transition: all 0.3s;
       user-select: none;
+
+      &:focus,
+      &:hover,
+      &:active {
+        border-color: currentColor;
+      }
     }
 
     &-expanded::after {
@@ -18310,7 +18832,10 @@ span.@{radio-prefix-cls} + * {
       border: 1px solid @border-color-split;
       border-width: 1px 1px 1px 0;
     }
-    &.@{table-prefix-cls}-hide-scrollbar .@{table-prefix-cls}-thead > tr > th:last-child {
+    &.@{table-prefix-cls}-hide-scrollbar
+      .@{table-prefix-cls}-thead
+      > tr:only-child
+      > th:last-child {
       border-right-color: transparent;
     }
   }
@@ -18412,10 +18937,9 @@ span.@{radio-prefix-cls} + * {
 
 /**
 * Another fix of Firefox:
-* - https://github.com/ant-design/ant-design/issues/12628
-* - https://github.com/ant-design/ant-design/issues/12628
 */
 @supports (-moz-appearance: meterbar) {
+  // https://github.com/ant-design/ant-design/issues/12628
   .@{table-prefix-cls}-thead > tr > th.@{table-prefix-cls}-column-has-actions {
     background-clip: padding-box;
   }
@@ -18496,6 +19020,8 @@ span.@{radio-prefix-cls} + * {
       > .@{table-prefix-cls}-thead > tr > th,
       > .@{table-prefix-cls}-tbody > tr > td {
         padding: @table-padding-vertical-sm @table-padding-horizontal-sm;
+      }
+      > .@{table-prefix-cls}-thead > tr > th {
         background-color: transparent;
       }
       > .@{table-prefix-cls}-thead > tr {
@@ -18559,7 +19085,7 @@ span.@{radio-prefix-cls} + * {
       border-left: 0;
     }
 
-    .@{table-prefix-cls}-thead > tr > th:last-child,
+    .@{table-prefix-cls}-thead > tr:only-child > th:last-child,
     .@{table-prefix-cls}-tbody > tr > td:last-child {
       border-right: none;
     }
@@ -18590,15 +19116,6 @@ span.@{radio-prefix-cls} + * {
 @table-th-right-cls: ~'@{table-th-cls}-right';
 @table-td-left-cls: ~'@{table-td-cls}-left';
 @table-td-right-cls: ~'@{table-td-cls}-right';
-
-nz-table {
-  .@{table-prefix-cls} {
-    table {
-      border-collapse: separate;
-      border-spacing: 0;
-    }
-  }
-}
 
 .box-shadow-left() {
   .@{table-th-right-cls}-sticky,
@@ -18722,12 +19239,15 @@ nz-table {
 
 .@{table-prefix-cls}-small {
   &.@{table-prefix-cls}-bordered {
-    .@{table-prefix-cls}-thead > tr > th:last-child,
-    .@{table-prefix-cls}-tbody > tr > td:last-child {
+    .@{table-prefix-cls}-thead > tr > th:last-child {
       border-right: @border-width-base @border-style-base @border-color-split;
     }
-    .@{table-prefix-cls}-thead > tr:first-child > th:last-child,
-    .@{table-prefix-cls}-tbody > tr:first-child > td:last-child {
+
+    .@{table-prefix-cls}-thead > tr:first-child > th:last-child {
+      border-right: none;
+    }
+    
+    .@{table-prefix-cls}-footer {
       border-right: none;
     }
   }
@@ -18741,12 +19261,6 @@ nz-table {
       > .@{table-prefix-cls}-thead > tr > th {
         &.@{table-th-left-cls}-sticky,
         &.@{table-th-right-cls}-sticky {
-          background: @component-background;
-        }
-      }
-      > .@{table-prefix-cls}-tbody > tr > td {
-        &.@{table-td-left-cls}-sticky,
-        &.@{table-td-right-cls}-sticky {
           background: @component-background;
         }
       }
@@ -18775,7 +19289,6 @@ a[nz-tab-link] {
 }
 
 @timeline-prefix-cls: ~'@{ant-prefix}-timeline';
-@timeline-color: @border-color-split;
 
 .@{timeline-prefix-cls} {
   .reset-component;
@@ -18793,14 +19306,15 @@ a[nz-tab-link] {
 
     &-tail {
       position: absolute;
-      top: 0.75em;
+      top: 10px;
       left: 4px;
-      height: 100%;
-      border-left: 2px solid @timeline-color;
+      height: calc(100% - 10px);
+      border-left: @timeline-width solid @timeline-color;
     }
 
     &-pending &-head {
       font-size: @font-size-sm;
+      background-color: transparent;
     }
 
     &-pending &-tail {
@@ -18811,21 +19325,28 @@ a[nz-tab-link] {
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: @component-background;
-      border: 2px solid transparent;
+      background-color: @timeline-dot-bg;
+      border: @timeline-dot-border-width solid transparent;
       border-radius: 100px;
 
       &-blue {
         color: @primary-color;
         border-color: @primary-color;
       }
+
       &-red {
         color: @error-color;
         border-color: @error-color;
       }
+
       &-green {
         color: @success-color;
         border-color: @success-color;
+      }
+
+      &-gray {
+        color: @disabled-color;
+        border-color: @disabled-color;
       }
     }
 
@@ -18848,6 +19369,7 @@ a[nz-tab-link] {
       position: relative;
       top: -(@font-size-base * @line-height-base - @font-size-base) + 1px;
       margin: 0 0 0 18px;
+      word-break: break-word;
     }
 
     &-last {
@@ -18878,18 +19400,16 @@ a[nz-tab-link] {
 
       &-left {
         .@{timeline-prefix-cls}-item-content {
-          left: 50%;
-          width: 50%;
+          left: calc(50% - 4px);
+          width: calc(50% - 14px);
           text-align: left;
         }
       }
 
       &-right {
         .@{timeline-prefix-cls}-item-content {
-          right: 50%;
-          left: -30px;
-          width: 50%;
-          margin-right: 18px;
+          width: calc(50% - 12px);
+          margin: 0;
           text-align: right;
         }
       }
@@ -18901,18 +19421,18 @@ a[nz-tab-link] {
       .@{timeline-prefix-cls}-item-tail,
       .@{timeline-prefix-cls}-item-head,
       .@{timeline-prefix-cls}-item-head-custom {
-        left: 100%;
+        // stylelint-disable-next-line function-calc-no-invalid
+        left: calc(100% - 4px - @timeline-width);
       }
       .@{timeline-prefix-cls}-item-content {
-        right: 0;
-        left: -30px;
-        width: 100%;
+        width: calc(100% - 18px);
       }
     }
   }
 
   &&-pending &-item-last &-item-tail {
     display: block;
+    height: calc(100% - 14px);
     border-left: 2px dotted @timeline-color;
   }
 
@@ -18922,7 +19442,9 @@ a[nz-tab-link] {
 
   &&-reverse &-item-pending {
     .@{timeline-prefix-cls}-item-tail {
+      top: 15px;
       display: block;
+      height: calc(100% - 15px);
       border-left: 2px dotted @timeline-color;
     }
     .@{timeline-prefix-cls}-item-content {
@@ -19065,6 +19587,10 @@ a[nz-tab-link] {
         position: absolute;
         right: 12px;
       }
+
+      .@{ant-prefix}-checkbox-wrapper + span {
+        padding-left: 8px;
+      }
     }
 
     &-body {
@@ -19104,6 +19630,9 @@ a[nz-tab-link] {
         transition: all 0.3s;
         > span {
           padding-right: 0;
+        }
+        &-text {
+          padding-left: 8px;
         }
       }
 
@@ -19185,7 +19714,7 @@ a[nz-tab-link] {
 .typography-title(@fontSize; @lineHeight) {
   margin-bottom: 0.5em;
   color: @heading-color;
-  font-weight: 600;
+  font-weight: @typography-title-font-weight;
   font-size: @fontSize;
   line-height: @lineHeight;
 }
@@ -19345,6 +19874,7 @@ a[nz-tab-link] {
     div& {
       left: -@input-padding-horizontal - 1px;
       margin-top: -@input-padding-vertical-base - 1px;
+      // stylelint-disable-next-line function-calc-no-invalid
       margin-bottom: calc(1em - @input-padding-vertical-base - 2px);
     }
 
@@ -19433,6 +19963,7 @@ a[nz-tab-link] {
 
   &&-select-picture-card {
     display: table;
+    float: left;
     width: @upload-picture-card-size;
     height: @upload-picture-card-size;
     margin-right: 8px;
@@ -19525,6 +20056,13 @@ a[nz-tab-link] {
       color: @text-color-secondary;
     }
   }
+
+  &-picture-card-wrapper {
+    .clearfix;
+
+    display: inline-block;
+    width: 100%;
+  }
 }
 
 .@{upload-prefix-cls}-list {
@@ -19551,6 +20089,8 @@ a[nz-tab-link] {
 
       > span {
         display: block;
+        width: 100%;
+        height: 100%;
       }
 
       .@{iconfont-css-prefix}-loading,
@@ -19655,6 +20195,10 @@ a[nz-tab-link] {
       transform: translate(-50%, -50%);
     }
 
+    .@{upload-item}-image {
+      max-width: 100%;
+    }
+
     .@{upload-item}-thumbnail img {
       display: block;
       width: 48px;
@@ -19697,9 +20241,6 @@ a[nz-tab-link] {
   }
 
   &-picture-card {
-    // https://github.com/ant-design/ant-design/issues/11183
-    float: left;
-
     &.@{upload-prefix-cls}-list::after {
       display: none;
     }
@@ -19767,6 +20308,7 @@ a[nz-tab-link] {
       display: block;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
 
     .@{upload-item}-name {
@@ -20435,10 +20977,10 @@ a[nz-tab-link] {
       cursor: pointer;
       transition: all 0.3s;
       &:hover {
-        background-color: @item-hover-bg;
+        background-color: @tree-node-hover-bg;
       }
       &.@{tree-prefix-cls}-node-selected {
-        background-color: @primary-2;
+        background-color: @tree-node-selected-bg;
       }
     }
     span {
@@ -20610,6 +21152,11 @@ a[nz-tab-link] {
   color: @highlight-color;
 }
 
+.@{tree-prefix-cls}-child-tree {
+  // The overflow of the collapse animation in edge and IE is invalid
+  overflow: hidden;
+}
+
 @select-prefix-cls: ~'@{ant-prefix}-select';
 @select-tree-prefix-cls: ~'@{ant-prefix}-select-tree';
 
@@ -20643,7 +21190,7 @@ a[nz-tab-link] {
       padding: 3px 5px;
       color: @text-color;
       text-decoration: none;
-      border-radius: 2px;
+      border-radius: @border-radius-sm;
       cursor: pointer;
       transition: all 0.3s;
       &:hover {
@@ -21091,22 +21638,20 @@ a[nz-tab-link] {
 
 .@{result-prefix-cls} {
   padding: 48px 32px;
-  background-color: @component-background;
-
   // status color
-  &-success .anticon {
+  &-success &-icon > .anticon {
     color: @success-color;
   }
 
-  &-error .anticon {
+  &-error &-icon > .anticon {
     color: @error-color;
   }
 
-  &-info .anticon {
+  &-info &-icon > .anticon {
     color: @info-color;
   }
 
-  &-warning .anticon {
+  &-warning &-icon > .anticon {
     color: @warning-color;
   }
 
@@ -21145,6 +21690,9 @@ a[nz-tab-link] {
     text-align: center;
     > * {
       margin-right: 8px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
@@ -21952,7 +22500,7 @@ fieldset {
     &-add {
       margin-right: 16px;
     }
-      &-container {
+    &-container {
       nz-card {
         margin: 0 16px 0 0;
         @{sf-prefix}__array-remove {
@@ -22044,15 +22592,25 @@ fieldset {
         .@{ant-prefix}-form-item {
           display: block !important;
           width: initial !important;
-          margin-right: 0;;
+          margin-right: 0;
         }
       }
-      .@{ant-prefix}-form-item-label, .@{ant-prefix}-form-item-control-wrapper {
+      .@{ant-prefix}-form-item-label,
+      .@{ant-prefix}-form-item-control-wrapper {
         display: block !important;
         width: 100% !important;
         padding: inherit;
         line-height: @form-component-max-height - 0.0001px;
         text-align: left;
+      }
+    }
+  }
+  &__no-colon {
+    .@{ant-prefix}-form-item-label {
+      label {
+        &:after {
+          content: ' ';
+        }
       }
     }
   }
@@ -22688,31 +23246,38 @@ code {
 
 @{sv-prefix} {
   display: block;
-  + @{sv-prefix} {
+
+  +@{sv-prefix} {
     margin-top: @sv-bottom;
   }
+
   &__container {
     display: block;
+
     // offset the padding-bottom of last row
     .@{ant-prefix}-row {
       margin-bottom: -@sv-bottom;
       overflow: hidden;
     }
   }
+
   &__item {
     &-fixed {
       display: flex;
+
       @{sv-prefix}__label {
         flex: 0 0 auto;
         overflow: hidden;
         text-align: right;
         text-overflow: ellipsis;
       }
+
       @{sv-prefix}__detail {
         flex: 1 0 0;
       }
     }
   }
+
   &__title {
     display: block;
     float: none;
@@ -22722,6 +23287,7 @@ code {
     font-weight: 500;
     font-size: 14px;
   }
+
   &__label {
     display: table-cell;
     // margin-right: 8px;
@@ -22729,6 +23295,7 @@ code {
     color: @sv-label-color;
     line-height: 22px;
     white-space: nowrap;
+
     &:not(@{sv-prefix}__label-empty) {
       &::after {
         position: relative;
@@ -22737,13 +23304,21 @@ code {
         content: ':';
       }
     }
-    &-text {
-      margin-right: 2px;
-    }
+
     &-optional {
+      margin-left: @sv-optional-margin;
       color: @sv-label-optional-color;
+
+      &-no-text {
+        margin-left: 0;
+      }
+
+      >.anticon {
+        margin-left: @sv-optional-margin;
+      }
     }
   }
+
   &__detail {
     // contents 对 ie, edge 不支持，但对于子组件的支持会更友好
     display: table-cell;
@@ -22753,63 +23328,77 @@ code {
     line-height: 22px;
     word-break: break-all;
   }
+
   &__type {
     &-primary @{sv-prefix}__detail {
       color: @sv-type-primary-color;
     }
+
     &-success @{sv-prefix}__detail {
       color: @sv-type-success-color;
     }
+
     &-danger @{sv-prefix}__detail {
       color: @sv-type-danger-color;
     }
+
     &-warning @{sv-prefix}__detail {
       color: @sv-type-warning-color;
     }
   }
+
   &__default {
     &::before {
       content: @sv-default-text;
     }
 
-    ~ @{sv-prefix}__unit {
+    ~@{sv-prefix}__unit {
       display: none !important;
     }
   }
+
   &__unit {
     display: inline;
     margin-left: @sv-unit-margin;
     color: @sv-unit-color;
   }
+
   &__small {
+
     // offset the padding-bottom of last row
     .@{ant-prefix}-row {
       margin-bottom: -8px;
     }
+
     @{sv-prefix}__title {
       margin-bottom: 12px;
       color: @text-color;
     }
+
     @{sv-prefix}__label,
     @{sv-prefix}__detail {
       padding-bottom: 8px;
     }
   }
+
   &__large {
     @{sv-prefix}__title {
       font-size: 16px;
     }
   }
+
   &__horizontal {
     @{sv-prefix}__label-width {
       display: flex;
       justify-content: flex-end;
+
       @{sv-prefix}__label-text {
         overflow: hidden;
         text-overflow: ellipsis;
       }
     }
   }
+
   &__vertical {
     @{sv-prefix}__label {
       padding-bottom: 8px;
@@ -22832,22 +23421,26 @@ code {
     font-size: 14px;
     line-height: @form-component-max-height - 0.0001px;
   }
+
   &__item {
     &:last-child {
       margin-bottom: 0;
       padding-bottom: 0;
     }
+
     &-empty {
       &::before {
         display: inline-block;
         content: '';
       }
     }
+
     // fix angular & ng-zorro-antd
     .@{ant-prefix}-form-explain {
       display: block;
     }
   }
+
   &__label {
     display: table-cell;
     flex: 0 0 auto;
@@ -22855,30 +23448,47 @@ code {
     color: @se-label-color;
     white-space: nowrap;
     text-align: right;
+
     &-optional {
+      margin-left: @se-optional-margin;
       color: @se-label-optional-color;
+
+      &-no-text {
+        margin-left: 0;
+      }
+
+      >.anticon {
+        margin-left: @se-optional-margin;
+      }
     }
   }
+
   &__control {
     flex: 1 0 0;
     width: 100%;
   }
+
   &__compact {
+
     @{se-prefix}__title,
     @{se-prefix}__item {
       margin-bottom: @se-compact-bottom;
     }
+
     .@{ant-prefix}-form-extra {
       display: none;
     }
   }
+
   &__line {
     border-bottom: 1px dashed #e8e8e8;
+
     @{se-prefix}__label,
     @{se-prefix}__control {
       padding-bottom: @se-compact-bottom;
     }
   }
+
   &__hide-label,
   &__inline,
   &__vertical {
@@ -22886,42 +23496,52 @@ code {
       display: none !important;
     }
   }
+
   &__horizontal {
     @{se-prefix}__item {
       display: flex;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       @{se-prefix}__label {
         display: flex;
         justify-content: flex-end;
+
         &-text {
           overflow: hidden;
           text-overflow: ellipsis;
         }
       }
+
       .@{ant-prefix}-form-item {
         &-required::before {
           line-height: inherit;
         }
-        &-label > label::after {
+
+        &-label>label::after {
           margin-left: 4px;
         }
       }
     }
   }
+
   &__vertical {
     @{se-prefix}__item {
       display: block;
     }
   }
+
   &__inline {
+
     .@{ant-prefix}-form-item-label,
     @{se-prefix}__control {
       flex: none;
       width: initial !important;
       text-align: left;
     }
+
     @{se-prefix}__item {
       &:last-child {
         margin-right: 0;
@@ -22935,10 +23555,21 @@ code {
     &__horizontal {
       @{se-prefix}__item {
         display: block;
+
+        .@{ant-prefix}-form-item-label {
+          width: 100% !important;
+          text-align: left;
+        }
+
+        @{se-prefix}__label {
+          justify-content: normal;
+        }
       }
     }
+
     &__horizontal,
     &__vertical {
+
       @{se-prefix}__label,
       @{se-prefix}__control {
         width: 100% !important;
@@ -23497,6 +24128,29 @@ ellipsis {
   background-color: @reuse-tab-bg;
   outline: none;
   user-select: none;
+  .@{ant-prefix}-tabs {
+    &-nav .@{ant-prefix}-tabs-tab {
+      @{reuse-tab-prefix}__op {
+        position: absolute;
+        display: none;
+        margin: 0;
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.45);
+      }
+      &:hover {
+        @{reuse-tab-prefix}__op {
+          display: block;
+        }
+      }
+      @{reuse-tab-prefix}__name {
+        &-width {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: inline-block;
+        }
+      }
+    }
+  }
   &__line {
     padding: @reuse-tab-padding;
     border-bottom: 1px solid @reuse-tab-border-color;
@@ -23508,17 +24162,8 @@ ellipsis {
       &-nav .@{ant-prefix}-tabs-tab {
         padding: 0;
         @{reuse-tab-prefix}__op {
-          position: absolute;
           top: 12px;
           right: 2px;
-          display: none;
-          margin: 0;
-          font-size: 10px;
-        }
-        &:hover {
-          @{reuse-tab-prefix}__op {
-            display: block;
-          }
         }
         @{reuse-tab-prefix}__name {
           display: inline-block;
@@ -23534,9 +24179,8 @@ ellipsis {
     }
     .@{ant-prefix}-tabs-nav .@{ant-prefix}-tabs-tab {
       @{reuse-tab-prefix}__op {
-        margin-right: 0;
-        margin-left: 4px;
-        color: rgba(0, 0, 0, 0.45);
+        top: 4px;
+        right: 4px;
       }
     }
   }
@@ -23995,44 +24639,50 @@ g2-tag-cloud {
   }
 }
 
-@alain-default-prefix:                ~'.alain-default';
-@alain-default-zindex:                @zindex-base;
-@alain-default-ease:                  cubic-bezier(.25, 0, .15, 1);
-@alain-default-header-hg:             64px;
-@alain-default-header-bg:             @primary-color;
-@alain-default-header-padding:        @layout-gutter * 2;
+@alain-default-prefix: ~'.alain-default';
+@alain-default-zindex: @zindex-base;
+@alain-default-ease: cubic-bezier(0.25, 0, 0.15, 1);
+@alain-default-header-hg: 64px;
+@alain-default-header-bg: @primary-color;
+@alain-default-header-padding: @layout-gutter * 2;
 @alain-default-header-search-enabled: true;
-@alain-default-header-search-height:  34px;
-@alain-default-header-icon-fs:        18px;
+@alain-default-header-search-height: 34px;
+@alain-default-header-icon-fs: 18px;
 
-@alain-default-aside-wd:                      200px;
-@alain-default-aside-bg:                      #fff;
-@alain-default-aside-scrollbar-width:         0;
-@alain-default-aside-scrollbar-height:        0;
-@alain-default-aside-scrollbar-track-color:   transparent;
-@alain-default-aside-scrollbar-thumb-color:   transparent;
+@alain-default-aside-wd: 200px;
+@alain-default-aside-bg: #fff;
+@alain-default-aside-scrollbar-width: 0;
+@alain-default-aside-scrollbar-height: 0;
+@alain-default-aside-scrollbar-track-color: transparent;
+@alain-default-aside-scrollbar-thumb-color: transparent;
 
-@alain-default-aside-nav-fs:                   14px;
-@alain-default-aside-nav-icon-width:           14px;
-@alain-default-aside-nav-img-wh:               14px;
-@alain-default-aside-nav-padding-top-bottom:   @layout-gutter;
-@alain-default-aside-nav-text-color:           @text-color;
-@alain-default-aside-nav-text-hover-color:     @primary-color;
-@alain-default-aside-nav-group-text-color:     @text-color-secondary;
-@alain-default-aside-nav-selected-text-color:  @primary-color;
-@alain-default-aside-nav-selected-bg:          #fcfcfc;
-@alain-default-aside-nav-item-height:          38px;
-@alain-default-aside-collapsed-wd:             @layout-gutter * 8;
-@alain-default-aside-collapsed-nav-fs:         24px;
-@alain-default-aside-collapsed-nav-img-wh:     24px;
+@alain-default-aside-nav-fs: 14px;
+@alain-default-aside-nav-icon-width: 14px;
+@alain-default-aside-nav-img-wh: 14px;
+@alain-default-aside-nav-padding-top-bottom: @layout-gutter;
+@alain-default-aside-nav-padding-left-right: @layout-gutter * 2;
+@alain-default-aside-nav-text-color: @text-color;
+@alain-default-aside-nav-text-hover-color: @primary-color;
+@alain-default-aside-nav-group-text-color: @text-color-secondary;
+@alain-default-aside-nav-selected-text-color: @primary-color;
+@alain-default-aside-nav-selected-bg: #fcfcfc;
+@alain-default-aside-nav-item-height: 38px;
+@alain-default-aside-nav-depth1-padding-left: @layout-gutter * 3;
+@alain-default-aside-nav-depth2-padding-left: @layout-gutter * 4;
+@alain-default-aside-nav-depth3-padding-left: @layout-gutter * 5;
+@alain-default-aside-nav-depth4-padding-left: @layout-gutter * 6;
 
-@alain-default-content-heading-bg:             #fafbfc;
-@alain-default-content-heading-border:         #efe3e5;
-@alain-default-content-padding:                @layout-gutter * 3;
-@alain-default-content-bg:                     #f5f7fa;
+@alain-default-aside-collapsed-wd: @layout-gutter * 8;
+@alain-default-aside-collapsed-nav-fs: 24px;
+@alain-default-aside-collapsed-nav-img-wh: 24px;
 
-@alain-default-widget-app-icons-enabled:        true;
-@alain-default-aside-user-enabled:              true;
+@alain-default-content-heading-bg: #fafbfc;
+@alain-default-content-heading-border: #efe3e5;
+@alain-default-content-padding: @layout-gutter * 3;
+@alain-default-content-bg: #f5f7fa;
+
+@alain-default-widget-app-icons-enabled: true;
+@alain-default-aside-user-enabled: true;
 
 html {
   height: 100%; // http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
@@ -24426,97 +25076,117 @@ body {
   }
 }
 
-// Main Nav
-@sidebar-nav-prefix-cls: sidebar-nav;
+@sidebar-nav-prefix: ~'.sidebar-nav';
+@sidebar-nav-arrow-width: 10px;
 
-.@{sidebar-nav-prefix-cls} {
+@{sidebar-nav-prefix} {
   display: block;
   margin: 0;
   padding: 0;
   font-size: @alain-default-aside-nav-fs;
+
   &__item {
     position: relative;
     display: flex;
     flex-direction: column;
     border-left: 3px solid transparent;
     transition: border-left-color 0.4s ease;
+
     &-link {
       position: relative;
       display: block;
-      padding: @alain-default-aside-nav-padding-top-bottom @layout-gutter * 2;
+      padding: @alain-default-aside-nav-padding-top-bottom @alain-default-aside-nav-padding-left-right * 2 @alain-default-aside-nav-padding-top-bottom @alain-default-aside-nav-padding-left-right;
       overflow: hidden;
       color: @alain-default-aside-nav-text-color;
       white-space: nowrap;
       text-decoration: none !important;
       text-overflow: ellipsis;
       user-select: none;
+
       &:hover {
         color: @alain-default-aside-nav-text-hover-color;
       }
     }
+
     &-icon {
       display: inline-block;
       min-width: @alain-default-aside-nav-icon-width;
       margin-right: @layout-gutter;
       transition: font-size 0.15s @ease-out, margin 0.3s @ease-in-out;
     }
+
     &-img {
       width: @alain-default-aside-nav-img-wh;
       height: @alain-default-aside-nav-img-wh;
     }
+
     &-text {
       opacity: 1;
       transition: opacity 0.3s @ease-in-out, width 0.3s @ease-in-out;
     }
+
     &-disabled {
       opacity: 0.6;
+      cursor: default;
+
       &:hover {
-        color: initial;
+        color: @alain-default-aside-nav-text-color;
       }
     }
   }
+
   // Selected
   &__selected {
     background-color: @alain-default-aside-nav-selected-bg;
     border-left-color: @alain-default-aside-nav-selected-text-color;
-    > .@{sidebar-nav-prefix-cls}__item-link {
+
+    >@{sidebar-nav-prefix}__item-link {
       color: @alain-default-aside-nav-selected-text-color;
     }
   }
+
   // Open Submenu
   &__open {
-    > .@{sidebar-nav-prefix-cls}__sub {
+    >@{sidebar-nav-prefix}__sub {
       display: block;
       animation: fadeIn 0.5s;
     }
-    > .@{sidebar-nav-prefix-cls}__item-link {
-      .@{sidebar-nav-prefix-cls}__sub-arrow {
+
+    >@{sidebar-nav-prefix}__item-link {
+      @{sidebar-nav-prefix}__sub-arrow {
         transform: translateY(-2px);
+
         &::before {
           transform: rotate(45deg) translateX(2px);
         }
+
         &::after {
           transform: rotate(-45deg) translateX(-2px);
         }
       }
     }
   }
+
   &__group-title {
     padding: @alain-default-aside-nav-padding-top-bottom @layout-gutter * 2;
     color: @alain-default-aside-nav-group-text-color;
   }
+
   &__sub {
     display: none;
     overflow: hidden;
-    .@{sidebar-nav-prefix-cls}__item {
+
+    @{sidebar-nav-prefix}__item {
       border-left: 0 !important;
     }
+
     &-arrow {
       position: absolute;
       top: 50%;
-      right: @layout-gutter * 2;
-      width: 10px;
+      right: @alain-default-aside-nav-padding-left-right;
+      width: @sidebar-nav-arrow-width;
       transition: transform 0.3s @ease-in-out;
+
       &::before,
       &::after {
         position: absolute;
@@ -24528,19 +25198,23 @@ body {
         transition: background 0.3s @ease-in-out, transform 0.3s @ease-in-out, top 0.3s @ease-in-out;
         content: '';
       }
+
       &::before {
         transform: rotate(-45deg) translateX(2px);
       }
+
       &::after {
         transform: rotate(45deg) translateX(-2px);
       }
     }
   }
+
   // Badge
   .badge {
     position: absolute;
     right: @layout-gutter * 2;
     @badge-height: @layout-gutter * 2;
+
     &:not(.badge-dot) {
       top: (@alain-default-aside-nav-item-height - @badge-height) / 2;
       width: @badge-height;
@@ -24549,31 +25223,37 @@ body {
       overflow: hidden;
       line-height: @badge-height;
     }
+
     &-dot {
       top: (@alain-default-aside-nav-item-height - @layout-gutter) / 2;
     }
   }
+
   // Dept
   &__depth1 {
-    .@{sidebar-nav-prefix-cls}__item-link {
-      padding-left: (@layout-gutter * 3) + @alain-default-aside-nav-icon-width;
+    @{sidebar-nav-prefix}__item-link {
+      padding-left: @alain-default-aside-nav-depth1-padding-left + @alain-default-aside-nav-icon-width;
     }
   }
+
   &__depth2 {
-    .@{sidebar-nav-prefix-cls}__item-link {
-      padding-left: (@layout-gutter * 4) + @alain-default-aside-nav-icon-width;
+    @{sidebar-nav-prefix}__item-link {
+      padding-left: @alain-default-aside-nav-depth2-padding-left + @alain-default-aside-nav-icon-width;
     }
   }
+
   &__depth3 {
-    .@{sidebar-nav-prefix-cls}__item-link {
-      padding-left: (@layout-gutter * 5) + @alain-default-aside-nav-icon-width;
+    @{sidebar-nav-prefix}__item-link {
+      padding-left: @alain-default-aside-nav-depth3-padding-left + @alain-default-aside-nav-icon-width;
     }
   }
+
   &__depth4 {
-    .@{sidebar-nav-prefix-cls}__item-link {
-      padding-left: (@layout-gutter * 6) + @alain-default-aside-nav-icon-width;
+    @{sidebar-nav-prefix}__item-link {
+      padding-left: @alain-default-aside-nav-depth4-padding-left + @alain-default-aside-nav-icon-width;
     }
   }
+
   // Floating
   &__floating {
     position: absolute;
@@ -24583,33 +25263,40 @@ body {
     background-color: @alain-default-aside-bg;
     border: 1px solid @alain-default-content-heading-border;
     border-radius: 4px;
-    .@{sidebar-nav-prefix-cls}__item {
+
+    @{sidebar-nav-prefix}__item {
       &-link {
         padding-left: @layout-gutter * 2;
       }
     }
+
     &-show {
       display: block;
     }
-    .@{sidebar-nav-prefix-cls}__sub {
+
+    @{sidebar-nav-prefix}__sub {
       display: block;
+
       &-arrow {
         display: none;
       }
     }
+
     // Dept
-    .@{sidebar-nav-prefix-cls}__depth2 {
-      .@{sidebar-nav-prefix-cls}__item-link {
+    @{sidebar-nav-prefix}__depth2 {
+      @{sidebar-nav-prefix}__item-link {
         padding-left: @layout-gutter * 3;
       }
     }
-    .@{sidebar-nav-prefix-cls}__depth3 {
-      .@{sidebar-nav-prefix-cls}__item-link {
+
+    @{sidebar-nav-prefix}__depth3 {
+      @{sidebar-nav-prefix}__item-link {
         padding-left: @layout-gutter * 4;
       }
     }
-    .@{sidebar-nav-prefix-cls}__depth4 {
-      .@{sidebar-nav-prefix-cls}__item-link {
+
+    @{sidebar-nav-prefix}__depth4 {
+      @{sidebar-nav-prefix}__item-link {
         padding-left: @layout-gutter * 5;
       }
     }
@@ -24618,34 +25305,41 @@ body {
 
 @media (min-width: @mobile-min) {
   @{alain-default-prefix}__collapsed {
-    .@{sidebar-nav-prefix-cls}:not(.@{sidebar-nav-prefix-cls}__sub) {
-      .@{sidebar-nav-prefix-cls}__item {
+    @{sidebar-nav-prefix}:not(@{sidebar-nav-prefix}__sub) {
+      @{sidebar-nav-prefix}__item {
         border: none;
+
         &-link {
           display: flex;
           justify-content: center;
           padding: (@layout-gutter * 3) 0;
-          .@{sidebar-nav-prefix-cls}__item-icon {
+
+          @{sidebar-nav-prefix}__item-icon {
             margin-right: 0;
             font-size: @alain-default-aside-collapsed-nav-fs;
           }
-          .@{sidebar-nav-prefix-cls}__item-img {
+
+          @{sidebar-nav-prefix}__item-img {
             width: @alain-default-aside-collapsed-nav-img-wh;
             height: @alain-default-aside-collapsed-nav-img-wh;
           }
-          .@{sidebar-nav-prefix-cls}__item-text {
+
+          @{sidebar-nav-prefix}__item-text {
             display: none;
             opacity: 0;
           }
         }
       }
-      .@{sidebar-nav-prefix-cls}__group-title {
+
+      @{sidebar-nav-prefix}__group-title {
         display: none;
       }
     }
-    .@{sidebar-nav-prefix-cls} {
+
+    @{sidebar-nav-prefix} {
       &__sub {
         display: none !important;
+
         &-arrow {
           display: none;
         }
