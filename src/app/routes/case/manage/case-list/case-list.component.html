@@ -1,16 +1,17 @@
-<nz-tree
-      [nzData]="nodes"
-      nzCheckable
-      nzMultiple
-      (nzClick)="activeNode($event)"
-      (nzDblClick)="openFolder($event)"
-      [nzTreeTemplate]="nzTreeTemplate"
-    ></nz-tree>
-    <ng-template #nzTreeTemplate let-node>
-      <span class="custom-node" [class.active]="activedNode?.key === node.key">
-          <span class="folder-name">{{ node.title }}</span>
-      </span> <nz-badge
-      [nzCount]="104"
-      [nzStyle]="{ backgroundColor: '#52c41a' }"
-    ></nz-badge>
-    </ng-template>
+<page-header ></page-header>
+  <st #st [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
+    
+    <!-- <ng-template st-row="id" let-item>
+      <a [routerLink]="['/run/result', { taskId: item.id }]">{{item.id}}</a>
+    </ng-template> -->
+    <!-- <ng-template st-row="operation" let-item>
+        <a><i nz-icon nzType="edit" nzTheme="outline"></i><span class="pl-xs">debug</span></a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a><span class="pl-xs">view</span></a>
+        
+    </ng-template>  -->
+    
+  <ng-template st-row="priority" let-item>
+    <nz-tag [nzColor]="item.priority | progress">{{item.priority}}</nz-tag>
+  </ng-template>
+  </st>

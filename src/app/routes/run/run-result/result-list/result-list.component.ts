@@ -41,7 +41,7 @@ export class dataComponent implements OnInit {
     },
     {
       title: 'priority',
-      index: 'priority'
+      render: 'priority'
     },
     {
       title: 'status',

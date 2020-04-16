@@ -21,6 +21,8 @@
     <a (click)='jump(item.id)'>{{item.id}}</a>
   </ng-template>
   <ng-template st-row="runnedPercent" let-item>
-    <nz-progress  [nzPercent]="item.runnedPercent">{{item.runnedPercent}}</nz-progress>
+    <div  style="width:100px">
+      <nz-progress  [nzPercent]="item.runnedPercent">{{item.runnedPercent}}</nz-progress>
+    </div>
   </ng-template>
 </st>

@@ -10,6 +10,7 @@ import { ProjectManageService } from '../../../services/project-manage.service';
 import { EnvManageService } from '../../../services/env-manage.service';
 import { EnvUrlManageService } from '../../../services/env-url-manage.service';
 import { RunService } from '../../../services/run.service';
+import { CaseManageService } from '../../../services/case-manage.service';
 import { RunResultService } from '../../../services/run-result.service';
 import { AutocompleteService } from '../../../services/autocomplete.service';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -27,20 +28,38 @@ export class DebugComponent implements OnInit {
     if (id) {
       this.runResultService.getRunResultDetail(id).subscribe(data => {
         if (data.data) {
-          this.runResult = data.data;
-          this.project = this.runResult.projectName;
+          const runResult = data.data;
+          this.project = runResult.projectName;
           this.updateEnv(this.project);
-          this.env = this.runResult.runEnv;
+          this.env = runResult.runEnv;
           this.updateService(this.env);
-          this.service = this.runResult.serviceName;
-          this.updateServiceFields(this.runResult.serviceName);
-          this.url = this.runResult.runUrl;
-          if (this.runResult.originUrl) {
-            this.url = this.runResult.originUrl;
+          this.service = runResult.serviceName;
+          this.updateServiceFields(runResult.serviceName);
+          this.url = runResult.runUrl;
+          if (runResult.originUrl) {
+            this.url = runResult.originUrl;
           }
-          this.data = this.runResult.caseDetail;
-          this.serviceChange.emit(this.runResult.serviceName);
-          this.debug();
+          this.data = runResult.caseDetail;
+          this.serviceChange.emit(runResult.serviceName);
+          // this.debug();
+        }
+      });
+    }
+  }
+  @Input() set caseId(caseId: string) {
+    if (caseId) {
+      this.caseManageService.getCaseById(caseId).subscribe(result => {
+        if (result.data) {
+          const runResult = result.data;
+          this.project = runResult.projectName;
+          this.updateEnv(this.project);
+          // this.env = this.runResult.runEnv;
+          this.service = runResult.serviceName;
+          this.updateDefaultEnvByService(this.service);
+          this.updateServiceFields(runResult.serviceName);
+          this.data = runResult.caseDetail;
+          this.serviceChange.emit(runResult.serviceName);
+          // this.debug();
         }
       });
     }
@@ -78,6 +97,7 @@ export class DebugComponent implements OnInit {
     private messageService: NzMessageService,
     private autocompleteService: AutocompleteService,
     private envUrlService: EnvUrlManageService,
+    private caseManageService: CaseManageService,
   ) {}
 
   ngOnInit() {
@@ -125,6 +145,22 @@ export class DebugComponent implements OnInit {
       });
   }
 
+
+  updateDefaultEnvByService(event: any) {
+    this.envUrlService
+      .getEnvUrlListByProject(this.project)
+      .subscribe(result => {
+        for(const data of result.data){
+          if (data.serviceName === event) {
+            this.env = data.envName;
+            this.updateService(this.env);
+            break;
+          }
+        }
+      });
+  }
+
+
   updateUrl(event: any) {
     const result = this.sers.filter(data => {
       return data.serviceName == event;
@@ -168,7 +204,7 @@ export class DebugComponent implements OnInit {
         option.label.toLowerCase().indexOf(this.acInput.toLowerCase()) > -1,
     );
   }
-
+  
   debug() {
     this.requestDisable = true;
     const requestParams = {

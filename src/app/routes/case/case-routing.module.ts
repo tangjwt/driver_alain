@@ -16,6 +16,11 @@ const routes: Routes = [
     canDeactivate: [CanDeactivateGuard]
   },
   {
+    path: ':caseId/debug',
+    component: DebugLayoutComponent,
+    canDeactivate: [CanDeactivateGuard]
+  },
+  {
     path: 'list',
     component: CaseListComponent
   },

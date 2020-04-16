@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared';
-import { ProgressPipe } from '../../common/progress.pipe';
 
 import { RunRoutingModule } from './run-routing.module';
 import { RunSetListComponent } from './run-result/run-set-list/run-set-list.component';
@@ -25,7 +24,6 @@ import { ResultDetailCompareComponent } from './run-result/result-detail-compare
     RunSetStatisticComponent,
     RunSetStatisticCompareComponent,
     dataComponent,
-    ProgressPipe,
     ResultDetailComponent,
     RunComponent,
     TaskAddOrModifyComponent,

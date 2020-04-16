@@ -1,64 +1,105 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NzContextMenuService,
-  NzDropdownMenuComponent,
-  NzFormatEmitEvent,
-  NzTreeNode,
-} from 'ng-zorro-antd';
-
+import { CaseManageService } from '../../../../services/case-manage.service';
+import { STPage, STColumn } from '@delon/abc';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'sn-case-list',
   templateUrl: './case-list.component.html',
   styles: [],
 })
 export class CaseListComponent implements OnInit {
-  activedNode: NzTreeNode;
-  nodes = [
+  itemsPerPage = 10;
+  results: Array<any> = [];
+  totalRecords = 0;
+  columns: STColumn[] = [
     {
-      title: 'parent 0',
-      key: '100',
-      expanded: true,
-      children: [
-        { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO', isLeaf: true },
-        { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true },
-      ],
+      title: 'id',
+      index: 'id',
+      // render: 'id',
     },
     {
-      title: 'parent 1',
-      key: '101',
-      author: 'NG ZORRO',
-      children: [
-        { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
-        { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true },
+      title: 'projectName',
+      index: 'projectName',
+    },
+    {
+      title: 'serviceName',
+      index: 'serviceName',
+    },
+    {
+      title: 'dataSource',
+      index: 'dataSource',
+    },
+    {
+      title: 'caseName',
+      index: 'caseName',
+    },
+    {
+      title: 'createTime',
+      index: 'createTime',
+      type: 'date',
+    },
+    {
+      title: 'priority',
+      render: 'priority',
+    },
+    {
+      title: 'operation',
+      render: 'operation',
+      buttons: [
+        {
+          text: 'View',
+          click: (record: any) => {},
+        },
+        {
+          text: 'Debug',
+          icon: 'bug',
+          type: 'link',
+          click: (record: any) =>{
+            this.router.navigate([`/case/${record.id}/debug`]);
+          }
+        },
       ],
     },
   ];
+  page: STPage = {
+    show: true,
+    front: false,
+    showSize: true,
+  };
+  event: any;
 
-  ngOnInit(): void {}
-  
-  openFolder(data: NzTreeNode | Required<NzFormatEmitEvent>): void {
-    // do something if u want
-    if (data instanceof NzTreeNode) {
-      data.isExpanded = !data.isExpanded;
-    } else {
-      const node = data.node;
-      if (node) {
-        node.isExpanded = !node.isExpanded;
-      }
+  constructor(
+    private caseManageService: CaseManageService,
+    private message: NzMessageService,
+    private modalService: NzModalService,
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    this.caseManageService.getCaseList(1, this.itemsPerPage).subscribe(data => {
+      this.results =  data.data ? data.data : [];
+      this.totalRecords = data.count;
+    });
+  }
+
+  public onChangeTable(event: any) {
+    switch (event.type) {
+      case 'ps':
+      case 'pi':
+        this.pageChange(event);
+        break;
+      default:
+        break;
     }
   }
 
-  activeNode(data: NzFormatEmitEvent): void {
-    this.activedNode = data.node!;
+  pageChange(event: any) {
+    this.event = event;
+    this.caseManageService.getCaseList(event.pi, event.ps).subscribe(data => {
+      this.results = data.data;
+      this.totalRecords = data.count;
+    });
   }
 
-  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
-    this.nzContextMenuService.create($event, menu);
-  }
-
-  selectDropdown(): void {
-    // do something
-  }
-
-  constructor(private nzContextMenuService: NzContextMenuService) {}
 }

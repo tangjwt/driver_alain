@@ -15,7 +15,7 @@
           <i nz-icon nzType="close" (click)="closeTab(index)" class="ant-tabs-close-x"></i>
         </div>
       </ng-template>
-      <sn-debug [id]="id" *ngIf="index==0" (serviceChange)="tab=$event;updateTabs(index,$event)"></sn-debug>
+      <sn-debug [id]="id" [caseId]="caseId" *ngIf="index==0" (serviceChange)="tab=$event;updateTabs(index,$event)"></sn-debug>
       <sn-debug *ngIf="index>0" (serviceChange)="$event?tab=$event:tab='debug';updateTabs(index,$event)"></sn-debug>
     </nz-tab>
   </nz-tabset> 

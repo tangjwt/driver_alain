@@ -16,6 +16,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import { PrismHighlightDirective } from './directive/prism-highlight.directive';
 import { CodemirrorComponent } from './codemirror/codemirror.component';
 import { CodemirrorMergeComponent } from './codemirror-merge/codemirror-merge.component';
+import { ProgressPipe } from './progress.pipe';
 
 
 
@@ -23,7 +24,8 @@ import { CodemirrorMergeComponent } from './codemirror-merge/codemirror-merge.co
   declarations: [
     PrismHighlightDirective,
     CodemirrorComponent,
-    CodemirrorMergeComponent
+    CodemirrorMergeComponent,
+    ProgressPipe
   ],
   imports: [
     CommonModule
@@ -31,7 +33,8 @@ import { CodemirrorMergeComponent } from './codemirror-merge/codemirror-merge.co
   exports:[
     PrismHighlightDirective,
     CodemirrorComponent,
-    CodemirrorMergeComponent
+    CodemirrorMergeComponent,
+    ProgressPipe
   ]
 })
 export class CommonsModule { }

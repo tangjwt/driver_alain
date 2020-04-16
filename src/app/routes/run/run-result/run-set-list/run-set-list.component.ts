@@ -80,7 +80,8 @@ export class RunSetListComponent implements OnInit {
     {
       title: 'runnedPercent',
       renderTitle: 'runnedPercentTitle',
-      render: 'runnedPercent'
+      render: 'runnedPercent',
+      width: '100',
     },
     {
       title: 'runTime',

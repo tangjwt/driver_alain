@@ -23,5 +23,5 @@ export class ResultDetailCompareComponent implements OnInit {
       this.detail2 = data.data;
     }); 
   }
-
+ 
 }

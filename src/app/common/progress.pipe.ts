@@ -34,7 +34,7 @@ export class ProgressPipe implements PipeTransform {
         return 'success';
       }
       case 'P4':{
-        return 'light';
+        return '';
       }
       case 'FINISHED':
       case true:{

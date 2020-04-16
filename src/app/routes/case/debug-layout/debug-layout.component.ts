@@ -17,12 +17,16 @@ export class DebugLayoutComponent implements OnInit, CanComponentDeactivate {
   tabs = ['debug'];
   update = ['debug']; // 用于判断debug标签里面有没有内容，不直接使用Tabs，是因为tabs变动，会导致tab重绘，丢失数据
   id;
+  caseId;
   index = 0;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       if (params.has('id')) {
         this.id = params.get('id');
+      }
+      if (params.has('caseId')) {
+        this.caseId = params.get('caseId');
       }
     });
   }
