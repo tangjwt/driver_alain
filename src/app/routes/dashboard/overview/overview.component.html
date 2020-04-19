@@ -8,8 +8,8 @@
     <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
       <div nz-row nzType="flex" nzAlign="middle" class="bg-primary rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
-          <div class="h2 mt0">123,456</div>
-          <p class="text-nowrap mb0">Website Traffics</p>
+          <div class="h2 mt0">{{projects}}</div>
+          <p class="text-nowrap mb0">接入项目</p>
         </div>
         <div nz-col nzSpan="12">
           <g2-mini-bar
@@ -27,8 +27,8 @@
     <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
       <div nz-row nzType="flex" nzAlign="middle" class="bg-success rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
-          <div class="h2 mt0">234,567K</div>
-          <p class="text-nowrap mb0">Website Impressions</p>
+          <div class="h2 mt0">{{services}}</div>
+          <p class="text-nowrap mb0">接入服务</p>
         </div>
         <div nz-col nzSpan="12">
           <g2-mini-bar
@@ -46,8 +46,8 @@
     <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
       <div nz-row nzType="flex" nzAlign="middle" class="bg-orange rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
-          <div class="h2 mt0">$458,778</div>
-          <p class="text-nowrap mb0">Total Sales</p>
+          <div class="h2 mt0">458,778</div>
+          <p class="text-nowrap mb0">最近30天运行次数</p>
         </div>
         <div nz-col nzSpan="12">
           <g2-mini-bar
@@ -66,7 +66,7 @@
       <div nz-row nzType="flex" nzAlign="middle" class="bg-magenta rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
           <div class="h2 mt0">456</div>
-          <p class="text-nowrap mb0">Support Tickets</p>
+          <p class="text-nowrap mb0">最近30天运行用例数</p>
         </div>
         <div nz-col nzSpan="12">
           <g2-mini-bar
@@ -82,32 +82,7 @@
       </div>
     </div>
   </div>
-  <div nz-row nzGutter="16">
-    <div nz-col nzXs="24" nzMd="12">
-      <nz-card [nzBordered]="false" [nzTitle]="salesTitle">
-        <ng-template #salesTitle>
-          Sales Statistics
-          <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
-        </ng-template>
-        <g2-bar *ngIf="salesData" height="275" [data]="salesData"></g2-bar>
-      </nz-card>
-    </div>
-    <div nz-col nzXs="24" nzMd="12">
-      <nz-card [nzTitle]="growthTitle" [nzBordered]="false">
-        <ng-template #growthTitle>
-          Growth Rate
-          <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
-        </ng-template>
-        <g2-timeline
-          *ngIf="offlineChartData"
-          [data]="offlineChartData"
-          [height]="239"
-          [padding]="[0, 0, 0, 0]"
-          [titleMap]="{ y1: '客流量', y2: '支付笔数' }"
-        ></g2-timeline>
-      </nz-card>
-    </div>
-  </div>
+  
   <div nz-row nzGutter="16">
     <div nz-col nzXs="24" nzMd="12">
       <nz-card [nzBordered]="false" [nzCover]="coverTpl">

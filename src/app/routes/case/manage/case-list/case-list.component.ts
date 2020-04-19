@@ -79,7 +79,7 @@ export class CaseListComponent implements OnInit {
   ngOnInit() {
     this.caseManageService.getCaseList(1, this.itemsPerPage).subscribe(data => {
       this.results =  data.data ? data.data : [];
-      this.totalRecords = data.count;
+      this.totalRecords = data.total;
     });
   }
 
@@ -98,7 +98,7 @@ export class CaseListComponent implements OnInit {
     this.event = event;
     this.caseManageService.getCaseList(event.pi, event.ps).subscribe(data => {
       this.results = data.data;
-      this.totalRecords = data.count;
+      this.totalRecords = data.total;
     });
   }
 

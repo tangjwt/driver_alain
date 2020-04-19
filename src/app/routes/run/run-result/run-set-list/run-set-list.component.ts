@@ -131,7 +131,7 @@ export class RunSetListComponent implements OnInit {
         this.id = params.get('id');
         this.runResultService.getSubRunSetList(this.id, 1, this.itemsPerPage).subscribe(data => {
           this.results = data.data;
-          this.totalRecords = data.count;
+          this.totalRecords = data.total;
         });
       } else if (params.has('taskId')) {
         this.taskId = params.get('taskId');
@@ -140,7 +140,7 @@ export class RunSetListComponent implements OnInit {
         }
         this.runResultService.getRunSetListByTask(this.taskId, 1, this.itemsPerPage).subscribe(data => {
           this.results = data.data;
-          this.totalRecords = data.count;
+          this.totalRecords = data.total;
         });
       } else {
         // if (this.columns.includes({title: 'pass',index: 'isPass'})){
@@ -148,7 +148,7 @@ export class RunSetListComponent implements OnInit {
         // }
         this.runResultService.getRunSetList(1, this.itemsPerPage).subscribe(data => {
           this.results = data.data;
-          this.totalRecords = data.count;
+          this.totalRecords = data.total;
           this.id = null;
         });
       }
@@ -171,9 +171,11 @@ export class RunSetListComponent implements OnInit {
 
   jump(id: any){
     this.runResultService.hasSubRunSetList(id).subscribe(data => {
-      const hasSub = data.status;
+      console.log(data);
+      
+      const hasSub = data.data;
       // 有子run set的情况下，跳转到子run set列表页面
-      if (hasSub == 'STATUS_SUCCESS') {
+      if (hasSub > 0) {
         // sub run_set 点浏览器回退按钮，回退到run_set列表界面
         // window.history.pushState({},'List','/run/result');
         this.router.navigate(['/run/result/', { id : id }]);
@@ -231,18 +233,18 @@ export class RunSetListComponent implements OnInit {
     if (this.id) {
       this.runResultService.getSubRunSetList(this.id, event.pi, event.ps).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
       });
     } else if (this.taskId) {
       this.runResultService.getRunSetListByTask(this.taskId, event.pi, event.ps).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
 
       });
     } else {
       this.runResultService.getRunSetList(event.pi, event.ps).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
       });
     }
   }

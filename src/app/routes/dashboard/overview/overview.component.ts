@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectManageService } from '../../../services/project-manage.service';
+import { SerManageService } from '../../../services/ser-manage.service';
 
 @Component({
   selector: 'sn-overview',
@@ -6,51 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class OverviewComponent implements OnInit {
-  todoData: any[] = [
-    {
-      completed: true,
-      avatar: '1',
-      name: '苏先生',
-      content: `请告诉我，我应该说点什么好？`,
-    },
-    {
-      completed: false,
-      avatar: '2',
-      name: 'はなさき',
-      content: `ハルカソラトキヘダツヒカリ`,
-    },
-    {
-      completed: false,
-      avatar: '3',
-      name: 'cipchk',
-      content: `this world was never meant for one as beautiful as you.`,
-    },
-    {
-      completed: false,
-      avatar: '4',
-      name: 'Kent',
-      content: `my heart is beating with hers`,
-    },
-    {
-      completed: false,
-      avatar: '5',
-      name: 'Are you',
-      content: `They always said that I love beautiful girl than my friends`,
-    },
-    {
-      completed: false,
-      avatar: '6',
-      name: 'Forever',
-      content: `Walking through green fields ，sunshine in my eyes.`,
-    },
-  ];
-
-  webSite: any[];
-  salesData: any[];
-  offlineChartData: any[];
-  constructor() { }
+  projects = 0;
+  services = 0;
+  constructor(private projectService: ProjectManageService, private serManageService: SerManageService) { }
 
   ngOnInit() {
+    this.projectService.getProjectList().subscribe(data => {
+      this.projects = data.data.length;
+    });
+    this.serManageService.getServiceList().subscribe(data => {
+      this.services = data.data.length;
+    });
   }
 
 }

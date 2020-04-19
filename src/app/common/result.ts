@@ -1,6 +1,6 @@
 export interface Result {
     status: string;
-    count: number;
+    total: number;
     id: number;
     data: any;
     message: string;

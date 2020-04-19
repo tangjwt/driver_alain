@@ -46,7 +46,7 @@ export class ResultDetailComponent implements OnInit {
         this.addtionalErrorLine = '';
       }
       if (this.details.subCases) {
-        this.subCaseDetail = Object.values(detail.subCases);
+        this.subCaseDetail = detail.subCases;
         const subCaseShow = [];
         for (let index = 0; index < this.subCaseDetail.length; index++) {
           subCaseShow.push(false);
@@ -65,7 +65,7 @@ export class ResultDetailComponent implements OnInit {
     }
   }
   details: any;
-  subCaseDetail: Array<any>;
+  subCaseDetail: Array<any>; // 测试用例debug的时候，会存在。
   subCaseShow: Array<any> = [];
   @Input() debugView = false;
   @Input() generateView = false;

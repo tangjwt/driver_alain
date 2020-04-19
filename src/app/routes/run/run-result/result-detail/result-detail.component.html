@@ -110,7 +110,7 @@
 </ng-container>
 <ng-container *ngIf="showJsonResponse">
   <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="响应">
-    <pre><code snPrismHighlight class="language-json line-numbers" [highlightValue]="details?.jsonResponse|json">{{details?.jsonResponse|json}}</code></pre>
+    <pre><code snPrismHighlight class="language-json line-numbers" [highlightValue]="details?.jsonResponse">{{details?.jsonResponse}}</code></pre>
   </nz-card>
 
 </ng-container>

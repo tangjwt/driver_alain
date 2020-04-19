@@ -77,7 +77,6 @@ export class DebugComponent implements OnInit {
   jsonPath: string;
   runResult;
   data: string;
-  subCase: Array<any>;
   mode = 'javascript';
   _fields: Array<any> = [];
   fields: Array<any> = [];
@@ -220,8 +219,8 @@ export class DebugComponent implements OnInit {
         data => {
           if (data.data.length > 0) {
             this.runResult = data.data[0];
-            if (this.runResult.subCases) {
-              this.subCase = Object.values(this.runResult.subCases);
+            if(data.data.length >1 ){
+              this.runResult.subCases = data.data.slice(1);
             }
             this.messageService.success(
               `Service ${this.service} debug success`,

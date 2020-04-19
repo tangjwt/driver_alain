@@ -81,7 +81,7 @@ export class dataComponent implements OnInit {
       // this.columns[2].hide = false;
       this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, 1, this.itemsPerPage).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
         this.finished = true;
       });
     } else {
@@ -92,7 +92,7 @@ export class dataComponent implements OnInit {
       this.serviceName = this.route.snapshot.params.serviceName;
       this.runResultService.getRundata(this.id, this.status,this.serviceName, 1, this.itemsPerPage).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
         this.finished = true;
         console.log(data);
 
@@ -104,12 +104,12 @@ export class dataComponent implements OnInit {
     if (this.originId && this.destId) {
       this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
       });
     } else {
       this.runResultService.getRundata(this.id, this.status,this.serviceName, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
         this.results = data.data;
-        this.totalRecords = data.count;
+        this.totalRecords = data.total;
       });
     }
   }

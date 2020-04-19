@@ -121,13 +121,13 @@ export class ProjectComponent implements OnInit {
     this.projectFG.reset();
     this.projectService.getById(id).subscribe(data => {
       this.projectFG.setValue({
-        id: data.data[0].id,
-        name: data.data[0].name,
-        svnPath: data.data[0].svnPath,
-        username: data.data[0].username,
-        password: data.data[0].password,
-        description: data.data[0].description
-          ? data.data[0].description
+        id: data.data.id,
+        name: data.data.name,
+        svnPath: data.data.svnPath,
+        username: data.data.username,
+        password: data.data.password,
+        description: data.data.description
+          ? data.data.description
           : '',
       });
       this.isVisible = true;
