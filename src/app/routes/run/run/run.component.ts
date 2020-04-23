@@ -29,7 +29,7 @@ import {
   templateUrl: './run.component.html',
 })
 export class RunComponent implements OnInit { 
-  @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent: NzTreeComponent;
+  @ViewChild('nzTreeComponent') nzTreeComponent: NzTreeComponent;
   @Input() set runEntityValue(value: any) {
     if (value) {
       this.runEntity.setValue(value);

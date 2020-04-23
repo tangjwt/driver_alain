@@ -22,27 +22,27 @@ const routes: Routes = [
     // canActivate: [SimpleGuard],
     children: [{
       path: 'config',
-      loadChildren: 'app/routes/configuration/configuration.module#ConfigurationModule'
+      loadChildren: () => import('app/routes/configuration/configuration.module').then(m => m.ConfigurationModule)
     },
     {
       path: 'run',
-      loadChildren: 'app/routes/run/run.module#RunModule'
+      loadChildren: () => import('app/routes/run/run.module').then(m => m.RunModule)
     },
     {
       path: 'case',
-      loadChildren: 'app/routes/case/case.module#CaseModule'
+      loadChildren: () => import('app/routes/case/case.module').then(m => m.CaseModule)
     },
     {
       path: 'generate',
-      loadChildren: 'app/routes/generate/generate.module#GenerateModule'
+      loadChildren: () => import('app/routes/generate/generate.module').then(m => m.GenerateModule)
     },
     {
       path: 'dashboard',
-      loadChildren: 'app/routes/dashboard/dashboard.module#DashboardModule'
+      loadChildren: () => import('app/routes/dashboard/dashboard.module').then(m => m.DashboardModule)
     },
     {
       path: 'swagger',
-      loadChildren: 'app/routes/swagger/swagger.module#SwaggerModule'
+      loadChildren: () => import('app/routes/swagger/swagger.module').then(m => m.SwaggerModule)
     },
     {
       path: '',

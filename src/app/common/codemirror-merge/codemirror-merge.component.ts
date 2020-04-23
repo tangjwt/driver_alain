@@ -69,7 +69,7 @@ export class CodemirrorMergeComponent implements AfterViewInit {
       this.codeMirror.rightOriginal().setValue(value);
     }
   }
-  @ViewChild('ref',{static:false}) ref: ElementRef;
+  @ViewChild('ref') ref: ElementRef;
   codeMirror: MergeView.MergeViewEditor;
   value = '';
   orig = '';

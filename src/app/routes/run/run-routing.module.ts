@@ -54,7 +54,7 @@ const routes: Routes = [
   },
   {
     path: 'result/:id/debug',
-    loadChildren: 'app/routes/case/case.module#CaseModule'
+    loadChildren: () => import('app/routes/case/case.module').then(m => m.CaseModule)
   },
   {
     path: 'runonce',
