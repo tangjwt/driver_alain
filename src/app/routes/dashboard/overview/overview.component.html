@@ -46,7 +46,7 @@
     <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
       <div nz-row nzType="flex" nzAlign="middle" class="bg-orange rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
-          <div class="h2 mt0">458,778</div>
+          <div class="h2 mt0">{{runsets}}</div>
           <p class="text-nowrap mb0">最近30天运行次数</p>
         </div>
         <div nz-col nzSpan="12">
@@ -65,7 +65,7 @@
     <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
       <div nz-row nzType="flex" nzAlign="middle" class="bg-magenta rounded-md">
         <div nz-col nzSpan="12" class="p-md text-white">
-          <div class="h2 mt0">456</div>
+          <div class="h2 mt0">{{runResults}}</div>
           <p class="text-nowrap mb0">最近30天运行用例数</p>
         </div>
         <div nz-col nzSpan="12">
@@ -128,40 +128,9 @@
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzMd="12">
-      <nz-card nzTitle="Todo lists" [nzBordered]="false" class="ant-card__body-nopadding">
-        <div
-          nz-row
-          [nzType]="'flex'"
-          [nzJustify]="'center'"
-          [nzAlign]="'middle'"
-          class="py-sm bg-grey-lighter-h point"
-          *ngFor="let item of todoData"
-        >
-          <div nz-col [nzSpan]="4" class="text-center">
-            <nz-avatar [nzSrc]="'./assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
-          </div>
-          <div nz-col [nzSpan]="18">
-            <strong>{{ item.name }}</strong>
-            <p [class.text-deleted]="item.completed" class="mb0">{{ item.content }}</p>
-          </div>
-          <div nz-col [nzSpan]="2" class="text-right pr-md">
-            <i
-              nz-dropdown
-              [nzDropdownMenu]="todoMenus"
-              nzPlacement="topRight"
-              nz-icon
-              nzType="ellipsis"
-              class="rotate-90"
-            ></i>
-            <nz-dropdown-menu #todoMenus="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item *ngIf="item.completed" (click)="item.completed = false">Active</li>
-                <li nz-menu-item *ngIf="!item.completed" (click)="item.completed = true">Completed</li>
-                <li nz-menu-item (click)="todoData.splice(todoData.indexOf(item), 1)">Delted</li>
-              </ul>
-            </nz-dropdown-menu>
-          </div>
-        </div>
+      <nz-card nzTitle="最近运行失败" [nzBordered]="false" class="ant-card__body-nopadding">
+        <nz-list nzBordered nzSize="small">
+        </nz-list>
       </nz-card>
     </div>
   </div>

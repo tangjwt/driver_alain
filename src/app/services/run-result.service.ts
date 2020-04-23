@@ -16,6 +16,14 @@ export class RunResultService {
     return this.httpClient.get<Result>('/runResult/' + id);
   }
 
+  countRunset(): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/count/30');
+  }
+
+  countRunResult(): Observable<Result> {
+    return this.httpClient.get<Result>('/runResult/count/cases/30');
+  }
+
   getRunResultDetail(id: string): Observable<Result> {
     return this.httpClient.get<Result>('/runResult/cases/' + id);
   }
@@ -78,6 +86,11 @@ export class RunResultService {
 
   hasSubRunSetList(id: string): Observable<Result> {
     return this.httpClient.get<Result>('/runResult/hasSubRunset/' + id);
+  }
+
+
+  getRunSetListByParams(params: any): Observable<Result> {
+    return this.httpClient.post<Result>('/runResult', params, httpOptions);
   }
 
   getSubRunSetList(
