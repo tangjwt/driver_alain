@@ -61,7 +61,7 @@
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.15",
     "ng-http-loader": "^6.0.1",
-    "ng-zorro-antd": "^8.5.2",
+    "ng-zorro-antd": "^9.0.2",
     "ngx-treeview": "^6.0.2",
     "prettier": "^1.19.1",
     "prettier-stylelint": "^0.4.2",
