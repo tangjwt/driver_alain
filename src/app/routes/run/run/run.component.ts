@@ -15,7 +15,6 @@ import { EnvUrlManageService } from '../../../services/env-url-manage.service';
 import { CaseFilepathService } from '../../../services/case-filepath.service';
 import { RunService } from '../../../services/run.service';
 import { Router } from '@angular/router';
-import { TreeviewItem } from 'ngx-treeview';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { PriorityOptions} from '../../../services/convert';
 import {
@@ -86,11 +85,13 @@ export class RunComponent implements OnInit {
     compareConfig: [''],
     remoteParameter: [''],
   });
-  items: TreeviewItem[];
+  // items: TreeviewItem[];
   nodes: NzTreeNodeOptions[];
-  serviceItems: TreeviewItem[] = [];
+  serviceItems: NzTreeNodeOptions[] = [];
+  serviceValue: string[] = [];
   checkOptions = PriorityOptions;
   forceUpdate = false;
+  isVisible = false;
 
   constructor(
     private runService: RunService,
@@ -161,54 +162,20 @@ export class RunComponent implements OnInit {
         )
         .subscribe(data => {
           this.sers = data.data;
-          const servers = Utils.toArray(service);
-          this.serviceItems = this.sers.map(item => {
-            let check = false;
-            if (
-              servers.length > 0 &&
-              servers.indexOf(item.serviceName) > -1
-            ) {
-              check = true;
-            }
-            return new TreeviewItem({
-              text: item.serviceName,
-              value: item.serviceName,
-              checked: check,
-            });
-          });
         });
     }
   }
 
-  updateUrl(event: Array<any>) {
-    this.runEntity.get('fuwu').setValue(event.toString());
+  updateUrl(event: any) {
     if (this.sers.length > 0) {
       this.url = this.sers
         .filter(data => {
-          return event.indexOf(data.serviceName) > -1;
+            return event === data.serviceName; // 全匹配
         })
         .map(data => data.serviceUrl)
         .toString();
     }
   }
-  //ngx-treeview自带的过滤，已经够用
-  filterChangeForService(event: any) {
-    let servers = Utils.toArray(this.runEntity.get('fuwu').value);
-    this.serviceItems = this.sers
-      .filter(data => data.serviceName.indexOf(event) > -1 || event == '')
-      .map(service => {
-        let check = false;
-        if (servers.length > 0 && servers.indexOf(service.serviceName) > -1) {
-          check = true;
-        }
-        return new TreeviewItem({
-          text: service.serviceName,
-          value: service.serviceName,
-          checked: check,
-        });
-      });
-  }
-
   run(value: any, success: TemplateRef<void>) {
     let requestParams = {
       params: value,
@@ -277,8 +244,6 @@ export class RunComponent implements OnInit {
         )
         .subscribe(data => {
           this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
-          console.log(this.nodes);
-          
           // this.items = this.filepathService.arrayToTreeviewItem(
           //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),

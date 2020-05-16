@@ -3,13 +3,12 @@
 <st #st [data]="scriptList" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzTitle="添加/修改script" [nzOkDisabled]="!this.scriptFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(scriptFG.value)" (nzOnCancel)="handleCancel()">
-  <form nz-form [formGroup]="scriptFG">
+  <form nz-form [formGroup]="scriptFG" [nzAutoTips]="autoTips">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >名称</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <input  nz-input  formControlName="name" name="name">
-        <nz-form-explain *ngIf="scriptFG.get('name')?.dirty && scriptFG.get('name')?.errors || scriptFG.get('name')?.pending " >name is required</nz-form-explain>
-      </nz-form-control>
+        </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">type</nz-form-label>
@@ -23,8 +22,7 @@
       <nz-form-label nzRequired [nzSpan]="7" >content</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <textarea nz-input formControlName="content" name="content" ></textarea>
-        <nz-form-explain *ngIf="scriptFG.get('content')?.dirty && scriptFG.get('content')?.errors || scriptFG.get('content')?.pending " >tagValue is required</nz-form-explain>
-      </nz-form-control>
+        </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label  [nzSpan]="7" >description</nz-form-label>

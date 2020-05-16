@@ -3,14 +3,11 @@
 <st #st [data]="tags" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzTitle="添加/修改tags" [nzOkDisabled]="!this.tagsFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(tagsFG.value)" (nzOnCancel)="handleCancel()">
-  <form nz-form [formGroup]="tagsFG">
+  <form nz-form [formGroup]="tagsFG" [nzAutoTips]="autoTips">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">名称</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <input nz-input formControlName="tagKey" name="tagKey">
-        <nz-form-explain
-          *ngIf="tagsFG.get('tagKey')?.dirty && tagsFG.get('tagKey')?.errors || tagsFG.get('tagKey')?.pending ">name is
-          required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -25,9 +22,6 @@
       <nz-form-label nzRequired [nzSpan]="7">tagValue</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <input required nz-input formControlName="tagValue" name="tagValue">
-        <nz-form-explain
-          *ngIf="tagsFG.get('tagValue')?.dirty && tagsFG.get('tagValue')?.errors || tagsFG.get('tagValue')?.pending ">
-          tagValue is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

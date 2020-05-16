@@ -3,16 +3,13 @@
 <st #st [data]="envUrlList" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzTitle="添加/修改服务地址" [nzOkDisabled]="!this.envUrlFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(envUrlFG.value)" (nzOnCancel)="handleCancel()">
-  <form nz-form [formGroup]="envUrlFG">
+  <form nz-form [formGroup]="envUrlFG"  [nzAutoTips]="autoTips">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">项目</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <nz-select formControlName="projectId" name="projectId"   nzPlaceHolder="Choose" (ngModelChange)="update($event)">
           <nz-option *ngFor="let pro of projects" [nzValue]="pro.id" [nzLabel]="pro.name"></nz-option>
         </nz-select>
-        <nz-form-explain
-          *ngIf="envUrlFG.get('projectId')?.dirty &&  envUrlFG.get('projectId')?.errors || envUrlFG.get('projectId')?.pending ">
-          project is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -21,9 +18,6 @@
         <nz-select formControlName="envId" name="envId"   nzPlaceHolder="Choose">
           <nz-option *ngFor="let pro of envs" [nzValue]="pro.id" [nzLabel]="pro.name"></nz-option>
         </nz-select>
-        <nz-form-explain
-          *ngIf="envUrlFG.get('envId')?.dirty &&  envUrlFG.get('envId')?.errors || envUrlFG.get('envId')?.pending ">
-          env is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -32,18 +26,12 @@
         <nz-select formControlName="serviceId" name="serviceId"   nzPlaceHolder="Choose">
           <nz-option *ngFor="let pro of servers" [nzValue]="pro.id" [nzLabel]="pro.name"></nz-option>
         </nz-select>
-        <nz-form-explain
-          *ngIf="envUrlFG.get('serviceId')?.dirty &&  envUrlFG.get('serviceId')?.errors || envUrlFG.get('serviceId')?.pending ">
-          service is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">服务地址</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <input nz-input formControlName="serviceUrl" name="serviceUrl">
-        <nz-form-explain
-          *ngIf="envUrlFG.get('serviceUrl')?.dirty && envUrlFG.get('serviceUrl')?.errors || envUrlFG.get('serviceUrl')?.pending ">
-          serviceUrl is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

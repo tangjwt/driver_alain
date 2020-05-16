@@ -63,6 +63,14 @@ export class ScriptComponent implements OnInit {
 
   scriptType = ['PYTHON', 'SHELL', 'TEMPLATE'];
 
+  autoTips: Record<string, Record<string, string>> = {
+    'zh-cn': {
+      required: '必填项',
+    },
+    en: {
+      required: 'Input is required',
+    }
+  };
   scriptFG: FormGroup = this.fb.group({
     id: [''],
     name: ['', Validators.required],

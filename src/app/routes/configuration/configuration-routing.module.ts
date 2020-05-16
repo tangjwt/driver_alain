@@ -6,6 +6,7 @@ import { TagsComponent } from './tags/tags.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
+import { AgentComponent } from './agent/agent.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'url',
     component: EnvUrlComponent
+  },
+  {
+    path: 'agent',
+    component: AgentComponent
   }
 ];
 

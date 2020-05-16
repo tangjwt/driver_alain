@@ -86,7 +86,14 @@ export class EnvUrlComponent implements OnInit {
   });
   isVisible = false;
   isOkLoading = false;
-
+  autoTips: Record<string, Record<string, string>> = {
+    'zh-cn': {
+      required: '必填项',
+    },
+    en: {
+      required: 'Input is required',
+    }
+  };
   constructor(
     private serviceManage: SerManageService,
     private envUrlService: EnvUrlManageService,

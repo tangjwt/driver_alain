@@ -8,6 +8,7 @@ import { TagsComponent } from './tags/tags.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
+import { AgentComponent } from './agent/agent.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { EnvUrlComponent } from './env-url/env-url.component';
     TagsComponent,
     EnvironmentComponent,
     ScriptComponent,
-    EnvUrlComponent
+    EnvUrlComponent,
+    AgentComponent
   ],
   providers: [
   ]

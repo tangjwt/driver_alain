@@ -87,6 +87,10 @@
             {
               "text": "script管理",
               "link": "/config/script"
+            },
+            {
+              "text": "agent管理",
+              "link": "/config/agent"
             }
           ]
         }

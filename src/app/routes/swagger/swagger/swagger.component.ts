@@ -12,7 +12,7 @@ export class SwaggerComponent implements OnInit {
   constructor(private el: ElementRef) {}
   ngOnInit() {
     const ui = SwaggerUI({
-      url: environment.SERVER_URL + '/driver/openapi.json',
+      url: environment.SERVER_URL + '/driver/v2/api-docs',
       dom_id: '#swagger-container',
       deepLinking: true,
       presets: [SwaggerUI.presets.apis],

@@ -13,11 +13,8 @@
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
           <nz-form-label nzRequired>任务名称</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-control nzHasFeedback nzErrorTip="taskName is required">
             <input nz-input formControlName="taskName" name="taskName">
-            <nz-form-explain
-              *ngIf="taskEntity.get('taskName')?.dirty &&  taskEntity.get('taskName')?.errors || taskEntity.get('taskName')?.pending ">
-              taskName is required</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -41,7 +38,7 @@
     <div nz-row nzGutter="16">
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
-          <nz-form-label>发送邮件</nz-form-label>
+          <nz-form-label nzRequired>发送邮件</nz-form-label>
           <nz-form-control>
             <nz-select formControlName="sendEmail" name="sendEmail" nzPlaceHolder="Choose">
               <nz-option *ngFor="let pro of list" [nzValue]="pro" [nzLabel]="pro"></nz-option>

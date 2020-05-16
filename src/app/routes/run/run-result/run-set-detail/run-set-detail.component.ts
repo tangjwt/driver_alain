@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { RunResultService } from '../../../../services/run-result.service';
-import { TreeviewItem, TreeviewConfig } from 'ngx-treeview';
 import { CaseFilepathService } from '../../../../services/case-filepath.service';
 @Component({
   selector: 'sn-run-set-detail',

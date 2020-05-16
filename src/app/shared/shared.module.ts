@@ -1,26 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-// delon
-import { AlainThemeModule } from '@delon/theme';
-import { DelonABCModule } from '@delon/abc';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
-import { DelonChartModule } from '@delon/chart';
-// i18n
+import { AlainThemeModule } from '@delon/theme';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SHARED_DELON_MODULES } from './shared-delon.module';
+import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 import { CommonsModule } from '../common/commons.module';
 
 // #region third libs
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { CountdownModule } from 'ngx-countdown';
+// import { CountdownModule } from 'ngx-countdown';
+// import { NgxTinymceModule } from 'ngx-tinymce';
+// import { UEditorModule } from 'ngx-ueditor';
+
 const THIRDMODULES = [
-  NgZorroAntdModule,
-  CountdownModule,
-  CommonsModule
+  // CountdownModule, UEditorModule, NgxTinymceModule
 ];
 // #endregion
 
@@ -36,17 +33,18 @@ const DIRECTIVES = [];
     RouterModule,
     ReactiveFormsModule,
     AlainThemeModule.forChild(),
-    DelonABCModule,
     DelonACLModule,
     DelonFormModule,
-    DelonChartModule,
+    CommonsModule,
+    ...SHARED_DELON_MODULES,
+    ...SHARED_ZORRO_MODULES,
     // third libs
-    ...THIRDMODULES
+    ...THIRDMODULES,
   ],
   declarations: [
     // your components
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
   ],
   exports: [
     CommonModule,
@@ -54,17 +52,17 @@ const DIRECTIVES = [];
     ReactiveFormsModule,
     RouterModule,
     AlainThemeModule,
-    DelonABCModule,
     DelonACLModule,
     DelonFormModule,
-    DelonChartModule,
-    // i18n
     TranslateModule,
+    CommonsModule,
+    ...SHARED_DELON_MODULES,
+    ...SHARED_ZORRO_MODULES,
     // third libs
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,
-    ...DIRECTIVES
-  ]
+    ...DIRECTIVES,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

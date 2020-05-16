@@ -12,7 +12,6 @@ import { dataComponent } from './run-result/result-list/result-list.component';
 import { ResultDetailComponent } from './run-result/result-detail/result-detail.component';
 import { RunComponent } from './run/run.component';
 import { TaskAddOrModifyComponent } from './run-task/task-add-or-modify/task-add-or-modify.component';
-import { TreeviewModule } from 'ngx-treeview';
 import { ResultDetailCompareComponent } from './run-result/result-detail-compare/result-detail-compare.component';
 
 
@@ -32,7 +31,7 @@ import { ResultDetailCompareComponent } from './run-result/result-detail-compare
   imports: [
     CommonModule,
     SharedModule,
-    TreeviewModule.forRoot(),
+    // TreeviewModule.forRoot(),
     RunRoutingModule
   ],
   exports: [

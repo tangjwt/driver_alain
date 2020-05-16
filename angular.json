@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
+            "aot": false,
             "outputPath": "dist/driver_web",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -214,5 +214,8 @@
     "@schematics/angular:service": {
       "skipTests": true
     }
+  },
+  "cli": {
+    "analytics": "4cca22fb-29ee-44e3-873d-8396cb00db49"
   }
 }

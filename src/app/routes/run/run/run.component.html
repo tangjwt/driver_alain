@@ -5,40 +5,37 @@
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="project">项目</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-control nzHasFeedback nzErrorTip="project is required">
             <nz-select formControlName="project" name="project"  [nzPlaceHolder]="'Choose'"
               (ngModelChange)="updateEnv($event)">
               <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
             </nz-select>
-            <nz-form-explain
-              *ngIf="runEntity.get('project')?.dirty &&  runEntity.get('project')?.errors || runEntity.get('project')?.pending ">
-              project is required</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:6, offset:2}" [nzLg]="{span:8}" [nzMd]="{span:12}" nzSm="24">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="env">环境</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-control nzHasFeedback nzErrorTip="env is required">
             <nz-select formControlName="env" name="env" [nzPlaceHolder]="'Choose'" (ngModelChange)="updateService($event)">
               <nz-option *ngFor="let pro of envs" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
             </nz-select>
-            <nz-form-explain
-              *ngIf="runEntity.get('env')?.dirty &&  runEntity.get('env')?.errors || runEntity.get('env')?.pending ">
-              env is required</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="servers">服务</nz-form-label>
-          <nz-form-control>
-            <ngx-dropdown-treeview name="servers" [config]="config" [items]="serviceItems" [buttonClass]="'btn btn-outline-secondary'"
+          <nz-form-label nzRequired nzFor="fuwu">服务</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="service is required">
+            
+            <nz-select formControlName="fuwu" name="fuwu" nzShowSearch nzPlaceHolder="Choose"
+              (ngModelChange)="updateUrl($event)">
+              <nz-option *ngFor="let ser of sers" [nzValue]="ser.serviceName" [nzLabel]="ser.serviceName"></nz-option>
+            </nz-select>
+            <!-- <nz-tree-select [nzNodes]="serviceItems"  [(ngModel)]="serviceValue" nzShowSearch nzCheckable nzMultiple (ngModelChange)="updateUrl($event)" nzPlaceHolder="Please select" ></nz-tree-select> -->
+            <!-- <ngx-dropdown-treeview name="servers" [config]="config" [items]="serviceItems" [buttonClass]="'btn btn-outline-secondary'"
               (selectedChange)="updateUrl($event);">
-              <nz-form-explain
-                *ngIf="runEntity.get('fuwu')?.dirty &&  runEntity.get('fuwu')?.errors || runEntity.get('fuwu')?.pending || runEntity.get('fuwu').value">
-                service is required</nz-form-explain>
-            </ngx-dropdown-treeview>
+            </ngx-dropdown-treeview> -->
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -47,13 +44,10 @@
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="dataSource">数据源</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-control nzHasFeedback nzErrorTip="dataSources is required">
             <nz-select formControlName="dataSource" name="dataSource" nzPlaceHolder="Choose">
               <nz-option *ngFor="let pro of dataSources" [nzValue]="pro" [nzLabel]="pro"></nz-option>
             </nz-select>
-            <nz-form-explain
-              *ngIf="runEntity.get('dataSource')?.dirty &&  runEntity.get('dataSource')?.errors || runEntity.get('dataSource')?.pending ">
-              dataSources is required</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -68,22 +62,22 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <div nz-col>
+      <div nz-col nzLg="24" nzMd="24" nzSm="24">
         <nz-form-item>
           <nz-form-label>测试用例</nz-form-label>
           <nz-form-control>
             <div nz-row>
-              <div nz-col [nzSpan]="20">
+              <div nz-col nzSpan="20">
                 <textarea nz-input formControlName="filePath" name="filePath" placeholder="按文件选择指定的测试用例执行，默认会缓存上一次取用例文件列表的结果，若找不到所需要的测试用例文件，可勾选强制刷新，强制获取最新的文件列表（可能会比较慢）"></textarea>
               </div>
-              <div nz-col [nzSpan]="2">
+              <div nz-col nzSpan="2">
                 <input type="checkbox" [(ngModel)]="forceUpdate" id="forceUpdate" [ngModelOptions]="{standalone: true}"
                   class="ml-2">
                 <label for="forceUpdate" class="form-check-label ml-1">强制刷新</label>
               </div>
-              <div nz-col [nzSpan]="2">
+              <div nz-col nzSpan="2">
                 <button nz-button [nzType]="'default'" id="caseSelect" [disabled]="project.invalid"
-                  (click)="updateCaseFileList();selectCase.nzVisible=true">选择</button>
+                  (click)="updateCaseFileList();isVisible=true">选择</button>
               </div>
             </div>
           </nz-form-control>
@@ -233,7 +227,7 @@
 <ng-template #success>
   运行成功，<a routerLink="/run/result">查看运行结果</a>
 </ng-template>
-<nz-modal #selectCase nzTitle="选择测试用例" (nzOnCancel)="selectCase.nzVisible=false" [nzFooter]="modalFooter"
+<nz-modal #selectCase nzTitle="选择测试用例" [(nzVisible)]="isVisible" (nzOnCancel)="isVisible=false" [nzFooter]="modalFooter"
   nzClassName="info">
   <nz-tree #nzTreeComponent
       [nzData]="nodes"
@@ -257,5 +251,5 @@
 </nz-modal>
 
 <ng-template #modalFooter>
-  <button nz-button nzType="default" (click)="selectCase.nzVisible=false">取消</button>
+  <button nz-button nzType="default" (click)="isVisible=false">取消</button>
 </ng-template>

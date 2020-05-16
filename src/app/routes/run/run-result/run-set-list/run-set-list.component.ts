@@ -72,11 +72,6 @@ export class RunSetListComponent implements OnInit {
         CANCELED: { text: 'CANCELED', color: 'orange' }
       }
     },
-    // {
-    //   title: 'pass',
-    //   index: 'isPass',
-    //   hide: true
-    // },
     {
       title: 'runnedPercent',
       renderTitle: 'runnedPercentTitle',
@@ -85,8 +80,7 @@ export class RunSetListComponent implements OnInit {
     },
     {
       title: 'runTime',
-      index: 'runTime',
-      type: 'date',
+      render: 'runTime',
     },
     {
       title: 'operation',
@@ -111,7 +105,6 @@ export class RunSetListComponent implements OnInit {
   id: string;
   taskId: string;
   detailInfo: any;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -171,8 +164,6 @@ export class RunSetListComponent implements OnInit {
 
   jump(id: any){
     this.runResultService.hasSubRunSetList(id).subscribe(data => {
-      console.log(data);
-      
       const hasSub = data.data;
       // 有子run set的情况下，跳转到子run set列表页面
       if (hasSub > 0) {

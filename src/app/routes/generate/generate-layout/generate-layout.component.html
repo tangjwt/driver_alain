@@ -79,23 +79,17 @@
   <form nz-form [formGroup]="serviceFG">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">关联服务</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="service is required">
         <nz-tree-select nzShowSearch [nzNodes]="node" [nzHideUnMatched]="'true'" [nzDropdownStyle]="{ 'max-height': '300px' }"
           [nzDefaultExpandAll]="'true'" formControlName="service" nzPlaceHolder="Please select"
           (nzTreeClick)="updateProject($event)" (ngModelChange)="serviceFG.get('subName').setValue($event)">
         </nz-tree-select>
-        <nz-form-explain
-          *ngIf="serviceFG.get('service')?.dirty && serviceFG.get('service')?.errors || serviceFG.get('service')?.pending ">
-          service is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">关联用例别名</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="case name is required">
         <input nz-input formControlName="subName" name="subName">
-        <nz-form-explain
-          *ngIf="serviceFG.get('subName')?.dirty && serviceFG.get('subName')?.errors || serviceFG.get('subName')?.pending ">
-          Should be combination of numbers & alphabets</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

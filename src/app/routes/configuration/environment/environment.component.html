@@ -6,22 +6,16 @@
   <form nz-form [formGroup]="envFG">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">项目</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="project is required">
         <nz-select formControlName="projectId" name="projectId"  nzAllowClear nzPlaceHolder="Choose">
           <nz-option *ngFor="let pro of projects" [nzValue]="pro.id" [nzLabel]="pro.name"></nz-option>
         </nz-select>
-        <nz-form-explain
-          *ngIf="envFG.get('projectId')?.dirty && envFG.get('projectId')?.errors || envFG.get('projectId')?.pending ">
-          project is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7">环境名称</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="name is required">
         <input nz-input formControlName="name" name="name">
-        <nz-form-explain
-          *ngIf="envFG.get('name')?.dirty && envFG.get('name')?.errors || envFG.get('name')?.pending ">
-          name is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

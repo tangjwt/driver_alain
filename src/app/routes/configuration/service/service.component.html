@@ -3,34 +3,25 @@
 <st #st [data]="serviceList" [page]="page" [bordered]="true" [columns]="columns"></st>
 <nz-modal nzWidth="800" nzTitle="添加/修改服务" [nzOkDisabled]="!this.serviceFG.valid" [(nzVisible)]="isVisible"
   [nzOkLoading]="isOkLoading" (nzOnOk)="handleOk(serviceFG.value)" (nzOnCancel)="handleCancel()">
-  <form nz-form [formGroup]="serviceFG">
+  <form nz-form [formGroup]="serviceFG" [nzAutoTips]="autoTips">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="5">项目</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <nz-select formControlName="projectId" name="projectId"  nzAllowClear nzPlaceHolder="Choose">
           <nz-option *ngFor="let pro of projects" [nzValue]="pro.id" [nzLabel]="pro.name"></nz-option>
         </nz-select>
-        <nz-form-explain
-          *ngIf="serviceFG.get('projectId')?.dirty && serviceFG.get('projectId')?.errors || serviceFG.get('projectId')?.pending ">
-          project is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="5">服务名称</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <input nz-input formControlName="name" name="name">
-        <nz-form-explain
-          *ngIf="serviceFG.get('name')?.dirty && serviceFG.get('name')?.errors || serviceFG.get('name')?.pending ">
-          name is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="5">configFile</nz-form-label>
       <nz-form-control [nzSpan]="16" nzHasFeedback>
         <textarea required nz-input rows="10" formControlName="configFile" name="configFile"></textarea>
-        <nz-form-explain
-          *ngIf="serviceFG.get('configFile')?.dirty && serviceFG.get('configFile')?.errors || serviceFG.get('configFile')?.pending ">
-          configFile is required</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
 

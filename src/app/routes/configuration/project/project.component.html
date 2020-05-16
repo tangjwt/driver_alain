@@ -5,31 +5,27 @@
   <form nz-form [formGroup]="projectFG">
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >项目名称</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="project name is required">
         <input  nz-input  formControlName="name" name="name">
-        <nz-form-explain *ngIf="projectFG.get('name')?.dirty && projectFG.get('name')?.errors || projectFG.get('name')?.pending " >Should be combination of numbers & alphabets</nz-form-explain>
-      </nz-form-control>
+         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >svn路径</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="svnPath is required">
         <input required nz-input formControlName="svnPath" name="svnPath" >
-        <nz-form-explain *ngIf="projectFG.get('svnPath')?.dirty && projectFG.get('svnPath')?.errors || projectFG.get('svnPath')?.pending " >svnPath is required</nz-form-explain>
-      </nz-form-control>
+         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >username</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="username is required">
         <input required nz-input formControlName="username" name="username" >
-        <nz-form-explain *ngIf="projectFG.get('username')?.dirty && projectFG.get('username')?.errors || projectFG.get('username')?.pending " >username is required</nz-form-explain>
-      </nz-form-control>
+        </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >password</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="password is required">
         <input type="password" required nz-input formControlName="password" name="password" >
-        <nz-form-explain *ngIf="projectFG.get('password')?.dirty && projectFG.get('password')?.errors || projectFG.get('password')?.pending " >password is required</nz-form-explain>
-      </nz-form-control>
+        </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label  [nzSpan]="7" >description</nz-form-label>

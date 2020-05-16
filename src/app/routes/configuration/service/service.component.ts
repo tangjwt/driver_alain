@@ -74,6 +74,14 @@ export class ServiceComponent implements OnInit {
   isVisible = false;
   isOkLoading = false;
 
+  autoTips: Record<string, Record<string, string>> = {
+    'zh-cn': {
+      required: '必填项',
+    },
+    en: {
+      required: 'Input is required',
+    }
+  };
   ngOnInit() {
     this.serviceManage.getServiceList().subscribe(data => {
       this.serviceList = data.data ? data.data : [];
