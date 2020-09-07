@@ -56,7 +56,9 @@
                 (valueChange)="updateRequest(tab,$event)" [extend]="tab.params"></sn-generate-content>
             </nz-tab>
             <nz-tab nzTitle="运行结果">
-              <sn-result-detail [detail]='tab.result' [generateView]='true' [showTitle]="false"></sn-result-detail>
+              <div class="ml-4" >
+             <sn-result-detail   [detail]='tab.result' [generateView]='true' [showTitle]="false"></sn-result-detail>
+            </div>
             </nz-tab>
           </nz-tabset>
           <footer-toolbar>

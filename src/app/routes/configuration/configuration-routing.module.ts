@@ -7,6 +7,7 @@ import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
 import { AgentComponent } from './agent/agent.component';
+import { FileComponent } from './file/file.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'agent',
     component: AgentComponent
+  },
+  {
+    path: 'file',
+    component: FileComponent
   }
 ];
 

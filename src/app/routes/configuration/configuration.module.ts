@@ -9,6 +9,7 @@ import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
 import { AgentComponent } from './agent/agent.component';
+import { FileComponent } from './file/file.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { AgentComponent } from './agent/agent.component';
     EnvironmentComponent,
     ScriptComponent,
     EnvUrlComponent,
-    AgentComponent
+    AgentComponent,
+    FileComponent
   ],
   providers: [
   ]

@@ -91,6 +91,10 @@
             {
               "text": "agent管理",
               "link": "/config/agent"
+            },
+            {
+              "text": "jar包管理",
+              "link": "/config/file"
             }
           ]
         }

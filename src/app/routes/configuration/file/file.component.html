@@ -1,0 +1,43 @@
+<page-header [autoTitle]='false'></page-header>
+<button nz-button (click)="show()" [nzType]="'primary'">增加</button>
+<st #st [data]="files" [page]="page"  [bordered]="true" [columns]="columns">
+
+</st>
+<nz-modal nzTitle="文件上传" [(nzVisible)]="isVisible"
+  [nzOkLoading]="isOkLoading" [nzCancelText]="null" (nzOnOk)="isVisible=false;ngOnInit()" (nzOnCancel)="isVisible=false;ngOnInit()">
+  <nz-row>
+    <nz-col nzLg="10" nzMd="10" nzSm="24">
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="6">项目</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="project is required">
+        <nz-select [(ngModel)]="projectName" name="projectId"  nzAllowClear nzPlaceHolder="Choose" (ngModelChange)="update($event)">
+          <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </nz-col>
+  <nz-col nzLg="14" nzMd="14" nzSm="24">
+    <nz-row>
+    <nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired [nzSpan]="8">服务</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzHasFeedback>
+          <nz-select [(ngModel)]="serviceName" name="serviceId"   nzPlaceHolder="Choose">
+            <nz-option *ngFor="let pro of servers" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-form-item>
+  </nz-row>
+    </nz-col>
+  </nz-row>
+  <nz-row>
+    <nz-upload
+      nzName="file"
+      [nzAction]="uploadUrl"
+      [nzCustomRequest]="upload"
+    >
+      <button nz-button [disabled]="!serviceName"><i nz-icon nzType="upload"></i> Click to Upload</button>
+   </nz-upload>
+  </nz-row>
+</nz-modal>

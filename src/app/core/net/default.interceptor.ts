@@ -136,6 +136,9 @@ export class DefaultInterceptor implements HttpInterceptor {
     }else{
       tmpurl = this.baseUrl + "/" + this.rootPath + tmpurl
     }
+    if(req.url.startsWith("http")){
+      tmpurl = req.url;
+    }
     const newReq = req.clone({
       url: tmpurl
     });

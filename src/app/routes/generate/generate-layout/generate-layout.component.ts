@@ -152,6 +152,9 @@ export class GenerateLayoutComponent implements OnInit, CanComponentDeactivate {
       .subscribe(data => {
         if (data.status === 'STATUS_SUCCESS') {
           event.result = data.data[0];
+          if(data.data.length >1 ){
+            event.result.subCases = data.data.slice(1);
+          }
           this.messageService.success(`Service ${event.service} debug success`);
           if (event.subTabs) {
             event.index = event.subTabs.length + 1;
