@@ -113,7 +113,7 @@ export class TaskListComponent implements OnInit {
   }
 
   public resume(id: string) {
-    console.log('resume' + id);
+    // console.log('resume' + id);
     this.taskService.resume(id).subscribe(result => {
       this.freshTable();
       if (result.status == 'STATUS_SUCCESS') {

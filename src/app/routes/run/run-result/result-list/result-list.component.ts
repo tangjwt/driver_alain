@@ -94,7 +94,7 @@ export class dataComponent implements OnInit {
         this.results = data.data;
         this.totalRecords = data.total;
         this.finished = true;
-        console.log(data);
+        // console.log(data);
 
       });
     }

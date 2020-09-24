@@ -141,7 +141,7 @@ export class FileComponent implements OnInit {
   }
 
   upload = async (file: UploadXHRArgs) => {
-    console.log(file);
+    // console.log(file);
     this.uploadUrl = (await this.fileManageService.getFileUploadUrl(this.projectName,this.serviceName,file.file.name).toPromise()).data;
     return this.fileManageService.uploadFile(file,this.uploadUrl);
   };

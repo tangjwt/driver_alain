@@ -194,9 +194,9 @@ export class RunSetListComponent implements OnInit {
     });
   }
 
-  rerun() {
+  rerun(failedOnly: string) {
     const orgin = this.selectedRows[0];
-    this.runService.rerunByRunsetId(orgin.id).subscribe(result => {
+    this.runService.rerunByRunsetId(orgin.id,failedOnly).subscribe(result => {
       this.message.success(result.status);
       this.ngOnInit();
     });

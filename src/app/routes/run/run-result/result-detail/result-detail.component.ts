@@ -68,6 +68,7 @@ export class ResultDetailComponent implements OnInit {
   subCaseDetail: Array<any>; // 测试用例debug的时候，会存在。
   subCaseShow: Array<any> = [];
   @Input() debugView = false;
+  @Input() caseView = false;
   @Input() generateView = false;
   @Input() showTitle = true;
   subCase: Array<any>;

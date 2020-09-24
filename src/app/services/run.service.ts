@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient  } from '@angular/common/http';
+import { HttpClient,HttpParams  } from '@angular/common/http';
 import { httpOptions} from './http-option';
 import { Observable } from 'rxjs';
 import { Result } from '../common/result';
@@ -10,8 +10,12 @@ export class RunService {
 
   constructor(private httpClient: HttpClient) { }
 
-  rerunByRunsetId(id: string): Observable<Result> {
-    return this.httpClient.get<Result>('/runs/rerun/' + id);
+  rerunByRunsetId(id: string,failedOnly: string): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('failedOnly', failedOnly)
+    };
+    return this.httpClient.get<Result>('/runs/rerun/' + id,httpOption);
   }
 
   cancelByRunsetId(id: string): Observable<Result> {

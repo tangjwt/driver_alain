@@ -31,7 +31,7 @@ export class DebugComponent implements OnInit {
           const runResult = data.data;
           this.project = runResult.projectName;
           this.updateEnv(this.project);
-          this.env = runResult.runEnv;
+          this.env = runResult.runEnv?runResult.runEnv:this.envs[0].name;
           this.updateService(this.env);
           this.service = runResult.serviceName;
           this.updateServiceFields(runResult.serviceName);

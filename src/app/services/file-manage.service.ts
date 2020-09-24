@@ -58,7 +58,7 @@ export class FileManageService {
   }
 
   uploadFile(item: UploadXHRArgs, uploadUrl: string) {
-    console.log(uploadUrl);
+    // console.log(uploadUrl);
 
     const formData = new FormData();
     // tslint:disable-next-line:no-any

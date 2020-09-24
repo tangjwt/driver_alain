@@ -1,4 +1,4 @@
-<page-header [breadcrumb]="showTitle ? breadcrumb : empty" [title]="details?.caseName" [action]="action"
+<page-header [breadcrumb]="showTitle ? breadcrumb : empty" [title]="details?.caseName" [action]="!caseView?action:null"
   [tab]="tab" [syncTitle]="true">
   <ng-template #breadcrumb>
     <nz-breadcrumb>
@@ -15,13 +15,14 @@
       <button nz-button (click)="showSummary = !showSummary">{{showSummary?'Hide':'Show'}}</button>
     </nz-button-group>
     <button nz-button [nzType]="'primary'" routerLink="/run/result/{{details?.id}}/debug"
-      *ngIf="!debugView && !generateView ">Debug</button>
+      *ngIf="!debugView && !generateView && !caseView ">Debug</button>
+
   </ng-template>
   <ng-template #tab>
     <nz-tabset>
       <nz-tab nzTitle="详情" (nzClick)="showTab('detail')"></nz-tab>
-      <nz-tab nzTitle="请求" (nzClick)="showTab('request')"></nz-tab>
-      <nz-tab nzTitle="响应" (nzClick)="showTab('response')"></nz-tab>
+      <nz-tab nzTitle="请求" (nzClick)="showTab('request')" *ngIf="!caseView"></nz-tab>
+      <nz-tab nzTitle="响应" (nzClick)="showTab('response')" *ngIf="!caseView"></nz-tab>
       <nz-tab nzTitle="JSON响应" (nzClick)="showTab('json')" *ngIf="details?.jsonResponse && debugView"></nz-tab>
       <nz-tab [nzTitle]="sub.caseName" *ngFor="let sub of subCaseDetail; let index = index" (nzClick)="showTab(index)"></nz-tab>
     </nz-tabset>
@@ -69,8 +70,8 @@
     <pre
       [attr.data-line]="addtionalErrorLine"><code snPrismHighlight class="language-javascript line-numbers" [highlightValue]="details?.additionalExpect">{{details?.additionalExpect}}</code></pre>
   </nz-card>
-  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.message" [nzExtra]="messageExtraTemplate">
-    <pre *ngIf="cardView.message"><code style="color: #f5222d;">{{details?.message}}</code></pre>
+  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.errorMessage" [nzExtra]="messageExtraTemplate">
+    <pre *ngIf="cardView.message"><code style="color: #f5222d;">{{details?.errorMessage}}</code></pre>
   </nz-card>
   <ng-template #messageExtraTemplate>
       <a (click)="cardView.message = !cardView.message">{{cardView.message?'Hide':'Show'}}</a>

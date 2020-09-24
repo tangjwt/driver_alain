@@ -48,7 +48,7 @@
                   <i nz-icon nzType="close" (click)="closeSubTab(tab,index)" class="ant-tabs-close-x"></i>
                 </div>
               </ng-template>
-              <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service"
+              <sn-generate-content [projectName]="sub.project" [serviceName]="sub.service" [parentProject]="tab.project" [parentService]="tab.service"
                 (valueChange)="updateSubRequest(tab,$event,index)" [extend]="sub.params"></sn-generate-content>
             </nz-tab>
             <nz-tab nzTitle="main">

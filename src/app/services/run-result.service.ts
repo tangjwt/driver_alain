@@ -53,7 +53,7 @@ export class RunResultService {
     if (serviceName) {
       httpOption.params = httpOption.params.append('serviceName', serviceName);
     }
-    console.log(httpOption);
+    // console.log(httpOption);
     return this.httpClient.get<Result>(url, httpOption);
   }
 

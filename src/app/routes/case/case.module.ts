@@ -7,12 +7,14 @@ import { CaseRoutingModule } from './case-routing.module';
 import { DebugComponent } from './debug/debug.component';
 import { DebugLayoutComponent } from './debug-layout/debug-layout.component';
 import { CaseListComponent } from './manage/case-list/case-list.component';
+import { CaseDetailComponent } from './manage/case-detail/case-detail.component';
 
 @NgModule({
   declarations: [
     DebugComponent,
     DebugLayoutComponent,
-    CaseListComponent
+    CaseListComponent,
+    CaseDetailComponent
   ],
   imports: [
     CommonModule,

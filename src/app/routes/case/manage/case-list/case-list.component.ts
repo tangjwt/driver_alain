@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CaseManageService } from '../../../../services/case-manage.service';
+import { CaseDetailComponent } from '../case-detail/case-detail.component';
 import { STPage, STColumn } from '@delon/abc';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -48,8 +49,14 @@ export class CaseListComponent implements OnInit {
       render: 'operation',
       buttons: [
         {
-          text: 'View',
-          click: (record: any) => {},
+          text: 'View', 
+          type: 'drawer',
+          drawer: {
+            title: 'Detail',
+            component: CaseDetailComponent,
+            paramsName: 'id',
+            params: (record: any) => record
+          }
         },
         {
           text: 'Debug',

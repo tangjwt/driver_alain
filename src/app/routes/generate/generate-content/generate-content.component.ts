@@ -19,6 +19,8 @@ export class GenerateContentComponent implements OnInit {
   showBasic = false;
   repeat = [];
   repeatSelect = [];
+  @Input() parentProject = '';
+  @Input() parentService = '';
 
   @Input() set extend(extend: any) {
     if (extend) {
@@ -232,6 +234,7 @@ export class GenerateContentComponent implements OnInit {
     },
   };
   envSchema: SFSchema;
+  sfDefaulRequest = '';
   sfEnvRequest = '';
   sfRequest = '';
   sfExtendRequest = '';
@@ -241,7 +244,17 @@ export class GenerateContentComponent implements OnInit {
     private envUrlService: EnvUrlManageService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.parentProject && this.parentService){
+      if(this.parentProject != this._projectName){
+        this.sfDefaulRequest = '__project__ = "' + this._projectName + '"\n';
+      }
+
+      if(this.parentService != this._serviceName){
+        this.sfDefaulRequest  += '__service__ = "' + this._serviceName + '"\n';
+      }
+    }
+  }
 
   fieldConfig(fieldS: SFSchema, field: any, required: Array<any>) {
     fieldS.properties[field.name] = { type: 'string' };
@@ -332,6 +345,7 @@ export class GenerateContentComponent implements OnInit {
   formChangeSf(event) {
     this.sfRequest = this.generate(event);
     this.valueChange.emit(
+      this.sfDefaulRequest +
       this.sfEnvRequest +
         this.sfRequest +
         this.sfDefaultRequest +
@@ -342,6 +356,7 @@ export class GenerateContentComponent implements OnInit {
   formChangeSfDefault(event) {
     this.sfDefaultRequest = this.generate(event);
     this.valueChange.emit(
+      this.sfDefaulRequest +
       this.sfEnvRequest +
         this.sfRequest +
         this.sfDefaultRequest +
@@ -366,6 +381,7 @@ export class GenerateContentComponent implements OnInit {
       });
     }
     this.valueChange.emit(
+      this.sfDefaulRequest +
       this.sfEnvRequest +
         this.sfRequest +
         this.sfDefaultRequest +
@@ -374,10 +390,9 @@ export class GenerateContentComponent implements OnInit {
   }
 
   formChangeEnv(event) {
-    this.sfEnvRequest = '__project__ = "' + this._projectName + '"\n';
-    this.sfEnvRequest += '__service__ = "' + this._serviceName + '"\n';
-    this.sfEnvRequest += '__run_url__ = "' + event.url + '"\n';
+    this.sfEnvRequest = '__run_url__ = "' + event.url + '"\n';
     this.valueChange.emit(
+      this.sfDefaulRequest +
       this.sfEnvRequest +
         this.sfRequest +
         this.sfDefaultRequest +
