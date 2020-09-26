@@ -10,6 +10,7 @@ import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
 import { AgentComponent } from './agent/agent.component';
 import { FileComponent } from './file/file.component';
+import { DatasourceComponent } from './datasource/datasource.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FileComponent } from './file/file.component';
     ScriptComponent,
     EnvUrlComponent,
     AgentComponent,
-    FileComponent
+    FileComponent,
+    DatasourceComponent
   ],
   providers: [
   ]

@@ -73,6 +73,9 @@
   <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="错误信息" *ngIf="details?.errorMessage" [nzExtra]="messageExtraTemplate">
     <pre *ngIf="cardView.message"><code style="color: #f5222d;">{{details?.errorMessage}}</code></pre>
   </nz-card>
+  <nz-card [nzBordered]="false" class="mb-lg" nzHoverable="true" nzTitle="Debug信息" *ngIf="details?.debugMessage" [nzExtra]="messageExtraTemplate">
+    <pre *ngIf="cardView.message"><code style="color: #f5222d;">{{details?.debugMessage}}</code></pre>
+  </nz-card>
   <ng-template #messageExtraTemplate>
       <a (click)="cardView.message = !cardView.message">{{cardView.message?'Hide':'Show'}}</a>
   </ng-template> 

@@ -8,6 +8,7 @@ import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
 import { AgentComponent } from './agent/agent.component';
 import { FileComponent } from './file/file.component';
+import { DatasourceComponent } from './datasource/datasource.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'file',
     component: FileComponent
+  },
+  {
+    path: 'datasource',
+    component: DatasourceComponent
   }
 ];
 

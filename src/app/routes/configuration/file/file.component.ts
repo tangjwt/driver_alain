@@ -6,6 +6,7 @@ import { STPage } from '@delon/abc';
 
 import { ProjectManageService } from '../../../services/project-manage.service';
 import { SerManageService } from '../../../services/ser-manage.service';
+import {  DatasourceService } from '../../../services/datasource.service';
 import { FileManageService } from '../../../services/file-manage.service';
 
 import { NzMessageService } from 'ng-zorro-antd';
@@ -20,12 +21,15 @@ import { UploadXHRArgs } from 'ng-zorro-antd';
 export class FileComponent implements OnInit {
   files: Array<any> = [];
   servers: Array<any> = [];
+  datasources: Array<any> = [];
   isVisible = false;
   isOkLoading = false;
   projects: Array<any> = [];
   projectName:any;
   serviceName:any;
+  datasourceName:any;
   uploadUrl:any ;
+  isTestNGFile = false;
   page: STPage = {
     show: true,
     showSize: true,
@@ -98,6 +102,7 @@ export class FileComponent implements OnInit {
     private fileManageService: FileManageService,
     private serManageService: SerManageService,
     private projectService: ProjectManageService,
+    private datasourceService: DatasourceService,
     private message: NzMessageService,
     private router: Router,
   ) {}
@@ -122,9 +127,10 @@ export class FileComponent implements OnInit {
   }
 
 
-  show() {
+  show(isTestNGFile:boolean) {
     this.getProjectList();
     this.isVisible = true;
+    this.isTestNGFile = isTestNGFile;
   }
 
   getProjectList(){
@@ -140,6 +146,12 @@ export class FileComponent implements OnInit {
     });
   }
 
+  updateDatasource(event: any) {
+    if (!event) return;
+    this.datasourceService.getDataourceListByProject(event).subscribe(data => {
+      this.datasources = data.data;
+    });
+  }
   upload = async (file: UploadXHRArgs) => {
     // console.log(file);
     this.uploadUrl = (await this.fileManageService.getFileUploadUrl(this.projectName,this.serviceName,file.file.name).toPromise()).data;

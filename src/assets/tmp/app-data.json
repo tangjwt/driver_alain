@@ -69,6 +69,10 @@
               "link": "/config/project"
             },
             {
+              "text": "分支管理",
+              "link": "/config/datasource"
+            },
+            {
               "text": "环境管理",
               "link": "/config/env"
             },

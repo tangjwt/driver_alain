@@ -26,7 +26,7 @@ export class EnvManageService {
   }
 
   getDataSourceList(project:string):Observable<Result>{
-    return this.http.get<Result>("/datasource/"+project);
+    return this.http.get<Result>("/datasource/full/"+project);
   }
 
   deleteById(id:string):Observable<Result>{
