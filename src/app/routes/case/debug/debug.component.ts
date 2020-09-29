@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ProjectManageService } from '../../../services/project-manage.service';
+import { DatasourceService } from '../../../services/datasource.service';
 import { EnvManageService } from '../../../services/env-manage.service';
 import { EnvUrlManageService } from '../../../services/env-url-manage.service';
 import { RunService } from '../../../services/run.service';
@@ -14,8 +15,6 @@ import { CaseManageService } from '../../../services/case-manage.service';
 import { RunResultService } from '../../../services/run-result.service';
 import { AutocompleteService } from '../../../services/autocomplete.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { commonField } from './common-ac';
-import { STColumnFilterMenu } from '@delon/abc';
 // import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -77,6 +76,7 @@ export class DebugComponent implements OnInit {
   jsonPath: string;
   runResult;
   data: string;
+  showDatasource = false;
   mode = 'javascript';
   _fields: Array<any> = [];
   fields: Array<any> = [];
@@ -97,33 +97,13 @@ export class DebugComponent implements OnInit {
     private autocompleteService: AutocompleteService,
     private envUrlService: EnvUrlManageService,
     private caseManageService: CaseManageService,
+    private datasourceService: DatasourceService,
   ) {}
 
   ngOnInit() {
     this.projectService.getProjectList().subscribe(data => {
       this.projects = data.data;
     });
-    // this.route.paramMap.subscribe(params => {
-    //   if (params.has('id')) {
-    //     const id = params.get('id');
-    //     this.runResultService.getRunResultDetail(id).subscribe(data => {
-    //       if (data.data.length > 0) {
-    //         this.runResult = data.data[0];
-    //         this.project = this.runResult.projectName;
-    //         this.updateEnv(this.project);
-    //         this.env = this.runResult.runEnv;
-    //         this.updateService(this.env)
-    //         this.service = this.runResult.serviceName;
-    //         this.url = this.runResult.runUrl;
-    //         if(this.runResult.originUrl){
-    //           this.url = this.runResult.originUrl;
-    //         }
-    //         this.data = this.runResult.caseDetail;
-
-    //       }
-    //     });
-    //   }
-    // });
   }
 
   updateEnv(event: any) {
@@ -158,7 +138,6 @@ export class DebugComponent implements OnInit {
         }
       });
   }
-
 
   updateUrl(event: any) {
     const result = this.sers.filter(data => {

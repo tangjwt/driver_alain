@@ -9,17 +9,26 @@
               <nz-form-control [nzSpan]="17">
                 <nz-select [(ngModel)]="project" name="project" [nzPlaceHolder]="'Choose'"
                   (ngModelChange)="updateEnv($event)">
-                  <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+                  <nz-option *ngFor="let pro of projects" [nzValue]="pro" [nzLabel]="pro.name"></nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>
           <nz-col nzSpan="4">
-            <nz-form-item>
+            <nz-form-item *ngIf="!showDatasource">
               <nz-form-label [nzSpan]="7">版本</nz-form-label>
               <nz-form-control [nzSpan]="17">
                 <nz-select [(ngModel)]="env" name="envsSelect" nzPlaceHolder="Choose"
                   (ngModelChange)="updateService($event)">
+                  <nz-option *ngFor="let pro of envs" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item *ngIf="showDatasource">
+              <nz-form-label [nzSpan]="7">分支 </nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <nz-select [(ngModel)]="env" name="envsSelect" nzPlaceHolder="Choose">
                   <nz-option *ngFor="let pro of envs" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
                 </nz-select>
               </nz-form-control>

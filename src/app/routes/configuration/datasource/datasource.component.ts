@@ -37,6 +37,10 @@ export class DatasourceComponent implements OnInit {
       index: 'name',
     },
     {
+      title: 'filter',
+      index: 'filter',
+    },
+    {
       title: 'description',
       index: 'description'
     },
@@ -67,6 +71,7 @@ export class DatasourceComponent implements OnInit {
     id: [''],
     name: ['', Validators.required],
     projectId: ['', Validators.required],
+    filter: ['', ],
     description: ['']
   });
   isVisible = false;

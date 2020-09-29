@@ -19,6 +19,12 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label [nzSpan]="7">filter</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzTip="过滤只同步指定路径下的用例">
+        <input nz-input formControlName="filter" name="filter">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-label [nzSpan]="7">description</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback>
         <textarea nz-input formControlName="description" name="description"></textarea>
