@@ -7,6 +7,18 @@
     </nz-breadcrumb>
 </ng-template>
 </page-header>
+<div nz-row class="mb-2" >
+  <div nz-col nzSpan="3">
+  <input nz-input type="text"  placeholder="input case name" [(ngModel)]="name" class="mr-2"/>
+  </div>
+  <div nz-col nzSpan="6">
+  <input nz-input type="text"  placeholder="input path" [(ngModel)]="caseFilePath"  class="mr-2"/>
+  </div>
+  
+  <div nz-col>
+  <button nz-button [nzType]="'primary'" (click)='search()'>搜索</button>
+  </div>
+  </div>
 <st #st [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
   
   <ng-template st-row="compare" let-item>

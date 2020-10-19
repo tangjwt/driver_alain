@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SFSchema } from '@delon/form';
 import { AutocompleteService } from '../../../services/autocomplete.service';
 import { EnvUrlManageService } from '../../../services/env-url-manage.service';
-import { isArray } from 'util';
 
 @Component({
   selector: 'sn-generate-content',
@@ -156,7 +155,11 @@ export class GenerateContentComponent implements OnInit {
     };
     const required = [];
     const defaultRequired = [];
-    this.auto.getFieldsByService(serviceName).subscribe(data => {
+    console.log(this._projectName);
+    console.log(this._serviceName);
+    console.log(serviceName);
+    
+    this.auto.getFieldsByService(this._projectName,this._serviceName).subscribe(data => {
       if (!data.data) {
         return;
       }
@@ -321,7 +324,7 @@ export class GenerateContentComponent implements OnInit {
       if (event.hasOwnProperty(key)) {
         const elements = event[key];
         let resultArray = [];
-        if (!isArray(elements)) {
+        if (!Array.isArray(elements)) {
           resultArray = elements.split('\n').filter(data => data.trim());
           if (resultArray.length === 0) {
             resultArray = elements.split('\n'); // 若过滤完之后，数组为空，则不过滤

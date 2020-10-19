@@ -3,7 +3,8 @@ import { RunResultService } from '../../../../services/run-result.service';
 import { RunService } from '../../../../services/run.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { STPage, STColumn } from '@delon/abc';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { RunSetDetailComponent } from '../run-set-detail/run-set-detail.component';
 
 @Component({

@@ -8,7 +8,7 @@ import { SerManageService } from '../../../services/ser-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'sn-env-url',

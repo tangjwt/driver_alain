@@ -55,7 +55,10 @@
               "@antv/g-svg",
               "@antv/path-util",
               "@antv/util",
+              "@antv/gl-matrix",
               "file-saver",
+              "codemirror",
+              "swagger-ui",
               "hammerjs"
             ]
           },

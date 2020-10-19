@@ -8,13 +8,15 @@ import { DebugComponent } from './debug/debug.component';
 import { DebugLayoutComponent } from './debug-layout/debug-layout.component';
 import { CaseListComponent } from './manage/case-list/case-list.component';
 import { CaseDetailComponent } from './manage/case-detail/case-detail.component';
+import { CaseSetComponent } from './case-set/case-set.component';
 
 @NgModule({
   declarations: [
     DebugComponent,
     DebugLayoutComponent,
     CaseListComponent,
-    CaseDetailComponent
+    CaseDetailComponent,
+    CaseSetComponent
   ],
   imports: [
     CommonModule,

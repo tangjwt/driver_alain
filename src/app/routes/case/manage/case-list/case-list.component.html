@@ -1,4 +1,31 @@
 <page-header ></page-header>
+<div nz-row class="mb-2">
+<div nz-col>
+<nz-select [(ngModel)]="project" nzAllowClear="true" nzPlaceHolder="Project" (ngModelChange)="updateEnv($event)" class="mr-2">
+  <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+</nz-select>
+<nz-select [(ngModel)]="dataSource" nzAllowClear="true" nzPlaceHolder="DataSource" class="mr-2">
+  <nz-option *ngFor="let pro of dataSources" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+</nz-select>
+<nz-select [(ngModel)]="service" nzAllowClear="true" nzPlaceHolder="Service"  class="mr-2">
+  <nz-option *ngFor="let pro of services" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
+</nz-select>
+<nz-select [(ngModel)]="priority" nzAllowClear="true" nzPlaceHolder="Priority"  class="mr-2">
+  <nz-option *ngFor="let pro of prioritys" [nzValue]="pro" [nzLabel]="pro"></nz-option>
+</nz-select>
+</div>
+
+<div nz-col nzSpan="3">
+<input nz-input type="text"  placeholder="input case name" [(ngModel)]="name" class="mr-2"/>
+</div>
+<div nz-col nzSpan="6">
+<input nz-input type="text"  placeholder="input path" [(ngModel)]="caseFilePath"  class="mr-2"/>
+</div>
+
+<div nz-col>
+<button nz-button [nzType]="'primary'" (click)='search()'>搜索</button>
+</div>
+</div>
   <st #st [data]="results" [total]="totalRecords" [ps]="itemsPerPage"  [scroll]="{x: '800px'}" (change)="onChangeTable($event)" [page]="page" [bordered]="true" [columns]="columns">
     
     <!-- <ng-template st-row="id" let-item>

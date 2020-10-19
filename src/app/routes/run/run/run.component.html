@@ -30,7 +30,7 @@
             
             <nz-select formControlName="fuwu" name="fuwu" nzShowSearch nzPlaceHolder="Choose"
               (ngModelChange)="updateUrl($event)">
-              <nz-option *ngFor="let ser of sers" [nzValue]="ser.serviceName" [nzLabel]="ser.serviceName"></nz-option>
+              <nz-option *ngFor="let ser of sers" [nzValue]="ser.name" [nzLabel]="ser.name"></nz-option>
             </nz-select>
             <!-- <nz-tree-select [nzNodes]="serviceItems"  [(ngModel)]="serviceValue" nzShowSearch nzCheckable nzMultiple (ngModelChange)="updateUrl($event)" nzPlaceHolder="Please select" ></nz-tree-select> -->
             <!-- <ngx-dropdown-treeview name="servers" [config]="config" [items]="serviceItems" [buttonClass]="'btn btn-outline-secondary'"
@@ -243,6 +243,7 @@
       <nz-badge
       [nzCount]="node.origin.count"
       [nzStyle]="{ backgroundColor: '#52c41a'}"
+      [nzOverflowCount]="999"
     ></nz-badge>
     </ng-template>
   <!-- <ngx-treeview [config]="config" [items]="items"

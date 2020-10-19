@@ -3,7 +3,7 @@ import { AgentManageService } from '../../../services/agent-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import {  NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { STColumn } from '@delon/abc';
 import { STPage } from '@delon/abc';
 

@@ -40,11 +40,13 @@ export class RunResultService {
     serviceName: string,
     pageNum: number = 1,
     pageSize: number = 0,
+    name='', 
+    filePath=''
   ): Observable<Result> {
     const httpOption = {
       params: new HttpParams()
         .set('pageNum', pageNum.toString())
-        .set('pageSize', pageSize.toString()),
+        .set('pageSize', pageSize.toString())
     };
     if (status) {
       httpOption.params = httpOption.params.set('status', status);
@@ -52,6 +54,12 @@ export class RunResultService {
     const url = '/runResult/' + id + '/cases';
     if (serviceName) {
       httpOption.params = httpOption.params.append('serviceName', serviceName);
+    }
+    if (name) {
+      httpOption.params = httpOption.params.append('name', name);
+    }
+    if (filePath) {
+      httpOption.params = httpOption.params.append('filePath', filePath);
     }
     // console.log(httpOption);
     return this.httpClient.get<Result>(url, httpOption);
@@ -138,7 +146,11 @@ export class RunResultService {
     return this.httpClient.get<Result>(url, httpOption);
   }
 
-  getRunResultStatistic(id: string): Observable<Result> {
-    return this.httpClient.get<Result>('/runResult/' + id + '/statistic');
+  getRunResultStatistic(id: string,groupField='serviceName'): Observable<Result> {
+    const httpOption = {
+      params: new HttpParams()
+        .set('groupField', groupField)
+    };
+    return this.httpClient.get<Result>(`/runResult/${id}/statistic`, httpOption);
   }
 }

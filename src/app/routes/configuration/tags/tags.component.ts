@@ -3,7 +3,7 @@ import { TagManageService } from '../../../services/tag-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import {  NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { STColumn } from '@delon/abc';
 import { STPage } from '@delon/abc';
 
@@ -19,7 +19,7 @@ export class TagsComponent implements OnInit {
     show: true,
     showSize: true
   };
-  
+
   columns: STColumn[] = [{
     title: 'id',
     index: 'id'
@@ -42,8 +42,8 @@ export class TagsComponent implements OnInit {
       {
         text: 'Edit',
         icon: 'edit',
-        click: (record: any) =>{
-          this.getTag(record.id)
+        click: (record: any) => {
+          this.getTag(record.id);
         }
       },
       {
@@ -123,7 +123,7 @@ export class TagsComponent implements OnInit {
 
   handleOk(value: any){
     this.isOkLoading = true;
-    this.tagService.addOrModify(value).toPromise().then(data =>{
+    this.tagService.addOrModify(value).toPromise().then(data => {
       if ( data.status == 'STATUS_SUCCESS' ) {
           this.isOkLoading = false;
           this.ngOnInit();

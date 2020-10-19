@@ -7,7 +7,15 @@
     </nz-breadcrumb>
 </ng-template>
 </page-header>
-<st [data]="results" [columns]="columns" [page]="page" ></st>
+<st [data]="results" [columns]="columns" [page]="page" >
+
+  <ng-template st-row="group"  type="title">
+    Group By <nz-select [(ngModel)]="groupField"  (ngModelChange)="reStatistic($event)" nzSize='small'>
+      <nz-option nzValue="serviceName" nzLabel="服务"></nz-option>
+      <nz-option nzValue="priority" nzLabel="优先级"></nz-option>
+    </nz-select>
+  </ng-template>
+</st>
 <!-- <nz-table  [nzData]="results">
   <thead >
     <tr>

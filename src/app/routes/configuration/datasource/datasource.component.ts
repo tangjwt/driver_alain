@@ -7,7 +7,7 @@ import { ProjectManageService } from '../../../services/project-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import {  NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'sn-datasource',

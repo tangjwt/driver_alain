@@ -34,4 +34,7 @@ export class RunService {
     return this.httpClient.post<Result>(`/runs/test/${project}/${env}/${service}`,params,httpOptions);
   }
 
+  debugTestng(project:string,dataSource:string,service:string,params:any) : Observable<Result> {
+    return this.httpClient.post<Result>(`/runs/test/${project}/${dataSource}/${service}/testng`,params,httpOptions);
+  }
 }

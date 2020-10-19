@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Result } from '../common/result';
 import { Observable } from 'rxjs';
-import { UploadXHRArgs } from 'ng-zorro-antd';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { url } from 'inspector';
 
 @Injectable({
@@ -57,7 +57,7 @@ export class FileManageService {
     );
   }
 
-  uploadFile(item: UploadXHRArgs, uploadUrl: string) {
+  uploadFile(item: NzUploadXHRArgs, uploadUrl: string) {
     // console.log(uploadUrl);
 
     const formData = new FormData();

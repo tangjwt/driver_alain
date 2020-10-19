@@ -12,10 +12,10 @@ export class ProgressPipe implements PipeTransform {
         return 'red';
       }
       case 'P0':{
-        return 'danger';
+        return 'error';
       }
       case 'FAIL':{
-        return 'danger';
+        return 'error';
       }
       case 'CANCELED':
       case 'PAUSED':{
@@ -28,7 +28,7 @@ export class ProgressPipe implements PipeTransform {
         return 'blue';
       }
       case 'P2':{
-        return 'primary';
+        return 'processing';
       }
       case 'P3':{
         return 'success';

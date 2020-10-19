@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
 import { default as ngLang } from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd/i18n';
 import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
 const LANG = {
   abbr: 'zh',
@@ -86,13 +86,14 @@ const APPINIT_PROVIDES = [
 ];
 // #endregion
 
-import { DelonModule } from './delon.module';
+import { GlobalConfigModule } from './global-config.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { ServicesModule } from './services/services.module';
 import { LayoutModule } from './layout/layout.module';
+import { STWidgetModule } from './shared/st-widget/st-widget.module';
 
 @NgModule({
   declarations: [
@@ -102,11 +103,12 @@ import { LayoutModule } from './layout/layout.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    DelonModule.forRoot(),
+    GlobalConfigModule.forRoot(),
     CoreModule,
     SharedModule,
     LayoutModule,
     RoutesModule,
+    STWidgetModule,
     ServicesModule,
     ...I18NSERVICE_MODULES,
     ...FORM_MODULES,

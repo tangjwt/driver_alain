@@ -9,9 +9,9 @@ import { SerManageService } from '../../../services/ser-manage.service';
 import {  DatasourceService } from '../../../services/datasource.service';
 import { FileManageService } from '../../../services/file-manage.service';
 
-import { NzMessageService } from 'ng-zorro-antd';
-import { UploadFile } from 'ng-zorro-antd/upload';
-import { UploadXHRArgs } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'sn-file',
@@ -144,6 +144,7 @@ export class FileComponent implements OnInit {
     this.serManageService.getServiceListByProject(event).subscribe(data => {
       this.servers = data.data;
     });
+    this.updateDatasource(event);
   }
 
   updateDatasource(event: any) {
@@ -152,9 +153,9 @@ export class FileComponent implements OnInit {
       this.datasources = data.data;
     });
   }
-  upload = async (file: UploadXHRArgs) => {
+  upload = async (file: NzUploadXHRArgs) => {
     // console.log(file);
-    this.uploadUrl = (await this.fileManageService.getFileUploadUrl(this.projectName,this.serviceName,file.file.name).toPromise()).data;
+    this.uploadUrl = (await this.fileManageService.getFileUploadUrl(this.projectName,this.serviceName?this.serviceName:this.datasourceName,file.file.name).toPromise()).data;
     return this.fileManageService.uploadFile(file,this.uploadUrl);
   };
 

@@ -51,7 +51,7 @@
       [nzAction]="uploadUrl"
       [nzCustomRequest]="upload"
     >
-      <button nz-button [disabled]="!serviceName"><i nz-icon nzType="upload"></i> Click to Upload</button>
+      <button nz-button [disabled]="!serviceName&&!datasourceName"><i nz-icon nzType="upload"></i> Click to Upload</button>
    </nz-upload>
   </nz-row>
 </nz-modal>

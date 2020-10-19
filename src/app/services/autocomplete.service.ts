@@ -12,7 +12,7 @@ export class AutocompleteService {
     private httpClient: HttpClient
   ) { }
 
-  getFieldsByService(serviceName: string): Observable<Result>{
-    return this.httpClient.get<Result>(`/autocomplete/${serviceName}`);
+  getFieldsByService(projectName:string, serviceName: string): Observable<Result>{
+    return this.httpClient.get<Result>(`/autocomplete/${projectName}/${serviceName}`);
   }
 }

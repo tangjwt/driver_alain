@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Result } from '../common/result';
-import { NzTreeNodeOptions } from 'ng-zorro-antd';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CaseFilepathService {
+  count = 0;
   constructor(private httpClient: HttpClient) {}
 
   getFilePath(project: string, forceRefresh: boolean): Observable<Result> {
@@ -45,29 +46,36 @@ export class CaseFilepathService {
 
   nzTreeConvert(
     result: Array<object>,
-    checked: Array<string> = [],
+    checked: Array<string> = [],type: string
   ): NzTreeNodeOptions[] {
     let nzNodes: NzTreeNodeOptions[] = [];
+    this.count = 0;
     result.forEach(node => {
       const path = node['filePath'];
       const count = node.hasOwnProperty('caseCount') ? node['caseCount'] : 0;
-      const keys = path.split('/');
+      let keys;
+      if(type === 'TESTNG'){
+        keys = path.split('.');
+      }else{
+        keys = path.split('/');
+      }
       // 从1开始读取，是因为第一层级为project name，这一层级没必要展现，因为现在不会存在跨project取测试用例的情况
+      // testng 用例，从顶层包开始，
       let filter = nzNodes.filter(nzNode => {
-        return nzNode.title == keys[1];
+        return nzNode.title == keys[0];
       });
       if (filter && filter.length > 0) {
         filter[0].count = parseInt(filter[0].count) + parseInt(count);
-        this.generateNzTreeNode(keys, path, 2, count, filter[0], checked);
+        this.generateNzTreeNode(keys, path, 1, count, filter[0], checked);
       } else {
         let parent = {
-          title: keys[1],
-          key: keys[1],
+          title: keys[0],
+          key: keys[0],
           expanded: true,
           count: count,
           children: [],
         };
-        this.generateNzTreeNode(keys, path, 2, count, parent, checked);
+        this.generateNzTreeNode(keys, path, 1, count, parent, checked);
         nzNodes.push(parent);
       }
     });

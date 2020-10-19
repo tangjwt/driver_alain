@@ -10,6 +10,14 @@
          </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="7">项目类型</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="project type is required">
+        <nz-select formControlName="type" name="type"  nzAllowClear nzPlaceHolder="Choose">
+          <nz-option *ngFor="let pro of projectTypes" [nzValue]="pro" [nzLabel]="pro"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-label nzRequired [nzSpan]="7" >svn路径</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="svnPath is required">
         <input required nz-input formControlName="svnPath" name="svnPath" >

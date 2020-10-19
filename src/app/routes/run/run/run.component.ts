@@ -9,19 +9,18 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ProjectManageService } from '../../../services/project-manage.service';
+import { DatasourceService } from '../../../services/datasource.service';
 import { EnvManageService } from '../../../services/env-manage.service';
 import { Utils } from '../../../shared/utils/utils';
 import { EnvUrlManageService } from '../../../services/env-url-manage.service';
 import { CaseFilepathService } from '../../../services/case-filepath.service';
 import { RunService } from '../../../services/run.service';
+import { SerManageService } from '../../../services/ser-manage.service';
 import { Router } from '@angular/router';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzTreeComponent, NzTreeNodeOptions, NzTreeNode } from 'ng-zorro-antd/tree';
 import { PriorityOptions} from '../../../services/convert';
-import {
-  NzTreeComponent,
-  NzTreeNodeOptions,
-  NzTreeNode
-} from 'ng-zorro-antd';
 
 @Component({
   selector: 'sn-run',
@@ -46,7 +45,6 @@ export class RunComponent implements OnInit {
       if(value.env && value.fuwu){
         this.updateService(value.env, value.fuwu);
       }
-      
     }
   }
   @Input() isTask: boolean;
@@ -54,8 +52,10 @@ export class RunComponent implements OnInit {
   projects: Array<any>;
   dataSources: Array<any>;
   envs: Array<any>;
-  sers: Array<any> = [];
+  sers: Array<any>;
+  serUrls: Array<any> = [];
   url = '';
+  tmpProject: any;
 
   config = {
     hasAllCheckBox: true,
@@ -103,6 +103,8 @@ export class RunComponent implements OnInit {
     private message: NzMessageService,
     private envUrlService: EnvUrlManageService,
     private modalService: NzModalService,
+    private datasourceService: DatasourceService,
+    private serManageService: SerManageService,
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -145,12 +147,37 @@ export class RunComponent implements OnInit {
     if (!event) {
       return;
     }
+    this.tmpProject = this.getProjectObj(event);
+    this.serManageService.getServiceListByProject(event).subscribe(data =>{
+      this.sers = data.data;
+    });
     this.envService.getEnvListByProject(event).subscribe(data => {
       this.envs = data.data;
+      if(data.data.length === 0 && this.tmpProject.type === 'TESTNG'){
+        this.envs = [{name: 'N/A'}];
+      }
     });
-    this.envService.getDataSourceList(event).subscribe(data => {
-      this.dataSources = data.data;
-    });
+    if(this.tmpProject.type === 'TESTNG'){
+      this.datasourceService.getDataourceListByProject(event).subscribe((data) =>{
+        if(data.data){
+          this.dataSources = data.data.map(t=>t.name);
+        }else{
+          this.dataSources = [];
+        }
+      });
+    }else{
+      this.envService.getDataSourceList(event).subscribe(data => {
+        this.dataSources = data.data;
+      });
+    }
+  }
+
+  getProjectObj(event:any){
+    for(const item of this.projects){
+      if(item.name === event){
+        return item;
+      }
+    }
   }
 
   updateService(event: any, service='') {
@@ -161,14 +188,14 @@ export class RunComponent implements OnInit {
           event,
         )
         .subscribe(data => {
-          this.sers = data.data;
+          this.serUrls = data.data;
         });
     }
   }
 
   updateUrl(event: any) {
-    if (this.sers.length > 0) {
-      this.url = this.sers
+    if (this.serUrls.length > 0) {
+      this.url = this.serUrls
         .filter(data => {
             return event === data.serviceName; // 全匹配
         })
@@ -184,7 +211,7 @@ export class RunComponent implements OnInit {
       this.runService
         .runOnAllService(
           requestParams.params.project,
-          requestParams.params.env,
+          encodeURIComponent(requestParams.params.env),
           requestParams.params.dataSource,
         )
         .subscribe(data => {});
@@ -192,7 +219,7 @@ export class RunComponent implements OnInit {
       this.runService
         .runByService(
           requestParams.params.project,
-          requestParams.params.env,
+          encodeURIComponent(requestParams.params.env),
           requestParams.params.fuwu,
           requestParams.params.dataSource,
           requestParams,
@@ -207,6 +234,7 @@ export class RunComponent implements OnInit {
   }
 
   updateCaseFileList() {
+    const type = this.tmpProject?this.tmpProject.type:'COMMON';
     if (
       !this.runEntity.get('fuwu').value &&
       !this.runEntity.get('dataSource').value
@@ -214,7 +242,7 @@ export class RunComponent implements OnInit {
       this.filepathService
         .getFilePath(this.runEntity.get('project').value, this.forceUpdate)
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
           // this.items = this.filepathService.arrayToTreeviewItem(
           //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
@@ -228,7 +256,7 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
           // this.items = this.filepathService.arrayToTreeviewItem(
           //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
@@ -243,7 +271,7 @@ export class RunComponent implements OnInit {
           this.forceUpdate,
         )
         .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value));
+          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
           // this.items = this.filepathService.arrayToTreeviewItem(
           //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),

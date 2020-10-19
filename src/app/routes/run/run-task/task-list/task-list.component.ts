@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskManageService } from '../../../../services/task-manage.service';
 import { STPage, STColumn } from '@delon/abc';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

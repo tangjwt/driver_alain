@@ -62,6 +62,10 @@ export class dataComponent implements OnInit {
   finished = false;
   compare = { title: 'compare', render: 'compare'};
   compareId = { title: 'compareId', render: 'compareId'}
+  name: any;
+  caseFilePath: any;
+  filter={name:'',filePath:''};
+  event: any;
   constructor(private route: ActivatedRoute, private runResultService: RunResultService) { }
 
   ngOnInit() {
@@ -99,20 +103,38 @@ export class dataComponent implements OnInit {
       });
     }
   }
-
   public onChangeTable(event: any) {
+    switch (event.type) {
+      case 'ps':
+      case 'pi':
+        this.pageChange(event);
+        break;
+      default:
+        break;
+    }
+  }
+
+  public pageChange(event: any) {
+    if(event){
+      this.event = event;
+    }
     if (this.originId && this.destId) {
-      this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
+      this.runResultService.getCompareRundata(this.originId, this.destId, this.originStatus, this.destStatus, this.event?this.event.paging.currentPage:1, this.itemsPerPage).subscribe(data => {
         this.results = data.data;
         this.totalRecords = data.total;
       });
     } else {
-      this.runResultService.getRundata(this.id, this.status,this.serviceName, event.paging.currentPage, this.itemsPerPage).subscribe(data => {
-        this.results = data.data;
-        this.totalRecords = data.total;
+      this.runResultService.getRundata(this.id, this.status,this.serviceName, this.event.paging?this.event.paging.currentPage:1, this.itemsPerPage,this.filter.name,this.filter.filePath).subscribe(data => {
+        this.results =  data.data ? data.data : [];
+        this.totalRecords = data.total?data.total: 0;
       });
     }
   }
 
+  search(){
+    this.filter.name=this.name;
+    this.filter.filePath=this.caseFilePath;
+    this.pageChange(null);
+  }
 
 }

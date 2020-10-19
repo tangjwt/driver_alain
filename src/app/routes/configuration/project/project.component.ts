@@ -5,7 +5,8 @@ import { ProjectManageService } from '../../../services/project-manage.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'sn-project',
@@ -18,6 +19,7 @@ export class ProjectComponent implements OnInit {
     showSize: true,
   };
   projects: Array<any> = [];
+  projectTypes = ['COMMON', 'TESTNG'];
   columns: STColumn[] = [
     {
       title: 'id',
@@ -34,6 +36,10 @@ export class ProjectComponent implements OnInit {
     {
       title: 'username',
       index: 'username',
+    },
+    {
+      title: 'type',
+      index: 'type',
     },
     {
       title: 'description',
@@ -67,6 +73,7 @@ export class ProjectComponent implements OnInit {
     svnPath: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', Validators.required],
+    type: ['', Validators.required],
     description: [''],
   });
   isVisible = false;
@@ -126,6 +133,7 @@ export class ProjectComponent implements OnInit {
         svnPath: data.data.svnPath,
         username: data.data.username,
         password: data.data.password,
+        type: data.data.type,
         description: data.data.description
           ? data.data.description
           : '',
