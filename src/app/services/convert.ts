@@ -9,6 +9,7 @@ export class Convert {
   public runEntityToRunSet(entity: any, runset: any): any {
     runset.project = entity.project;
     runset.env = entity.env;
+    runset.name = entity.name;
     runset.service = entity.fuwu;
     runset.runUrl = entity.url;
     runset.dataSource = entity.dataSource;
@@ -40,6 +41,7 @@ export class Convert {
     dest.project = runSet.project;
     dest.env = runSet.env;
     dest.fuwu = runSet.service;
+    dest.name = runSet.name;
     dest.url = runSet.runUrl === 'N/A' ? '' : runSet.runUrl;
     dest.dataSource = runSet.dataSource;
     dest.compareUrl = runSet.compareUrl ? runSet.compareUrl : '';

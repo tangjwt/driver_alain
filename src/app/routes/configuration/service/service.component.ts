@@ -56,8 +56,7 @@ export class ServiceComponent implements OnInit {
         icon: 'delete',
         type: 'del',
         click: (record) => {
-          this.delete(record.id);
-          this.message.success(`成功删除【${record.name}】`);
+          this.delete(record);
         }
       }
     ]
@@ -143,9 +142,14 @@ export class ServiceComponent implements OnInit {
     });
   }
 
-  delete(id: any) {
-    this.serviceManage.deleteById(id).subscribe(data => {
-      this.ngOnInit();
+  delete(record: any) {
+    this.serviceManage.deleteById(record.id).subscribe(data => {
+      if(data.status!=='STATUS_SUCCESS'){
+        this.message.error(data.message);
+      }else{
+        this.ngOnInit();
+        this.message.success(`成功删除【${record.name}】`);
+      }
     });
   }
 

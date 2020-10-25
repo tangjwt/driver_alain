@@ -82,9 +82,11 @@ export class TaskAddOrModifyComponent implements OnInit {
             this.taskEntity.reset();
             const taskValue = new Convert().taskToTaskEntity(this.task);
             this.runEntityValue = new Convert().runSetToRunEntity(this.detail);
-            this.alarm = new Convert().taskAlarmParamRevert(
-              this.task.params.alarmParam
-            );
+            if(this.task?.params?.alarmParam){
+              this.alarm = new Convert().taskAlarmParamRevert(
+                this.task.params?.alarmParam
+              );
+            }
             this.alarmParam.setValue(this.alarm);
             // console.log(runEntityValue);
             this.taskEntity.setValue(taskValue);

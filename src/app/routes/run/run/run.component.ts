@@ -69,6 +69,7 @@ export class RunComponent implements OnInit {
     env: ['', Validators.required],
     fuwu: ['', Validators.required], // 使用server service 开头的变量，在整体setValue的时候会无法成功赋值，非常奇怪
     url: [''],
+    name: [''],
     filePath: [''],
     dataSource: ['', Validators.required],
     compareUrl: [''],
@@ -144,7 +145,7 @@ export class RunComponent implements OnInit {
   }
 
   updateEnv(event: any) {
-    if (!event) {
+    if (!event || !this.projects) {
       return;
     }
     this.tmpProject = this.getProjectObj(event);
@@ -153,11 +154,11 @@ export class RunComponent implements OnInit {
     });
     this.envService.getEnvListByProject(event).subscribe(data => {
       this.envs = data.data;
-      if(data.data.length === 0 && this.tmpProject.type === 'TESTNG'){
+      if(data.data.length === 0 && this.tmpProject?.type === 'TESTNG'){
         this.envs = [{name: 'N/A'}];
       }
     });
-    if(this.tmpProject.type === 'TESTNG'){
+    if(this.tmpProject?.type === 'TESTNG'){
       this.datasourceService.getDataourceListByProject(event).subscribe((data) =>{
         if(data.data){
           this.dataSources = data.data.map(t=>t.name);
@@ -173,9 +174,11 @@ export class RunComponent implements OnInit {
   }
 
   getProjectObj(event:any){
-    for(const item of this.projects){
-      if(item.name === event){
-        return item;
+    if(this.projects){
+      for(const item of this.projects){
+        if(item.name === event){
+          return item;
+        }
       }
     }
   }

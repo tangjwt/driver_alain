@@ -60,8 +60,7 @@ export class ProjectComponent implements OnInit {
           icon: 'delete',
           type: 'del',
           click: record => {
-            this.delete(record.id);
-            this.message.success(`成功删除【${record.name}】`);
+            this.delete(record);
           },
         },
       ],
@@ -142,9 +141,14 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  delete(id: any) {
-    this.projectService.deleteById(id).subscribe(data => {
-      this.ngOnInit();
+  delete(record: any) {
+    this.projectService.deleteById(record.id).subscribe(data => {
+      if(data.status!=='STATUS_SUCCESS'){
+        this.message.error(data.message);
+      }else{
+        this.ngOnInit();
+        this.message.success(`成功删除【${record.name}】`);
+      }
     });
   }
 

@@ -1,6 +1,17 @@
 <page-header *ngIf="!isTask" [autoTitle]='false'></page-header>
 <form nz-form [formGroup]="runEntity" [nzLayout]="'vertical'">
   <nz-card [nzBordered]="false" nzTitle="基础选项">
+
+    <div nz-row nzGutter="16">
+      <div nz-col nzLg="12" nzMd="12" nzSm="12">
+        <nz-form-item>
+          <nz-form-label>别名</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" name="name" placeholder="此次运行的别名">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
     <div nz-row nzGutter="16">
       <div nz-col nzLg="6" nzMd="12" nzSm="24">
         <nz-form-item>
@@ -121,7 +132,7 @@
         <nz-form-item>
           <nz-form-label>运行线程数</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="threads" name="threads" placeholder="默认运行线程为50">
+            <input nz-input formControlName="threads" name="threads" placeholder="默认运行线程为10">
           </nz-form-control>
         </nz-form-item>
       </div>

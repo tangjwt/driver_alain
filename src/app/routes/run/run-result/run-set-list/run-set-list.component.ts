@@ -35,6 +35,10 @@ export class RunSetListComponent implements OnInit {
       width: '20'
     },
     {
+      title: 'name',
+      index: 'name'
+    },
+    {
       title: 'project',
       index: 'project'
     },

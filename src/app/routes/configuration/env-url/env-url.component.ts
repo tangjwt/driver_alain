@@ -24,6 +24,7 @@ export class EnvUrlComponent implements OnInit {
     show: true,
     showSize: true,
   };
+  filter:string;
   columns:STColumn[] = [
     {
       title: 'id',
@@ -106,15 +107,6 @@ export class EnvUrlComponent implements OnInit {
   ngOnInit() {
     this.envUrlService.getEnvUrlList().subscribe(data => {
       this.envUrlList = data.data ? data.data : [];
-      this.envUrlList.forEach(data => {
-        const tmp: STColumnFilterMenu = {
-          text: data.envName,
-          value: data.envName,
-        };
-        if (this.envFilter.indexOf(tmp) < 0) {
-          this.envFilter.push(tmp);
-        }
-      });
     });
   }
 
@@ -186,6 +178,13 @@ export class EnvUrlComponent implements OnInit {
         });
         this.isVisible = true;
       }
+    });
+  }
+
+  filterRecord(){
+    this.envUrlService.getEnvUrlList().subscribe(data => {
+      this.envUrlList = data.data ? data.data : [];
+      this.envUrlList = this.envUrlList.filter(envUrl => JSON.stringify(envUrl).indexOf(this.filter)>0 );
     });
   }
 
