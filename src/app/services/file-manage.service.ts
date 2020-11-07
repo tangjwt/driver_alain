@@ -31,29 +31,31 @@ export class FileManageService {
     if (prefix) {
       params.append('prefix', prefix);
     }
-    return this.httpClient.get<Result>(`/storage/list/${project}/${service}`, {
+    return this.httpClient.get<Result>(`/storage/list/${project}/${encodeURIComponent(service)}`, {
       params,
     });
   }
 
   deleteFile(project: string, service: string, objName: string) {
     let params = new HttpParams().set('name', objName);
+    console.log(encodeURIComponent(service));
+    
     return this.httpClient.delete<Result>(
-      `/storage/${project}/${service}/${objName}/delete`,
+      `/storage/${project}/${encodeURIComponent(service)}/${objName}/delete`,
     );
   }
 
   getFileDownloadUrl(project: string, service: string, objName: string) {
     let params = new HttpParams().set('name', objName);
     return this.httpClient.get<Result>(
-      `/storage/${project}/${service}/${objName}/download`,
+      `/storage/${project}/${encodeURIComponent(service)}/${objName}/download`,
     );
   }
 
   getFileUploadUrl(project: string, service: string, objName: string) {
     let params = new HttpParams().set('name', objName);
     return this.httpClient.get<Result>(
-      `/storage/${project}/${service}/${objName}/upload`,
+      `/storage/${project}/${encodeURIComponent(service)}/${objName}/upload`,
     );
   }
 

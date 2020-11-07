@@ -7,6 +7,9 @@ import { DelonFormModule } from '@delon/form';
 import { AlainThemeModule } from '@delon/theme';
 import { TranslateModule } from '@ngx-translate/core';
 
+
+import { MonacoEditorModule } from 'ngx-monaco-editor';
+
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 import { CommonsModule } from '../common/commons.module';
@@ -17,6 +20,7 @@ import { CommonsModule } from '../common/commons.module';
 // import { UEditorModule } from 'ngx-ueditor';
 
 const THIRDMODULES = [
+  MonacoEditorModule.forRoot()
   // CountdownModule, UEditorModule, NgxTinymceModule
 ];
 // #endregion

@@ -73,9 +73,10 @@ export class CaseListComponent implements OnInit {
           text: 'View', 
           type: 'drawer',
           drawer: {
-            title: 'Detail',
+            title: '用例详情',
             component: CaseDetailComponent,
             paramsName: 'id',
+            size: 'lg',
             params: (record: any) => record
           }
         },

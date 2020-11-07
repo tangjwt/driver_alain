@@ -66,8 +66,7 @@ export class TaskAddOrModifyComponent implements OnInit {
         this.isTaskAdd = false;
         let id = params.get('id');
         this.taskService.getTaskById(id).subscribe(data => {
-          if (data.data.length > 0) {
-            this.task = data.data[0];
+            this.task = data.data;
             this.detail = this.task.detail;
             if (this.task.sendEmail === 'BY_PRIORITY' && this.task.threshold) {
               this.task.threshold.split(';').forEach(element => {
@@ -86,13 +85,12 @@ export class TaskAddOrModifyComponent implements OnInit {
               this.alarm = new Convert().taskAlarmParamRevert(
                 this.task.params?.alarmParam
               );
+              this.alarmParam.setValue(this.alarm);
             }
-            this.alarmParam.setValue(this.alarm);
-            // console.log(runEntityValue);
             this.taskEntity.setValue(taskValue);
             // this.runEntity.patchValue(runEntityValue);
-            // console.log(this.runEntity);
-          }
+            // console.log(this.taskEntity);
+            // console.log(this.runEntityValue);
         });
       }
     });

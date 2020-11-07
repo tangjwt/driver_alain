@@ -82,19 +82,19 @@
   </nz-card>
   <nz-card [nzBordered]="false"
     *ngIf="taskEntity.value.sendEmail && taskEntity.value.sendEmail !== 'NEVER' && taskEntity.value.sendEmail !== 'ALWAYS'"
-    nzTitle="合并告警">
+    nzTitle="忽略告警">
     <form nz-form [formGroup]="alarmParam" [nzLayout]="'vertical'">
       <nz-switch formControlName="mergeAlarm" nzCheckedChildren="true" nzUnCheckedChildren="false"></nz-switch>
-      <nz-input-group nzAddOnBefore="最近" nzAddOnAfter="(次)告警">
+      <nz-input-group nzAddOnBefore="最近" nzAddOnAfter="(次)">
         <input type="text" nz-input size="5" formControlName="recently" />
       </nz-input-group>,
-      <nz-input-group nzAddOnBefore="成功比例小于" nzAddOnAfter="%">
+      <nz-input-group nzAddOnBefore="失败比例小于" nzAddOnAfter="%">
         <input type="text" nz-input size="6" formControlName="percent" />
       </nz-input-group>
       <nz-select formControlName="type" name="type" nzPlaceHolder="Choose"  style="width: 100px;">
           <nz-option *ngFor="let pro of mergeType" [nzValue]="pro" [nzLabel]="pro"></nz-option>
         </nz-select>
-      <nz-input-group nzAddOnBefore="最近连续失败告警次数小于" nzAddOnAfter="(次)">
+      <nz-input-group nzAddOnBefore="最近连续失败次数小于" nzAddOnAfter="(次)">
         <input type="text" nz-input size="5" formControlName="continuous" />
       </nz-input-group>
     </form>

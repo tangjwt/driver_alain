@@ -37,6 +37,7 @@ export class ResultDetailComponent implements OnInit {
   @Input() set detail(detail: any) {
     if (detail) {
       this.details = detail;
+      this.getSourceCode();
       if (this.details.errorLine) {
         const str: string[] = this.details.errorLine.split(';');
         this.errorLine = str[0];
@@ -73,6 +74,9 @@ export class ResultDetailComponent implements OnInit {
   @Input() showTitle = true;
   subCase: Array<any>;
   mode = 'javascript';
+  isVisible=false;
+  sourceCode='';
+  editorOptions = {theme: 'vs', language: 'java',readOnly:true};
   options: any = {
     lineNumbers: true,
     mode: this.mode,
@@ -87,6 +91,7 @@ export class ResultDetailComponent implements OnInit {
   showRequest = false;
   showResponse = false;
   showJsonResponse = false;
+  showSourceCode = false;
   errorLine: string;
   addtionalErrorLine: string;
   currentSelect;
@@ -109,6 +114,7 @@ export class ResultDetailComponent implements OnInit {
         this.runResultService.getRunResultDetail(id).subscribe(data => {
           if (data.data) {
             this.details = data.data;
+            this.getSourceCode();
             if (this.details.errorLine) {
               const str: string[] = this.details.errorLine.split(';');
               this.errorLine = str[0];
@@ -168,33 +174,52 @@ export class ResultDetailComponent implements OnInit {
         this.showRequest = false;
         this.showResponse = false;
         this.showJsonResponse = false;
+        this.showSourceCode = false;
         break;
       case 'request':
         this.showDetail = false;
         this.showRequest = true;
         this.showResponse = false;
         this.showJsonResponse = false;
+        this.showSourceCode = false;
         break;
       case 'response':
         this.showDetail = false;
         this.showRequest = false;
         this.showResponse = true;
         this.showJsonResponse = false;
+        this.showSourceCode = false;
         break;
       case 'json':
         this.showDetail = false;
         this.showRequest = false;
         this.showResponse = false;
         this.showJsonResponse = true;
+        this.showSourceCode = false;
         break;
-
+      case 'sourceCode':
+        this.showDetail = false;
+        this.showRequest = false;
+        this.showResponse = false;
+        this.showJsonResponse = false;
+        this.showSourceCode = true;
+        break;
       default:
         this.showDetail = false;
         this.showRequest = false;
         this.showResponse = false;
         this.showJsonResponse = false;
+        this.showSourceCode = false;
         this.subCaseShow[type] = true;
         break;
     }
   }
+  getSourceCode(){
+    if(this.details.caseType==='TESTNG'){
+      this.runResultService.getSourceCode(this.details.projectName,this.details.dataSource,this.details.caseFilePath).subscribe(data =>{
+        this.sourceCode = data.data;
+      })
+    }
+  }
+
 }

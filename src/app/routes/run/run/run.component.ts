@@ -93,6 +93,7 @@ export class RunComponent implements OnInit {
   checkOptions = PriorityOptions;
   forceUpdate = false;
   isVisible = false;
+  isSpinning = true;
 
   constructor(
     private runService: RunService,
@@ -237,35 +238,39 @@ export class RunComponent implements OnInit {
   }
 
   updateCaseFileList() {
+    this.nodes = [];
+    this.isSpinning = true;
     const type = this.tmpProject?this.tmpProject.type:'COMMON';
-    if (
-      !this.runEntity.get('fuwu').value &&
-      !this.runEntity.get('dataSource').value
-    ) {
-      this.filepathService
-        .getFilePath(this.runEntity.get('project').value, this.forceUpdate)
-        .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
-          // this.items = this.filepathService.arrayToTreeviewItem(
-          //   data.data,
-          //   Utils.toArray(this.runEntity.get('filePath').value),
-          // );
-        });
-    } else if (!this.runEntity.get('fuwu').value) {
-      this.filepathService
-        .getFilePathBySource(
-          this.runEntity.get('project').value,
-          this.runEntity.get('dataSource').value,
-          this.forceUpdate,
-        )
-        .subscribe(data => {
-          this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
-          // this.items = this.filepathService.arrayToTreeviewItem(
-          //   data.data,
-          //   Utils.toArray(this.runEntity.get('filePath').value),
-          // );
-        });
-    } else {
+    // if (
+    //   !this.runEntity.get('fuwu').value &&
+    //   !this.runEntity.get('dataSource').value
+    // ) {
+    //   this.filepathService
+    //     .getFilePath(this.runEntity.get('project').value, this.forceUpdate)
+    //     .subscribe(data => {
+    //       this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
+    //       this.isSpinning = false;
+    //       // this.items = this.filepathService.arrayToTreeviewItem(
+    //       //   data.data,
+    //       //   Utils.toArray(this.runEntity.get('filePath').value),
+    //       // );
+    //     });
+    // } else if (!this.runEntity.get('fuwu').value) {
+    //   this.filepathService
+    //     .getFilePathBySource(
+    //       this.runEntity.get('project').value,
+    //       this.runEntity.get('dataSource').value,
+    //       this.forceUpdate,
+    //     )
+    //     .subscribe(data => {
+    //       this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
+    //       this.isSpinning = false;
+    //       // this.items = this.filepathService.arrayToTreeviewItem(
+    //       //   data.data,
+    //       //   Utils.toArray(this.runEntity.get('filePath').value),
+    //       // );
+    //     });
+    // } else {
       this.filepathService
         .getFilePathByServiceAndSource(
           this.runEntity.get('project').value,
@@ -275,12 +280,14 @@ export class RunComponent implements OnInit {
         )
         .subscribe(data => {
           this.nodes = this.filepathService.nzTreeConvert(data.data,Utils.toArray(this.runEntity.get('filePath').value),type);
+          
+          this.isSpinning = false;
           // this.items = this.filepathService.arrayToTreeviewItem(
           //   data.data,
           //   Utils.toArray(this.runEntity.get('filePath').value),
           // );
         });
-    }
+    // }
   }
 
   updateCheckedValue(event){

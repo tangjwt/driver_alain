@@ -23,11 +23,11 @@ export class RunService {
   }
 
   runOnAllService(project:string,env:string,dataSource:string) : Observable<Result> {
-    return this.httpClient.get<Result>(`/runs/${project}/${env}/${dataSource}`);
+    return this.httpClient.get<Result>(`/runs/${project}/${env}/${encodeURIComponent(dataSource)}`);
   }
 
   runByService(project:string,env:string,service:string,dataSource:string,params:any) : Observable<Result> {
-    return this.httpClient.post<Result>(`/runs/${project}/${env}/${service}/${dataSource}`,params,httpOptions);
+    return this.httpClient.post<Result>(`/runs/${project}/${env}/${service}/${encodeURIComponent(dataSource)}`,params,httpOptions);
   }
 
   debug(project:string,env:string,service:string,params:any) : Observable<Result> {
@@ -35,6 +35,6 @@ export class RunService {
   }
 
   debugTestng(project:string,dataSource:string,service:string,params:any) : Observable<Result> {
-    return this.httpClient.post<Result>(`/runs/test/${project}/${dataSource}/${service}/testng`,params,httpOptions);
+    return this.httpClient.post<Result>(`/runs/test/${project}/${encodeURIComponent(dataSource)}/${service}/testng`,params,httpOptions);
   }
 }

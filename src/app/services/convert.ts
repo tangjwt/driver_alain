@@ -106,11 +106,15 @@ export class Convert {
     alarms.type = params.type;
     alarms.mergeAlarm = params.mergeAlarm;
     alarms.conditions = {};
-    alarms.conditions.aggregation = {};
-    alarms.conditions.aggregation.recently = params.recently;
-    alarms.conditions.aggregation.percent = params.percent;
-    alarms.conditions.continuous = {};
-    alarms.conditions.continuous.continuous = params.continuous;
+    if(params.recently || params.percent){
+      alarms.conditions.aggregation = {};
+      alarms.conditions.aggregation.recently = params.recently;
+      alarms.conditions.aggregation.percent = params.percent;
+    }
+    if(params.continuous){
+      alarms.conditions.continuous = {};
+      alarms.conditions.continuous.continuous = params.continuous;
+    }
     return alarms;
   }
 
@@ -118,13 +122,13 @@ export class Convert {
     const alarms: any = {};
     alarms.type = params.type ? params.type : '';
     alarms.mergeAlarm = params.mergeAlarm ? params.mergeAlarm : false;
-    alarms.recently = params.conditions.aggregation.recently
+    alarms.recently = params?.conditions?.aggregation?.recently
       ? params.conditions.aggregation.recently
       : '';
-    alarms.percent = params.conditions.aggregation.recently
+    alarms.percent = params?.conditions?.aggregation?.recently
       ? params.conditions.aggregation.recently
       : '';
-    alarms.continuous = params.conditions.continuous.continuous
+    alarms.continuous = params?.conditions?.continuous?.continuous
       ? params.conditions.continuous.continuous
       : '';
     return alarms;

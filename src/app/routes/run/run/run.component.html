@@ -87,7 +87,7 @@
                 <label for="forceUpdate" class="form-check-label ml-1">强制刷新</label>
               </div>
               <div nz-col nzSpan="2">
-                <button nz-button [nzType]="'default'" id="caseSelect" [disabled]="project.invalid"
+                <button nz-button [nzType]="'default'" id="caseSelect" [disabled]="runEntity.invalid"
                   (click)="updateCaseFileList();isVisible=true">选择</button>
               </div>
             </div>
@@ -240,6 +240,8 @@
 </ng-template>
 <nz-modal #selectCase nzTitle="选择测试用例" [(nzVisible)]="isVisible" (nzOnCancel)="isVisible=false" [nzFooter]="modalFooter"
   nzClassName="info">
+  <nz-spin nzSimple [nzSpinning]="isSpinning"  [nzDelay]="500">
+  </nz-spin>
   <nz-tree #nzTreeComponent
       [nzData]="nodes"
       nzCheckable

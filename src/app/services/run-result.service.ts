@@ -8,6 +8,10 @@ import { httpOptions } from './http-option';
 export class RunResultService {
   constructor(private httpClient: HttpClient) {}
 
+  getSourceCode(project: string,dataSource:string,filePath:string){
+    return this.httpClient.get<Result>(`/caseManage/source/${project}/${encodeURIComponent(dataSource)}/${filePath}`);
+  }
+
   deleteByRunsetId(id: string): Observable<Result> {
     return this.httpClient.delete<Result>('/runResult/' + id);
   }

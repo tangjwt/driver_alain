@@ -27,7 +27,7 @@ export class CaseFilepathService {
     const params = new HttpParams()
     .set('forceRefresh', String(forceRefresh));
     return this.httpClient.get<Result>(
-      `/cases/${project}/${dataSource}`,{params}
+      `/cases/${project}/${encodeURIComponent(dataSource)}`,{params}
     );
   }
 
@@ -40,7 +40,7 @@ export class CaseFilepathService {
     const params = new HttpParams()
     .set('forceRefresh', String(forceRefresh));
     return this.httpClient.get<Result>(
-      `/cases/${project}/${service}/${dataSource}`,{params}
+      `/cases/${project}/${service}/${encodeURIComponent(dataSource)}`,{params}
     );
   }
 

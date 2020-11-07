@@ -24,6 +24,7 @@
       <nz-tab nzTitle="请求" (nzClick)="showTab('request')" *ngIf="!caseView"></nz-tab>
       <nz-tab nzTitle="响应" (nzClick)="showTab('response')" *ngIf="!caseView"></nz-tab>
       <nz-tab nzTitle="JSON响应" (nzClick)="showTab('json')" *ngIf="details?.jsonResponse && debugView"></nz-tab>
+      <nz-tab nzTitle="SourceCode" (nzClick)="showTab('sourceCode')" *ngIf="!debugView && !generateView && details?.caseType==='TESTNG' "></nz-tab>
       <nz-tab [nzTitle]="sub.caseName" *ngFor="let sub of subCaseDetail; let index = index" (nzClick)="showTab(index)"></nz-tab>
     </nz-tabset>
   </ng-template>
@@ -116,5 +117,10 @@
   <nz-card [nzBordered]="false" nzHoverable="true" class="mb-lg" nzTitle="响应">
     <pre><code snPrismHighlight class="language-json line-numbers" [highlightValue]="details?.jsonResponse">{{details?.jsonResponse}}</code></pre>
   </nz-card>
+</ng-container>
 
+<ng-container *ngIf="showSourceCode">
+  <!-- <div style="height: 500px;width: 500px;"> -->
+    <ngx-monaco-editor style="height: 550px;width:100%" [options]="editorOptions" [(ngModel)]="sourceCode"></ngx-monaco-editor>
+  <!-- </div> -->
 </ng-container>
