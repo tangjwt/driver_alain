@@ -10,7 +10,7 @@ export class Convert {
     runset.project = entity.project;
     runset.env = entity.env;
     runset.name = entity.name;
-    runset.service = entity.fuwu;
+    runset.service = entity.service;
     runset.runUrl = entity.url;
     runset.dataSource = entity.dataSource;
     runset.compareUrl = entity.compareUrl;
@@ -40,7 +40,7 @@ export class Convert {
     const dest: any = {};
     dest.project = runSet.project;
     dest.env = runSet.env;
-    dest.fuwu = runSet.service;
+    dest.service = runSet.service;
     dest.name = runSet.name;
     dest.url = runSet.runUrl === 'N/A' ? '' : runSet.runUrl;
     dest.dataSource = runSet.dataSource;

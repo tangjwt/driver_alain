@@ -18,7 +18,7 @@
           <nz-form-label nzRequired nzFor="project">项目</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="project is required">
             <nz-select formControlName="project" name="project"  [nzPlaceHolder]="'Choose'"
-              (ngModelChange)="updateEnv($event)">
+              (ngModelChange)="updateEnv($event);env.reset();">
               <nz-option *ngFor="let pro of projects" [nzValue]="pro.name" [nzLabel]="pro.name"></nz-option>
             </nz-select>
           </nz-form-control>
@@ -36,10 +36,10 @@
       </div>
       <div nz-col [nzXl]="{span:8, offset:2}" [nzLg]="{span:10}" [nzMd]="{span:24}" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="fuwu">服务</nz-form-label>
+          <nz-form-label nzRequired nzFor="service">服务</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="service is required">
             
-            <nz-select formControlName="fuwu" name="fuwu" nzShowSearch nzPlaceHolder="Choose"
+            <nz-select formControlName="service" name="service" nzShowSearch nzPlaceHolder="Choose"
               (ngModelChange)="updateUrl($event)">
               <nz-option *ngFor="let ser of sers" [nzValue]="ser.name" [nzLabel]="ser.name"></nz-option>
             </nz-select>

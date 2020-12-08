@@ -42,8 +42,8 @@ export class RunComponent implements OnInit {
       if(value.project) {
         this.updateEnv(value.project);
       }
-      if(value.env && value.fuwu){
-        this.updateService(value.env, value.fuwu);
+      if(value.env && value.service){
+        this.updateService(value.env, value.service);
       }
     }
   }
@@ -67,7 +67,7 @@ export class RunComponent implements OnInit {
   runEntity: FormGroup = this.fb.group({
     project: ['', [Validators.required]],
     env: ['', Validators.required],
-    fuwu: ['', Validators.required], // 使用server service 开头的变量，在整体setValue的时候会无法成功赋值，非常奇怪
+    service: ['', Validators.required], // 使用server service 开头的变量，在整体setValue的时候会无法成功赋值，非常奇怪
     url: [''],
     name: [''],
     filePath: [''],
@@ -119,9 +119,7 @@ export class RunComponent implements OnInit {
     //   { label: 'P2', value: 'P2', checked: this.initSelect('P2') },
     //   { label: 'P4', value: 'P4', checked: this.initSelect('P4') }
     // ];
-    this.projectService.getProjectList().subscribe(data => {
-      this.projects = data.data;
-    });
+    this.initProject();
     this.runEntity.valueChanges.subscribe(change =>{
       this.entityValue.emit(this.runEntity);
     });
@@ -135,6 +133,12 @@ export class RunComponent implements OnInit {
     return this.runEntity.get('env');
   }
 
+  async initProject(){
+    await this.projectService.getProjectList().subscribe(data => {
+      this.projects = data.data;
+    });
+  }
+
   select(event: any) {
     const checked = [];
     event.forEach(element => {
@@ -145,9 +149,11 @@ export class RunComponent implements OnInit {
     this.runEntity.get('priority').setValue(checked.toString());
   }
 
-  updateEnv(event: any) {
-    if (!event || !this.projects) {
+  async updateEnv(event: any) {
+    if (!event) {
       return;
+    }else if(!this.projects){
+      await this.initProject();
     }
     this.tmpProject = this.getProjectObj(event);
     this.serManageService.getServiceListByProject(event).subscribe(data =>{
@@ -211,7 +217,7 @@ export class RunComponent implements OnInit {
     let requestParams = {
       params: value,
     };
-    if (!requestParams.params.fuwu) {
+    if (!requestParams.params.service) {
       this.runService
         .runOnAllService(
           requestParams.params.project,
@@ -224,7 +230,7 @@ export class RunComponent implements OnInit {
         .runByService(
           requestParams.params.project,
           encodeURIComponent(requestParams.params.env),
-          requestParams.params.fuwu,
+          requestParams.params.service,
           requestParams.params.dataSource,
           requestParams,
         )
@@ -274,7 +280,7 @@ export class RunComponent implements OnInit {
       this.filepathService
         .getFilePathByServiceAndSource(
           this.runEntity.get('project').value,
-          this.runEntity.get('fuwu').value,
+          this.runEntity.get('service').value,
           this.runEntity.get('dataSource').value,
           this.forceUpdate,
         )
