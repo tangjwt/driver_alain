@@ -44,8 +44,8 @@ export class FileComponent implements OnInit {
       index: 'service',
     },
     {
-      title: 'objectName',
-      index: 'objectName',
+      title: 'fileName',
+      index: 'fileName',
     },
     {
       title: 'lastModified',

@@ -23,6 +23,9 @@ const routes: Routes = [
     children: [{
       path: 'config',
       loadChildren: () => import('app/routes/configuration/configuration.module').then(m => m.ConfigurationModule)
+    },{
+      path: 'agent',
+      loadChildren: () => import('app/routes/agent/agent.module').then(m => m.AgentModule)
     },
     {
       path: 'run',

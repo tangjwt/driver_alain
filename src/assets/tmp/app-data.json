@@ -93,12 +93,23 @@
               "link": "/config/script"
             },
             {
-              "text": "agent管理",
-              "link": "/config/agent"
-            },
-            {
               "text": "jar包管理",
               "link": "/config/file"
+            }
+          ]
+        },
+        {
+          "text": "机器管理",
+          "icon": "anticon anticon-robot",
+          "shortcutRoot": true,
+          "children": [
+            {
+              "text": "agent管理",
+              "link": "/agent/list"
+            },
+            {
+              "text": "机器部署",
+              "link": "/agent/deploy"
             }
           ]
         }

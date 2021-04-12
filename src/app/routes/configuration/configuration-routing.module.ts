@@ -6,7 +6,6 @@ import { TagsComponent } from './tags/tags.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
-import { AgentComponent } from './agent/agent.component';
 import { FileComponent } from './file/file.component';
 import { DatasourceComponent } from './datasource/datasource.component';
 
@@ -38,10 +37,6 @@ const routes: Routes = [
   {
     path: 'url',
     component: EnvUrlComponent
-  },
-  {
-    path: 'agent',
-    component: AgentComponent
   },
   {
     path: 'file',

@@ -220,7 +220,7 @@ export class RunSetListComponent implements OnInit {
         }
         this.runResultService.deleteByRunsetId(orgin).subscribe(result => {
           this.message.success(result.status);
-          // this.ngOnInit();  需要调用pageChange
+          this.ngOnInit(); 
         });
       }
     });

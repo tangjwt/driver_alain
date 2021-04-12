@@ -8,7 +8,6 @@ import { TagsComponent } from './tags/tags.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { ScriptComponent } from './script/script.component';
 import { EnvUrlComponent } from './env-url/env-url.component';
-import { AgentComponent } from './agent/agent.component';
 import { FileComponent } from './file/file.component';
 import { DatasourceComponent } from './datasource/datasource.component';
 
@@ -25,7 +24,6 @@ import { DatasourceComponent } from './datasource/datasource.component';
     EnvironmentComponent,
     ScriptComponent,
     EnvUrlComponent,
-    AgentComponent,
     FileComponent,
     DatasourceComponent
   ],
